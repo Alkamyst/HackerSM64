@@ -1127,6 +1127,11 @@ s32 snap_to_45_degrees(s16 angle) {
 void mode_8_directions_camera(struct Camera *c) {
     Vec3f pos;
     s16 oldAreaYaw = sAreaYaw;
+    struct Surface *surf;
+    Vec3f camdir;
+    Vec3f origin;
+    Vec3f thick;
+    Vec3f hitpos;
 
     radial_camera_input(c);
 
@@ -1198,6 +1203,25 @@ void mode_8_directions_camera(struct Camera *c) {
     c->pos[2] = pos[2];
     sAreaYawChange = sAreaYaw - oldAreaYaw;
     set_camera_height(c, pos[1]);
+
+    vec3f_copy(origin,gMarioState->pos);
+    origin[1] += 500.0f;
+
+    camdir[0] = c->pos[0] - origin[0];
+    camdir[1] = c->pos[1] - origin[1];
+    camdir[2] = c->pos[2] - origin[2];
+
+    find_surface_on_ray(origin, camdir, &surf, &hitpos, RAYCAST_FIND_FLOOR | RAYCAST_FIND_CEIL | RAYCAST_FIND_WALL);
+
+    if (surf) {
+        f32 thickMul = 35.0f;
+        thick[0] = surf->normal.x * thickMul;
+        thick[1] = surf->normal.y * thickMul;
+        thick[2] = surf->normal.z * thickMul;
+        vec3f_add(hitpos,thick);
+
+        vec3f_copy(c->pos,hitpos);
+    }
 }
 
 /**
