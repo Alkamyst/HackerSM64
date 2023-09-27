@@ -1596,8 +1596,7 @@ void render_pause_my_score_coins(void) {
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
 
     if (courseIndex <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX)) {
-        print_hud_my_score_coins(1, gCurrSaveFileNum - 1, courseIndex, 178, 63);
-        print_hud_my_score_stars(gCurrSaveFileNum - 1, courseIndex, 118, 63);
+        print_hud_my_score_coins(1, gCurrSaveFileNum - 1, courseIndex, 152, 63);
     }
 
     gSPDisplayList(gDisplayListHead++, dl_rgba16_text_end);
@@ -1607,71 +1606,44 @@ void render_pause_my_score_coins(void) {
 
     if (courseIndex <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX)
         && (save_file_get_course_star_count(gCurrSaveFileNum - 1, courseIndex) != 0)) {
-        print_generic_string(MYSCORE_X, 161, LANGUAGE_ARRAY(textMyScore));
+        print_generic_string(MYSCORE_X + 15, 161, LANGUAGE_ARRAY(textMyScore));
+
+        // Print hundred coin star
+        if (starFlags & STAR_FLAG_ACT_100_COINS) {
+            print_generic_string((MYSCORE_X), 161, textStar);
+        } else {
+            print_generic_string((MYSCORE_X), 161, textUnfilledStar);
+        }
     }
 
     u8 *courseName = segmented_to_virtual(courseNameTbl[courseIndex]);
 
     if (courseIndex <= COURSE_NUM_TO_INDEX(COURSE_STAGES_MAX)) {
 
-// Display star names in pause menu (awful code from ScuttlePirate Bandy Remade)
-        u8 *actName1 = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + 0]);
-        u8 *actName2 = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + 1]);
-        u8 *actName3 = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + 2]);
-        u8 *actName4 = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + 3]);
-        u8 *actName5 = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + 4]);
-        u8 *actName6 = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + 5]);
 
-        print_generic_string(145, 121, actName1);
-        print_generic_string(145, 106, actName2);
-        print_generic_string(145, 91, actName3);
-        print_generic_string(145, 76, actName4);
-        print_generic_string(145, 61, actName5);
-        print_generic_string(145, 46, actName6);
+// Display star names in pause menu
+    s16 i = 0;
 
-        if (starFlags & (1 << 0)) {
-            print_generic_string(130, 121, textStar);
+    while (i < 6) {
+        print_generic_string(145, (121 - (15*i)), segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + i]));
+
+        if (starFlags & (1 << i)) {
+            print_generic_string(130, (121 - (15*i)), textStar);
         } else {
-            print_generic_string(130, 121, textUnfilledStar);
+            print_generic_string(130, (121 - (15*i)), textUnfilledStar);
         }
 
-        if (starFlags & (1 << 1)) {
-            print_generic_string(130, 106, textStar);
-        } else {
-            print_generic_string(130, 106, textUnfilledStar);
-        }
-
-        if (starFlags & (1 << 2)) {
-            print_generic_string(130, 91, textStar);
-        } else {
-            print_generic_string(130, 91, textUnfilledStar);
-        }
-
-        if (starFlags & (1 << 3)) {
-            print_generic_string(130, 76, textStar);
-        } else {
-            print_generic_string(130, 76, textUnfilledStar);
-        }
-
-        if (starFlags & (1 << 4)) {
-            print_generic_string(130, 61, textStar);
-        } else {
-            print_generic_string(130, 61, textUnfilledStar);
-        }
-
-        if (starFlags & (1 << 5)) {
-            print_generic_string(130, 46, textStar);
-        } else {
-            print_generic_string(130, 46, textUnfilledStar);
-        }
+        i += 1;
+    }
 // End of code
 
         print_generic_string(TXT_COURSE_X, 187, LANGUAGE_ARRAY(textCourse));
         int_to_str(gCurrCourseNum, strCourseNum);
         print_generic_string(CRS_NUM_X1, 187, strCourseNum);
 
-        u8 *actName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
 /*
+        u8 *actName = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gDialogCourseActNum - 1]);
+
         if (starFlags & (1 << (gDialogCourseActNum - 1))) {
             print_generic_string(TXT_STAR_X, 140, textStar);
         } else {
