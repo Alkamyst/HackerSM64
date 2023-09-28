@@ -1,5 +1,9 @@
 #include <ultra64.h>
 
+#define ANALOG_AMOUNT 262144 / 315
+// Analog camera movement by Pathétique (github.com/vrmiguel), y0shin and Mors
+// Contribute or communicate bugs at github.com/vrmiguel/sm64-analog-camera
+
 #include "sm64.h"
 #include "camera.h"
 #include "seq_ids.h"
@@ -158,6 +162,8 @@ extern struct CutsceneVariable sCutsceneVars[10];
 extern s32 gObjCutsceneDone;
 extern u32 gCutsceneObjSpawn;
 extern struct Camera *gCamera;
+u8 gCameraHoldKeyIndex = 0;
+u8 gCameraHoldKeyTimer = 0;
 
 /**
  * Lakitu's position and focus.
@@ -1122,18 +1128,60 @@ s32 snap_to_45_degrees(s16 angle) {
 void mode_8_directions_camera(struct Camera *c) {
     Vec3f pos;
     s16 oldAreaYaw = sAreaYaw;
+    struct Surface *surf;
+    Vec3f camdir;
+    Vec3f origin;
+    Vec3f thick;
+    Vec3f hitpos;
 
     radial_camera_input(c);
 
     if (gPlayer1Controller->buttonPressed & R_CBUTTONS) {
         s8DirModeYawOffset += DEGREES(45);
-        play_sound_cbutton_side();
+        // play_sound_cbutton_side();
     }
     if (gPlayer1Controller->buttonPressed & L_CBUTTONS) {
         s8DirModeYawOffset -= DEGREES(45);
-        play_sound_cbutton_side();
+        // play_sound_cbutton_side();
     }
-#ifdef PARALLEL_LAKITU_CAM
+
+    if (gPlayer2Controller->stickX != 0) 
+    {
+        if (gPlayer2Controller->stickX > 0) 
+        {
+            gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_RIGHT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
+            s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * 1.0f;
+        }
+        else 
+        {
+            gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_LEFT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
+            s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * -1.0f;
+        }
+    }
+
+/*
+    if (gPlayer2Controller->rawStickX < -60){
+        s8DirModeYawOffset -= DEGREES(5);
+    } else if (gPlayer2Controller->rawStickX < -40){
+        s8DirModeYawOffset -= DEGREES(3);
+    } else if (gPlayer2Controller->rawStickX < -20){
+        s8DirModeYawOffset -= DEGREES(2);
+    } else if (gPlayer2Controller->rawStickX < -10){
+        s8DirModeYawOffset -= DEGREES(1);
+    }
+
+    if (gPlayer2Controller->rawStickX > 60){
+        s8DirModeYawOffset += DEGREES(5);
+    } else if (gPlayer2Controller->rawStickX > 40){
+        s8DirModeYawOffset += DEGREES(3);
+    } else if (gPlayer2Controller->rawStickX > 20){
+        s8DirModeYawOffset += DEGREES(2);
+    } else if (gPlayer2Controller->rawStickX > 10){
+        s8DirModeYawOffset += DEGREES(1);
+    } 
+*/
+
+// #ifdef PARALLEL_LAKITU_CAM
     // extra functionality
     else if (gPlayer1Controller->buttonPressed & U_JPAD) {
         s8DirModeYawOffset = 0;
@@ -1148,7 +1196,7 @@ void mode_8_directions_camera(struct Camera *c) {
     else if (gPlayer1Controller->buttonPressed & D_JPAD) {
         s8DirModeYawOffset = snap_to_45_degrees(s8DirModeYawOffset);
     }
-#endif
+// #endif
 
     lakitu_zoom(400.f, 0x900);
     c->nextYaw = update_8_directions_camera(c, c->focus, pos);
@@ -1156,6 +1204,25 @@ void mode_8_directions_camera(struct Camera *c) {
     c->pos[2] = pos[2];
     sAreaYawChange = sAreaYaw - oldAreaYaw;
     set_camera_height(c, pos[1]);
+
+    vec3f_copy(origin,gMarioState->pos);
+    origin[1] += 500.0f;
+
+    camdir[0] = c->pos[0] - origin[0];
+    camdir[1] = c->pos[1] - origin[1];
+    camdir[2] = c->pos[2] - origin[2];
+
+    find_surface_on_ray(origin, camdir, &surf, &hitpos, RAYCAST_FIND_FLOOR | RAYCAST_FIND_CEIL | RAYCAST_FIND_WALL);
+
+    if (surf) {
+        f32 thickMul = 35.0f;
+        thick[0] = surf->normal.x * thickMul;
+        thick[1] = surf->normal.y * thickMul;
+        thick[2] = surf->normal.z * thickMul;
+        vec3f_add(hitpos,thick);
+
+        vec3f_copy(c->pos,hitpos);
+    }
 }
 
 /**
@@ -2592,6 +2659,7 @@ void move_into_c_up(struct Camera *c) {
  * The main update function for C-Up mode
  */
 void mode_c_up_camera(struct Camera *c) {
+    u8 index = 0;
     // Play a sound when entering C-Up mode
     if (!(sCameraSoundFlags & CAM_SOUND_C_UP_PLAYED)) {
         play_sound_cbutton_up();
@@ -2626,6 +2694,24 @@ void mode_c_up_camera(struct Camera *c) {
         }
     }
     sPanDistance = 0.f;
+
+    if (gPlayer2Controller->rawStickY < -60) index++;
+
+    if (((index ^ gCameraHoldKeyIndex) & index) == 1) {
+        exit_c_up(c);
+    }
+
+    if (gCameraHoldKeyTimer == 10) {
+        gCameraHoldKeyTimer = 8;
+        gCameraHoldKeyIndex = 0;
+    } else {
+        gCameraHoldKeyTimer++;
+        gCameraHoldKeyIndex = index;
+    }
+
+    if ((index & 3) == 0) {
+        gCameraHoldKeyTimer = 0;
+    }
 
     // Exit C-Up mode
     if (gPlayer1Controller->buttonPressed & (A_BUTTON | B_BUTTON | D_CBUTTONS | L_CBUTTONS | R_CBUTTONS)) {
@@ -4578,6 +4664,8 @@ void play_sound_if_cam_switched_to_lakitu_or_mario(void) {
  * Handles input for radial, outwards radial, parallel tracking, and 8 direction mode.
  */
 void radial_camera_input(struct Camera *c) {
+    u8 index = 0;
+
     if ((gCameraMovementFlags & CAM_MOVE_ENTERED_ROTATE_SURFACE) || !(gCameraMovementFlags & CAM_MOVE_ROTATE)) {
 
         // If C-L or C-R are pressed, the camera is rotating
@@ -4651,6 +4739,40 @@ void radial_camera_input(struct Camera *c) {
         }
     }
 
+    if (gPlayer2Controller->rawStickY < -60) index++;
+    if (gPlayer2Controller->rawStickY >  60) index += 2;
+
+    if (((index ^ gCameraHoldKeyIndex) & index) == 2) {
+        if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
+            gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
+            play_sound_cbutton_up();
+        } else {
+            set_mode_c_up(c);
+        }
+    }
+
+    if (((index ^ gCameraHoldKeyIndex) & index) == 1) {
+        if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
+            gCameraMovementFlags |= CAM_MOVE_ALREADY_ZOOMED_OUT;
+            play_camera_buzz_if_cdown();
+        } else {
+            gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
+            play_sound_cbutton_down();
+        }
+    }
+
+    if (gCameraHoldKeyTimer == 10) {
+        gCameraHoldKeyTimer = 8;
+        gCameraHoldKeyIndex = 0;
+    } else {
+        gCameraHoldKeyTimer++;
+        gCameraHoldKeyIndex = index;
+    }
+
+    if ((index & 3) == 0) {
+        gCameraHoldKeyTimer = 0;
+    }
+
     // Zoom in / enter C-Up
     if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
         if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
@@ -4685,6 +4807,50 @@ void trigger_cutscene_dialog(s32 trigger) {
  */
 void handle_c_button_movement(struct Camera *c) {
     s16 cSideYaw;
+    u8 index = 0;
+
+    if (gPlayer2Controller->rawStickY < -60) index++;
+    if (gPlayer2Controller->rawStickY >  60) index += 2;
+
+    if (((index ^ gCameraHoldKeyIndex) & index) == 2) {
+        if (c->mode != CAMERA_MODE_FIXED && (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT)) {
+            gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
+            play_sound_cbutton_up();
+        } else {
+            set_mode_c_up(c);
+            if (sZeroZoomDist > gCameraZoomDist) {
+                sZoomAmount = -gCameraZoomDist;
+            } else {
+                sZoomAmount = gCameraZoomDist;
+            }
+        }
+    }
+
+    if (((index ^ gCameraHoldKeyIndex) & index) == 1) {
+        if (c->mode != CAMERA_MODE_FIXED) {
+            if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
+                gCameraMovementFlags |= CAM_MOVE_ALREADY_ZOOMED_OUT;
+                sZoomAmount = gCameraZoomDist + 400.f;
+                play_camera_buzz_if_cdown();
+            } else {
+                gCameraMovementFlags |= CAM_MOVE_ZOOMED_OUT;
+                sZoomAmount = gCameraZoomDist + 400.f;
+                play_sound_cbutton_down();
+            }
+        }
+    }
+
+    if (gCameraHoldKeyTimer == 10) {
+        gCameraHoldKeyTimer = 8;
+        gCameraHoldKeyIndex = 0;
+    } else {
+        gCameraHoldKeyTimer++;
+        gCameraHoldKeyIndex = index;
+    }
+
+    if ((index & 3) == 0) {
+        gCameraHoldKeyTimer = 0;
+    }
 
     // Zoom in
     if (gPlayer1Controller->buttonPressed & U_CBUTTONS) {
@@ -4716,25 +4882,19 @@ void handle_c_button_movement(struct Camera *c) {
 
         // Rotate left or right
         cSideYaw = 0x1000;
-        if (gPlayer1Controller->buttonPressed & R_CBUTTONS) {
+        if ((gPlayer1Controller->buttonPressed & R_CBUTTONS) || (gPlayer2Controller->rawStickX > 20)) {
             if (gCameraMovementFlags & CAM_MOVE_ROTATE_LEFT) {
                 gCameraMovementFlags &= ~CAM_MOVE_ROTATE_LEFT;
             } else {
                 gCameraMovementFlags |= CAM_MOVE_ROTATE_RIGHT;
-                if (sCSideButtonYaw == 0) {
-                    play_sound_cbutton_side();
-                }
                 sCSideButtonYaw = -cSideYaw;
             }
         }
-        if (gPlayer1Controller->buttonPressed & L_CBUTTONS) {
+        if ((gPlayer1Controller->buttonPressed & L_CBUTTONS) || (gPlayer2Controller->rawStickX < -20)) {
             if (gCameraMovementFlags & CAM_MOVE_ROTATE_RIGHT) {
                 gCameraMovementFlags &= ~CAM_MOVE_ROTATE_RIGHT;
             } else {
                 gCameraMovementFlags |= CAM_MOVE_ROTATE_LEFT;
-                if (sCSideButtonYaw == 0) {
-                    play_sound_cbutton_side();
-                }
                 sCSideButtonYaw = cSideYaw;
             }
         }
@@ -6064,6 +6224,9 @@ struct CameraTrigger sCamBBH[] = {
  *
  * Each table is terminated with NULL_TRIGGER
  */
+struct CameraTrigger sCamMapleTreewway[] = {
+	NULL_TRIGGER
+};
 struct CameraTrigger *sCameraTriggers[LEVEL_COUNT + 1] = {
     NULL,
     #include "levels/level_defines.h"
@@ -10399,26 +10562,26 @@ u8 sDanceCutsceneIndexTable[][4] = {
  * and if the result is non-zero, the camera will zoom out.
  */
 u8 sZoomOutAreaMasks[] = {
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // Unused         | Unused
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // Unused         | Unused
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // BBH            | CCM
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // CASTLE_INSIDE  | HMC
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // SSL            | BOB
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // SL             | WDW
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,1,0,0), // JRB            | THI
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // TTC            | RR
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // CASTLE_GROUNDS | BITDW
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // VCUTM          | BITFS
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // SA             | BITS
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // LLL            | DDD
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // WF             | ENDING
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // COURTYARD      | PSS
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // COTMC          | TOTWC
-    ZOOMOUT_AREA_MASK(1,0,0,0, 1,0,0,0), // BOWSER_1       | WMOTR
-    ZOOMOUT_AREA_MASK(0,0,0,0, 1,0,0,0), // Unused         | BOWSER_2
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // BOWSER_3       | Unused
-    ZOOMOUT_AREA_MASK(1,0,0,0, 0,0,0,0), // TTM            | Unused
-    ZOOMOUT_AREA_MASK(0,0,0,0, 0,0,0,0), // Unused         | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // BBH            | CCM
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // CASTLE_INSIDE  | HMC
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SSL            | BOB
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // SL             | WDW
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 1, 0, 0), // JRB            | THI
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // TTC            | RR
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // CASTLE_GROUNDS | BITDW
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // VCUTM          | BITFS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // SA             | BITS
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // LLL            | DDD
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // WF             | ENDING
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // COURTYARD      | PSS
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // COTMC          | TOTWC
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 1, 0, 0, 0), // BOWSER_1       | WMOTR
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 1, 0, 0, 0), // Unused         | BOWSER_2
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // BOWSER_3       | Unused
+	ZOOMOUT_AREA_MASK(1, 0, 0, 0, 0, 0, 0, 0), // TTM            | Unused
+	ZOOMOUT_AREA_MASK(0, 0, 0, 0, 0, 0, 0, 0), // Unused         | Unused
 };
 
 STATIC_ASSERT(ARRAY_COUNT(sZoomOutAreaMasks) - 1 == LEVEL_MAX / 2, "Make sure you edit sZoomOutAreaMasks when adding / removing courses.");

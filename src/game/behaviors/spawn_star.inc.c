@@ -25,6 +25,8 @@ void bhv_collect_star_init(void) {
     } else {
         o->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_STAR];
     }
+    // Don't have stars kick Mario out of the level
+    o->oInteractionSubtype |= INT_SUBTYPE_NO_EXIT;
 
     obj_set_hitbox(o, &sCollectStarHitbox);
 }
@@ -170,8 +172,7 @@ void bhv_hidden_red_coin_star_init(void) {
             starObj->oBehParams = o->oBehParams;
             o->activeFlags = ACTIVE_FLAG_DEACTIVATED;
         }
-    }
-    else {
+    } else {
         s16 numRedCoinsRemaining = count_objects_with_behavior(bhvRedCoin);
         if (numRedCoinsRemaining == 0) {
             starObj = spawn_object_abs_with_rot(o, 0, MODEL_STAR, bhvStar, o->oPosX, o->oPosY, o->oPosZ, 0, 0, 0);
@@ -185,11 +186,12 @@ void bhv_hidden_red_coin_star_init(void) {
 }
 
 void bhv_hidden_red_coin_star_loop(void) {
-    gRedCoinsCollected = o->oHiddenStarTriggerCounter;
+
+    s16 numRedCoinsRemaining = count_objects_with_behavior(bhvRedCoin);
 
     switch (o->oAction) {
         case HIDDEN_STAR_ACT_INACTIVE:
-            if (o->oHiddenStarTriggerCounter == o->oHiddenStarTriggerTotal) {
+            if ((numRedCoinsRemaining - 2) == 0) { // Spawn the red coin star when there are only two red coins remaining.
                 o->oAction = HIDDEN_STAR_ACT_ACTIVE;
             }
             break;

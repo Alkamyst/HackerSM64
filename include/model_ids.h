@@ -451,7 +451,7 @@
 #define MODEL_EXCLAMATION_BOX_OUTLINE     0x83        // exclamation_box_outline_geo
 #define MODEL_EXCLAMATION_POINT           0x84        // exclamation_point_seg8_dl_08025F08
 #define MODEL_MARIOS_WINGED_METAL_CAP     0x85        // marios_winged_metal_cap_geo
-#define MODEL_MARIOS_METAL_CAP            0x86        // marios_metal_cap_geo
+#define MODEL_MARIOS_METAL_CAP            0x86        // mini_mushroom_geo
 #define MODEL_MARIOS_WING_CAP             0x87        // marios_wing_cap_geo
 #define MODEL_MARIOS_CAP                  0x88        // marios_cap_geo
 #define MODEL_EXCLAMATION_BOX             0x89        // exclamation_box_geo
@@ -571,5 +571,11 @@
 #define MODEL_THI_WARP_PIPE                       MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
 #define MODEL_VCUTM_WARP_PIPE                     MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
 #define MODEL_CASTLE_GROUNDS_WARP_PIPE            MODEL_LEVEL_GEOMETRY_16   // warp_pipe_geo
+
+#define MODEL_LEAF_PILE 0x37
+#define MODEL_CHESTNUT 0x38
+#define MODEL_GOLDEN_CHESTNUT 0x39
+#define MODEL_MAPLE_TREE 0x3A
+
 
 #endif // MODEL_IDS_H

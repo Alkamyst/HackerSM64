@@ -18,7 +18,7 @@
  * Allows Mario to aim towards a new direction at the end of turning around,
  * and allows Mario to turn around multiple times in a row.
  */
-// #define RESET_DIRECTION_WHEN_TURNING_AROUND
+#define RESET_DIRECTION_WHEN_TURNING_AROUND
 
 /**
  * Improved hanging:
@@ -46,7 +46,7 @@
 /**
  * Disables the scream that mario makes when falling off a great height (this is separate from actual fall damage).
  */
-// #define NO_FALL_DAMAGE_SOUND
+#define NO_FALL_DAMAGE_SOUND
 
 /**
  * Fall height for normal fall damage. Vanilla is 1150.0f.

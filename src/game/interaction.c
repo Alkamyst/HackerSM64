@@ -683,9 +683,6 @@ u32 take_damage_from_interact_object(struct MarioState *m) {
         damage += (damage + 1) / 2;
     }
 
-    if (m->flags & MARIO_METAL_CAP) {
-        damage = 0;
-    }
 
     m->hurtCounter += 4 * damage;
 
@@ -693,6 +690,13 @@ u32 take_damage_from_interact_object(struct MarioState *m) {
     queue_rumble_data(5, 80);
 #endif
     set_camera_shake_from_hit(shake);
+
+// Makes Mario lose a special cap when he takes damage
+    if (m->flags & MARIO_SPECIAL_CAPS) {
+        play_sound(SOUND_MENU_ENTER_PIPE, m->marioObj->header.gfx.cameraToObject);
+        m->flags &= ~MARIO_SPECIAL_CAPS;
+        spawn_mist_particles();
+    }
 
     return damage;
 }
@@ -798,9 +802,6 @@ u32 interact_star_or_key(struct MarioState *m, UNUSED u32 interactType, struct O
             m->breathCounter = 0;
  #endif
 #endif // !POWER_STARS_HEAL
-            if (m->capTimer > 1) {
-                m->capTimer = 1;
-            }
         }
 
         if (noExit) {
@@ -1152,7 +1153,7 @@ u32 interact_strong_wind(struct MarioState *m, UNUSED u32 interactType, struct O
 u32 interact_flame(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 burningAction = ACT_BURNING_JUMP;
 
-    if (!sInvulnerable && !(m->flags & MARIO_METAL_CAP) && !(m->flags & MARIO_VANISH_CAP)
+    if (!sInvulnerable && !(m->flags & MARIO_VANISH_CAP)
         && !(obj->oInteractionSubtype & INT_SUBTYPE_DELAY_INVINCIBILITY)) {
 #if ENABLE_RUMBLE
         queue_rumble_data(5, 80);
@@ -1181,10 +1182,6 @@ u32 interact_flame(struct MarioState *m, UNUSED u32 interactType, struct Object 
 
 u32 interact_snufit_bullet(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     if (!sInvulnerable && !(m->flags & MARIO_VANISH_CAP)) {
-        if (m->flags & MARIO_METAL_CAP) {
-            obj->oInteractStatus = INT_STATUS_INTERACTED | INT_STATUS_WAS_ATTACKED;
-            play_sound(SOUND_ACTION_SNUFFIT_BULLET_HIT_METAL, m->marioObj->header.gfx.cameraToObject);
-        } else {
             obj->oInteractStatus = INT_STATUS_INTERACTED | INT_STATUS_ATTACKED_MARIO;
             m->interactObj = obj;
             take_damage_from_interact_object(m);
@@ -1194,7 +1191,6 @@ u32 interact_snufit_bullet(struct MarioState *m, UNUSED u32 interactType, struct
 
             return drop_and_set_mario_action(m, determine_knockback_action(m, obj->oDamageOrCoinValue),
                                              obj->oDamageOrCoinValue);
-        }
     }
 
     if (!(obj->oInteractionSubtype & INT_SUBTYPE_DELAY_INVINCIBILITY)) {
@@ -1222,11 +1218,7 @@ u32 interact_clam_or_bubba(struct MarioState *m, UNUSED u32 interactType, struct
 
 u32 interact_bully(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 interaction;
-    if (m->flags & MARIO_METAL_CAP) {
-        interaction = INT_FAST_ATTACK_OR_SHELL;
-    } else {
-        interaction = determine_interaction(m, obj);
-    }
+    interaction = determine_interaction(m, obj);
 
     m->interactObj = obj;
 
@@ -1313,11 +1305,7 @@ u32 interact_mr_blizzard(struct MarioState *m, UNUSED u32 interactType, struct O
 
 u32 interact_hit_from_below(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 interaction;
-    if (m->flags & MARIO_METAL_CAP) {
-        interaction = INT_FAST_ATTACK_OR_SHELL;
-    } else {
-        interaction = determine_interaction(m, obj);
-    }
+    interaction = determine_interaction(m, obj);
 
     if (interaction & INT_ANY_ATTACK) {
 #if ENABLE_RUMBLE
@@ -1353,11 +1341,7 @@ u32 interact_hit_from_below(struct MarioState *m, UNUSED u32 interactType, struc
 
 u32 interact_bounce_top(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 interaction;
-    if (m->flags & MARIO_METAL_CAP) {
-        interaction = INT_FAST_ATTACK_OR_SHELL;
-    } else {
-        interaction = determine_interaction(m, obj);
-    }
+    interaction = determine_interaction(m, obj);
 
     if (interaction & INT_ATTACK_NOT_FROM_BELOW) {
 #if ENABLE_RUMBLE
@@ -1445,21 +1429,21 @@ u32 interact_koopa_shell(struct MarioState *m, UNUSED u32 interactType, struct O
     if (!(m->action & ACT_FLAG_RIDING_SHELL)) {
         u32 interaction = determine_interaction(m, obj);
 
-        if (interaction == INT_HIT_FROM_ABOVE || m->action == ACT_WALKING
-            || m->action == ACT_HOLD_WALKING) {
+//        if (interaction == INT_HIT_FROM_ABOVE || interaction == INT_HIT_FROM_BELOW || m->action == ACT_WALKING
+//            || m->action == ACT_HOLD_WALKING || m->action == ACT_CROUCHING || m->action == ACT_STOP_CROUCHING 
+//            || m->action == ACT_START_CROUCHING) {
             m->interactObj = obj;
             m->usedObj = obj;
             m->riddenObj = obj;
 
             attack_object(obj, interaction);
             update_mario_sound_and_camera(m);
-            play_shell_music();
             mario_drop_held_object(m);
 
             //! Puts Mario in ground action even when in air, making it easy to
             // escape air actions into crouch slide (shell cancel)
             return set_mario_action(m, ACT_RIDING_SHELL_GROUND, 0);
-        }
+//        }
 
         push_mario_out_of_object(m, obj, 2.0f);
     }
@@ -1567,39 +1551,21 @@ u32 interact_hoot(struct MarioState *m, UNUSED u32 interactType, struct Object *
 
 u32 interact_cap(struct MarioState *m, UNUSED u32 interactType, struct Object *obj) {
     u32 capFlag = get_mario_cap_flag(obj);
-    u16 capMusic = 0;
-    u16 capTime = 0;
 
-    if (m->action != ACT_GETTING_BLOWN && capFlag != 0) {
+    if (m->action != ACT_GETTING_BLOWN && capFlag != 0 && (!(m->flags & MARIO_SPECIAL_CAPS))) { // can't pick up caps if already wearing a special cap
         m->interactObj = obj;
         obj->oInteractStatus = INT_STATUS_INTERACTED;
 
         m->flags &= ~MARIO_CAP_ON_HEAD & ~MARIO_CAP_IN_HAND;
         m->flags |= capFlag;
 
-        switch (capFlag) {
-            case MARIO_VANISH_CAP: capTime =  600; capMusic = SEQUENCE_ARGS(4, SEQ_EVENT_POWERUP  ); break;
-            case MARIO_METAL_CAP:  capTime =  600; capMusic = SEQUENCE_ARGS(4, SEQ_EVENT_METAL_CAP); break;
-            case MARIO_WING_CAP:   capTime = 1800; capMusic = SEQUENCE_ARGS(4, SEQ_EVENT_POWERUP  ); break;
-        }
 
-        if (capTime > m->capTimer) {
-            m->capTimer = capTime;
-        }
+        m->flags |= MARIO_CAP_ON_HEAD;
 
-        if ((m->action & ACT_FLAG_IDLE) || m->action == ACT_WALKING) {
-            m->flags |= MARIO_CAP_IN_HAND;
-            set_mario_action(m, ACT_PUTTING_ON_CAP, 0);
-        } else {
-            m->flags |= MARIO_CAP_ON_HEAD;
-        }
-
-        play_sound(SOUND_MENU_STAR_SOUND, m->marioObj->header.gfx.cameraToObject);
+        play_sound(SOUND_MENU_EXIT_PIPE, m->marioObj->header.gfx.cameraToObject);
         play_sound(SOUND_MARIO_HERE_WE_GO, m->marioObj->header.gfx.cameraToObject);
 
-        if (capMusic != 0) {
-            play_cap_music(capMusic);
-        }
+        spawn_mist_particles();
 
         return TRUE;
     }
@@ -1868,9 +1834,7 @@ void check_death_barrier(struct MarioState *m) {
 
 void check_lava_boost(struct MarioState *m) {
     if (!(m->action & ACT_FLAG_RIDING_SHELL) && m->pos[1] < m->floorHeight + 10.0f) {
-        if (!(m->flags & MARIO_METAL_CAP)) {
-            m->hurtCounter += (m->flags & MARIO_CAP_ON_HEAD) ? 12 : 18;
-        }
+        m->hurtCounter += (m->flags & MARIO_CAP_ON_HEAD) ? 12 : 18;
 
         update_mario_sound_and_camera(m);
         drop_and_set_mario_action(m, ACT_LAVA_BOOST, 0);

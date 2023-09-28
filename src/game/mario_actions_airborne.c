@@ -2,6 +2,7 @@
 
 #include "sm64.h"
 #include "mario_actions_airborne.h"
+#define ACT_WALL_SLIDE                 0x010208BF // Wall Slide
 #include "area.h"
 #include "audio/external.h"
 #include "camera.h"
@@ -16,6 +17,35 @@
 #include "rumble_init.h"
 
 #include "config.h"
+
+s32 act_wall_slide(struct MarioState *m) {
+    m->marioObj->header.gfx.angle[1] = m->faceAngle[1];
+    if (m->input & INPUT_A_PRESSED) {
+        m->faceAngle[1] += 0x8000;
+        return set_mario_action(m, ACT_WALL_KICK_AIR, 0);
+    }
+    switch (perform_air_step(m, 0)) {
+        case AIR_STEP_NONE:
+            set_mario_action(m, ACT_FREEFALL, 0);
+            break;
+
+        case AIR_STEP_LANDED:
+            set_mario_action(m, ACT_JUMP_LAND_STOP, 0);
+            break;
+
+        case AIR_STEP_HIT_LAVA_WALL:
+            lava_boost_on_wall(m);
+            break;
+    }
+    if (m->vel[1] < -20.0f) {
+        m->vel[1] = -20.0f;
+    }
+    mario_set_forward_vel(m, 1.0f);
+    play_sound(SOUND_MOVING_TERRAIN_SLIDE + m->terrainSoundAddend, m->marioObj->header.gfx.cameraToObject);
+    m->particleFlags |= PARTICLE_DUST;
+    m->marioObj->header.gfx.angle[1] = m->faceAngle[1]+0x8000;
+    return FALSE;
+}
 
 void play_flip_sounds(struct MarioState *m, s16 frame1, s16 frame2, s16 frame3) {
     s32 animFrame = m->marioObj->header.gfx.animInfo.animFrame;
@@ -51,7 +81,7 @@ s32 lava_boost_on_wall(struct MarioState *m) {
     }
 
     if (!(m->flags & MARIO_METAL_CAP)) {
-        m->hurtCounter += (m->flags & MARIO_CAP_ON_HEAD) ? 12 : 18;
+        m->hurtCounter += 18;
     }
 
     play_sound(SOUND_MARIO_ON_FIRE, m->marioObj->header.gfx.cameraToObject);
@@ -911,6 +941,14 @@ s32 act_ground_pound(struct MarioState *m) {
     f32 yOffset;
 
     play_sound_if_no_flag(m, SOUND_ACTION_THROW, MARIO_ACTION_SOUND_PLAYED);
+    
+    // Ground Pound Dive
+    if (m->input & INPUT_B_PRESSED) {
+         m->vel[1] = 2.0f;
+        mario_set_forward_vel(m, 20.0f);
+        m->faceAngle[1]  = m->intendedYaw;
+        return set_mario_action(m, ACT_DIVE, 0);
+    }
 
     if (m->actionState == 0) {
         if (m->actionTimer < 10) {
@@ -1268,6 +1306,7 @@ s32 act_getting_blown(struct MarioState *m) {
     return FALSE;
 }
 
+
 s32 act_air_hit_wall(struct MarioState *m) {
     if (m->heldObj != NULL) {
         mario_drop_held_object(m);
@@ -1279,6 +1318,7 @@ s32 act_air_hit_wall(struct MarioState *m) {
             m->faceAngle[1] += 0x8000;
             return set_mario_action(m, ACT_WALL_KICK_AIR, 0);
         }
+
     } else if (m->forwardVel >= 38.0f) {
         m->wallKickTimer = 5;
         if (m->vel[1] > 0.0f) {
@@ -1296,12 +1336,19 @@ s32 act_air_hit_wall(struct MarioState *m) {
         if (m->forwardVel > 8.0f) {
             mario_set_forward_vel(m, -8.0f);
         }
-        return set_mario_action(m, ACT_SOFT_BONK, 0);
+        return set_mario_action(m, ACT_WALL_SLIDE, 0);
     }
 
     set_mario_animation(m, MARIO_ANIM_START_WALLKICK);
 
-    return TRUE;
+    //! Missing return statement. The returned value is the result of the call
+    // to set_mario_animation. In practice, this value is nonzero.
+    // This results in this action "cancelling" into itself. It is supposed to
+    // execute three times, each on a separate frame, but instead it executes
+    // three times on the same frame.
+    // This results in firsties only being possible for a single frame, instead
+    // of three.
+
 }
 
 s32 act_forward_rollout(struct MarioState *m) {
@@ -1483,7 +1530,7 @@ s32 act_lava_boost(struct MarioState *m) {
             if (m->floor->type == SURFACE_BURNING) {
                 m->actionState = ACT_STATE_LAVA_BOOST_HIT_LAVA;
                 if (!(m->flags & MARIO_METAL_CAP)) {
-                    m->hurtCounter += (m->flags & MARIO_CAP_ON_HEAD) ? 12 : 18;
+                    m->hurtCounter += 18;
                 }
                 m->vel[1] = 84.0f;
                 play_sound(SOUND_MARIO_ON_FIRE, m->marioObj->header.gfx.cameraToObject);
@@ -1512,7 +1559,7 @@ s32 act_lava_boost(struct MarioState *m) {
     }
 
     set_mario_animation(m, MARIO_ANIM_FIRE_LAVA_BURN);
-    if ((m->area->terrainType & TERRAIN_MASK) != TERRAIN_SNOW && !(m->flags & MARIO_METAL_CAP)
+    if ((m->area->terrainType & TERRAIN_MASK) != TERRAIN_SNOW
         && m->vel[1] > 0.0f) {
         m->particleFlags |= PARTICLE_FIRE;
         if (m->actionState == ACT_STATE_LAVA_BOOST_HIT_LAVA) {
@@ -1748,9 +1795,7 @@ s32 act_flying(struct MarioState *m) {
                     m->vel[1] = 0.0f;
                 }
 
-                play_sound((m->flags & MARIO_METAL_CAP) ? SOUND_ACTION_METAL_BONK
-                                                        : SOUND_ACTION_BONK,
-                           m->marioObj->header.gfx.cameraToObject);
+                play_sound(SOUND_ACTION_BONK, m->marioObj->header.gfx.cameraToObject);
 
                 m->particleFlags |= PARTICLE_VERTICAL_STAR;
                 set_mario_action(m, ACT_BACKWARD_AIR_KB, 0);
@@ -2020,6 +2065,7 @@ s32 mario_execute_airborne_action(struct MarioState *m) {
         case ACT_HOLD_FREEFALL:        cancel = act_hold_freefall(m);        break;
         case ACT_SIDE_FLIP:            cancel = act_side_flip(m);            break;
         case ACT_WALL_KICK_AIR:        cancel = act_wall_kick_air(m);        break;
+        case ACT_WALL_SLIDE:           cancel = act_wall_slide(m); break;
         case ACT_TWIRLING:             cancel = act_twirling(m);             break;
         case ACT_WATER_JUMP:           cancel = act_water_jump(m);           break;
         case ACT_HOLD_WATER_JUMP:      cancel = act_hold_water_jump(m);      break;

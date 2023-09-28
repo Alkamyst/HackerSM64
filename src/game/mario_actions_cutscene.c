@@ -1389,7 +1389,7 @@ s32 act_bbh_enter_spin(struct MarioState *m) {
 
 s32 act_bbh_enter_jump(struct MarioState *m) {
     play_mario_action_sound(
-        m, m->flags & MARIO_METAL_CAP ? SOUND_ACTION_METAL_JUMP : SOUND_ACTION_TERRAIN_JUMP, 1);
+        m, m->flags & SOUND_ACTION_TERRAIN_JUMP, 1);
     play_mario_jump_sound(m);
 
     if (m->actionState == ACT_STATE_BBH_ENTER_JUMP_INIT) {
@@ -1530,7 +1530,7 @@ s32 act_squished(struct MarioState *m) {
                 vec3f_set(m->marioObj->header.gfx.scale, 2.0f - squishAmount, squishAmount,
                           2.0f - squishAmount);
             } else {
-                if (!(m->flags & MARIO_METAL_CAP) && m->invincTimer == 0) {
+                if (m->invincTimer == 0) {
                     // cap on: 3 units; cap off: 4.5 units
                     m->hurtCounter += m->flags & MARIO_CAP_ON_HEAD ? 12 : 18;
                     play_sound_if_no_flag(m, SOUND_MARIO_ATTACKED, MARIO_MARIO_SOUND_PLAYED);
@@ -2016,7 +2016,6 @@ static void end_peach_cutscene_mario_landing(struct MarioState *m) {
 
     if (is_anim_at_end(m)) {
         // make wing cap run out
-        m->capTimer = 60;
 
         sEndJumboStarObj = spawn_object_abs_with_rot(gCurrentObject, 0, MODEL_STAR, bhvStaticObject, 0,
                                                      2528, -1800, 0, 0, 0);

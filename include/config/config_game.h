@@ -63,12 +63,12 @@
 /**
  * Makes signs and NPCs easier to talk to.
  */
-// #define EASIER_DIALOG_TRIGGER
+#define EASIER_DIALOG_TRIGGER
 
 /**
  * Shows an "A" when Mario is able to talk [requires EASIER_DIALOG_TRIGGER].
  */
-// #define DIALOG_INDICATOR
+#define DIALOG_INDICATOR
 
 /**
  * Include the English characters that were missing from US segment2
@@ -76,7 +76,7 @@
  * [MAKE SURE TO INCLUDE EU AND JP/SH BASEROMS IN THE REPO TO OBTAIN THE ASSETS]
  * If this is disabled, backup assets will be used.
  */
-// #define COMPLETE_EN_US_SEGMENT2
+#define COMPLETE_EN_US_SEGMENT2
 
 /**
  * Removes multi-language cake screen.

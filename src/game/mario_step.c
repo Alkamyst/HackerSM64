@@ -110,7 +110,7 @@ void mario_bonk_reflection(struct MarioState *m, u32 negateSpeed) {
         s16 wallAngle = m->wallYaw;
         m->faceAngle[1] = wallAngle - (s16)(m->faceAngle[1] - wallAngle);
 
-        play_sound((m->flags & MARIO_METAL_CAP) ? SOUND_ACTION_METAL_BONK : SOUND_ACTION_BONK,
+        play_sound(SOUND_ACTION_BONK,
                    m->marioObj->header.gfx.cameraToObject);
     } else {
         play_sound(SOUND_ACTION_HIT, m->marioObj->header.gfx.cameraToObject);
@@ -491,6 +491,7 @@ s32 perform_air_quarter_step(struct MarioState *m, Vec3f intendedPos, u32 stepAr
         floor = &gWaterSurfacePseudoFloor;
         floor->originOffset = -floorHeight;
     }
+
 
     //! This check uses f32, but findFloor uses short (overflow jumps)
     if (nextPos[1] <= floorHeight) {

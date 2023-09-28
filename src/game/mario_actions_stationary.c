@@ -531,7 +531,11 @@ s32 act_crouching(struct MarioState *m) {
     }
 
     if (m->input & INPUT_B_PRESSED) {
-        return set_mario_action(m, ACT_PUNCHING, 9);
+        if (!(m->flags & MARIO_METAL_CAP)) {
+            return set_mario_action(m, ACT_PUNCHING, 9);
+        } else {
+            spawn_object_relative(0, 0, 0, 0, m->marioObj, MODEL_KOOPA_SHELL, bhvKoopaShell);
+        }
     }
 
     stationary_ground_step(m);
@@ -1021,6 +1025,12 @@ s32 act_ground_pound_land(struct MarioState *m) {
         return set_mario_action(m, ACT_BUTT_SLIDE, 0);
     }
 
+    if (gMarioState->controller->buttonPressed & A_BUTTON) {
+        gMarioState->action = ACT_TRIPLE_JUMP;
+        gMarioState->forwardVel *= 0.8f;
+        gMarioState->vel[1] = 65.f;
+    }
+
     landing_step(m, MARIO_ANIM_GROUND_POUND_LANDING, ACT_BUTT_SLIDE_STOP);
     return FALSE;
 }
@@ -1060,7 +1070,7 @@ s32 act_first_person(struct MarioState *m) {
 s32 check_common_stationary_cancels(struct MarioState *m) {
     if (m->pos[1] < m->waterLevel - 100) {
         if (m->action == ACT_SPAWN_SPIN_LANDING) {
-            load_level_init_text(0);
+        load_level_init_text(0);
         }
         update_mario_sound_and_camera(m);
         return set_water_plunge_action(m);
