@@ -1,6 +1,3 @@
-Lights1 chestnut_Chestnut_lights = gdSPDefLights1(
-	0x7F, 0x7F, 0x7F,
-	0xFE, 0xFE, 0xFE, 0x28, 0x28, 0x28);
 
 Vtx chestnut_Sphere_mesh_layer_1_vtx_0[179] = {
 	{{{0, -100, 0},0, {-16, 1008},{0x3F, 0x10, 0x15, 0xFF}}},
@@ -322,7 +319,8 @@ Gfx mat_chestnut_Chestnut[] = {
 	gsDPSetCombineLERP(SHADE, 0, SHADE, SHADE, ENVIRONMENT, 0, SHADE, COMBINED, SHADE, 0, SHADE, SHADE, ENVIRONMENT, 0, SHADE, COMBINED),
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsSPTexture(65535, 65535, 0, 0, 1),
-	gsSPSetLights1(chestnut_Chestnut_lights),
+    gsSPLightColor(LIGHT_1, 0xfefefeff),
+    gsSPLightColor(LIGHT_2, 0x7f7f7fff),
 	gsSPEndDisplayList(),
 };
 

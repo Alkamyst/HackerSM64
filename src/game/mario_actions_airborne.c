@@ -1312,7 +1312,7 @@ s32 act_air_hit_wall(struct MarioState *m) {
         mario_drop_held_object(m);
     }
 
-    if (++(m->actionTimer) <= 2) { //LUISFIX FIXED HSWK (HYPERSPEED WALL KICK) BY RESETTING MARIO'S SPEED BEFORE PERFORMING THE KICK//
+    if (++(m->actionTimer) <= 2) {
         if (m->input & INPUT_A_PRESSED) {
             m->vel[1] = 52.0f;
             m->faceAngle[1] += 0x8000;
