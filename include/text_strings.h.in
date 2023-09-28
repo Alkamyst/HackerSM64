@@ -230,7 +230,7 @@
 
 // Score Menu
 #define TEXT_HI_SCORE _("HI SCORE")
-#define TEXT_MY_SCORE _("MY SCORE")
+#define TEXT_MY_SCORE _("COIN RECORD")
 // Score Mario Text ("☺" is the Mario face defined in the US/EU menu char table)
 #define TEXT_SCORE_MARIO_A _("☺A")
 #define TEXT_SCORE_MARIO_B _("☺B")
