@@ -684,6 +684,24 @@ void save_file_set_cap_pos(s16 x, s16 y, s16 z) {
     save_file_set_flags(SAVE_FLAG_CAP_ON_GROUND);
 }
 
+void save_file_set_stats() {
+    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+    saveFile->OptionFlags = gMarioState->Options;
+    gSaveFileModified = TRUE;
+}
+
+void save_file_get_stats() {
+    struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
+
+    if (save_file_exists(gCurrSaveFileNum - 1)) {
+        gMarioState->Options = saveFile->OptionFlags;
+    }else{
+        //New File
+        gMarioState->Options = 0xFF;
+        save_file_set_stats();
+    }
+}
+
 s32 save_file_get_cap_pos(Vec3s capPos) {
     struct SaveFile *saveFile = &gSaveBuffer.files[gCurrSaveFileNum - 1][0];
     s32 flags = save_file_get_flags();

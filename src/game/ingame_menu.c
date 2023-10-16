@@ -27,6 +27,13 @@
 #include "puppycam2.h"
 #include "main.h"
 
+u8 tab1[] = {TAB1};
+u8 tab2[] = {TAB2};
+u8 *tabs[] = { {tab1},{tab2} };
+u8 tablist[] = {0,0};
+u8 tablist_count = 0;
+u8 letgo = FALSE;
+
 #ifdef VERSION_EU
 #undef LANGUAGE_FUNCTION
 #define LANGUAGE_FUNCTION gInGameLanguage
@@ -39,11 +46,11 @@ u16 gDialogTextAlpha;
 s16 gCutsceneMsgXOffset;
 s16 gCutsceneMsgYOffset;
 s8 gRedCoinsCollected;
-#if defined(WIDE) && !defined(PUPPYCAM)
-u8 textCurrRatio43[] = { TEXT_HUD_CURRENT_RATIO_43 };
-u8 textCurrRatio169[] = { TEXT_HUD_CURRENT_RATIO_169 };
-u8 textPressL[] = { TEXT_HUD_PRESS_L };
-#endif
+//#if defined(WIDE) && !defined(PUPPYCAM)
+///u8 textCurrRatio43[] = { TEXT_HUD_CURRENT_RATIO_43 };
+//u8 textCurrRatio169[] = { TEXT_HUD_CURRENT_RATIO_169 };
+//u8 textPressL[] = { TEXT_HUD_PRESS_L };
+//#endif
 
 #if MULTILANG
 #define seg2_course_name_table course_name_table_eu_en
@@ -1557,6 +1564,7 @@ void render_pause_red_coins(void) {
 
 /// By default, not needed as puppycamera has an option, but should you wish to revert that, you are legally allowed.
 
+/*
 #if defined(WIDE) && !defined(PUPPYCAM)
 void render_widescreen_setting(void) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
@@ -1575,6 +1583,7 @@ void render_widescreen_setting(void) {
     }
 }
 #endif
+*/
 
 #if defined(VERSION_JP) || defined(VERSION_SH)
     #define CRS_NUM_X1 93
@@ -1632,7 +1641,9 @@ void render_pause_my_score_coins(void) {
 
         // Print hundred coin star
         if (starFlags & STAR_FLAG_ACT_100_COINS) {
+             gDPSetEnvColor(gDisplayListHead++, 255, 255, 0, gDialogTextAlpha);
             print_generic_string((MYSCORE_X), 161, textStar);
+             gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
         } else {
             print_generic_string((MYSCORE_X), 161, textUnfilledStar);
         }
@@ -1644,19 +1655,39 @@ void render_pause_my_score_coins(void) {
 
 
 // Display star names in pause menu
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+    create_dl_translation_matrix(MENU_MTX_PUSH, 122, 145, 0);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.4f, 1.4f, 1.0f);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 105);
+    gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+
     s16 i = 0;
 
     while (i < 6) {
+        gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, gDialogTextAlpha);
+        print_generic_string(144, (120 - (15*i)), segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + i]));
+        gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
         print_generic_string(145, (121 - (15*i)), segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + i]));
 
         if (starFlags & (1 << i)) {
+            gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, gDialogTextAlpha);
+            print_generic_string(129, (120 - (15*i)), textStar);
+            gDPSetEnvColor(gDisplayListHead++, 255, 255, 0, gDialogTextAlpha);
             print_generic_string(130, (121 - (15*i)), textStar);
         } else {
+            gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, gDialogTextAlpha);
+            print_generic_string(129, (120 - (15*i)), textUnfilledStar);
+            gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
             print_generic_string(130, (121 - (15*i)), textUnfilledStar);
         }
 
         i += 1;
     }
+
 // End of code
 
         print_generic_string(TXT_COURSE_X, 187, LANGUAGE_ARRAY(textCourse));
@@ -1899,19 +1930,54 @@ s32 gCourseDoneMenuTimer = 0;
 s32 gCourseCompleteCoins = 0;
 s8 gHudFlash = HUD_FLASH_NONE;
 
+s8 tab_index = 0;
+u16 menu_sintimer = 0;
+s8 mindex = 0;
+
+void add_tab(u8 tab_to_add) {
+    if (tablist_count < 5) {
+        tablist[tablist_count] = tab_to_add;
+        tablist_count++;
+    }
+
+}
+
+void build_tabs(void) {
+    tablist_count = 0;
+    add_tab(0);
+    add_tab(1);
+
+}
+
 s32 render_pause_courses_and_castle(void) {
     s16 index;
+    s8 tab;
+    u16 i;
+    u8 *changetext;
+    u8 txt_on[] = {TEXT_OPTION_ON};
+    u8 txt_off[] = {TEXT_OPTION_OFF};
+    u8 optiontext[] = {OPTIONTEXT};
+
+    if (tab_index > tablist_count) {
+        tab_index = tablist_count-1;
+    }
+    tab = tablist[tab_index];
+
 
 #ifdef PUPPYCAM
     puppycam_check_pause_buttons();
     if (!gPCOptionOpen) {
 #endif
-    switch (gDialogBoxState) {
-        case DIALOG_STATE_OPENING:
+        if (gDialogBoxState == DIALOG_STATE_OPENING) {
             gDialogLineNum = MENU_OPT_DEFAULT;
             gDialogTextAlpha = 0;
             level_set_transition(-1, NULL);
             play_sound(SOUND_MENU_PAUSE_OPEN, gGlobalSoundSource);
+            mindex = 0;//reset menu index when opening
+            tab_index = 0;//also set tab to 0 when opening
+
+            build_tabs();
+            tab = tablist[tab_index];
 
             if (gCurrCourseNum >= COURSE_MIN
              && gCurrCourseNum <= COURSE_MAX) {
@@ -1921,80 +1987,189 @@ s32 render_pause_courses_and_castle(void) {
                 highlight_last_course_complete_stars();
                 gDialogBoxState = DIALOG_STATE_HORIZONTAL;
             }
-            break;
+        }
 
-        case DIALOG_STATE_VERTICAL:
-            shade_screen();
-            render_pause_my_score_coins();
-            render_pause_red_coins();
-#ifndef DISABLE_EXIT_COURSE
-#ifdef EXIT_COURSE_WHILE_MOVING
-            if ((gMarioStates[0].action & (ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER | ACT_FLAG_PAUSE_EXIT))
-             || (gMarioStates[0].pos[1] <= gMarioStates[0].floorHeight)) {
-#else
-            if (gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT) {
-#endif
-                render_pause_course_options(99, 93, &gDialogLineNum, 15);
+    switch(tab) {
+        case 0:
+            switch (gDialogBoxState) {
+                case DIALOG_STATE_VERTICAL:
+                    shade_screen();
+                    render_pause_my_score_coins();
+                    render_pause_red_coins();
+        #ifndef DISABLE_EXIT_COURSE
+        #ifdef EXIT_COURSE_WHILE_MOVING
+                    if ((gMarioStates[0].action & (ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER | ACT_FLAG_PAUSE_EXIT))
+                    || (gMarioStates[0].pos[1] <= gMarioStates[0].floorHeight)) {
+        #else
+                    if (gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT) {
+        #endif
+                        render_pause_course_options(99, 93, &gDialogLineNum, 15);
+                    }
+        #endif
+
+                    if (gPlayer1Controller->buttonPressed & (A_BUTTON)) {
+                        level_set_transition(0, NULL);
+                        play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
+                        gDialogBoxState = DIALOG_STATE_OPENING;
+                        gMenuMode = MENU_MODE_NONE;
+
+                        if (gDialogLineNum == MENU_OPT_EXIT_COURSE) {
+                            index = gDialogLineNum;
+                        } else { // MENU_OPT_CONTINUE or MENU_OPT_CAMERA_ANGLE_R
+                            index = MENU_OPT_DEFAULT;
+                        }
+
+                        return index;
+                    }
+
+                    if (gPlayer1Controller->buttonPressed & (B_BUTTON)) {
+                        level_set_transition(0, NULL);
+                        play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
+                        gDialogBoxState = DIALOG_STATE_OPENING;
+                        gMenuMode = MENU_MODE_NONE;
+
+                        index = MENU_OPT_DEFAULT;
+
+                        return index;
+                    }
+                    break;
+
+                case DIALOG_STATE_HORIZONTAL:
+                    shade_screen();
+                    print_hud_pause_colorful_str();
+                    render_pause_castle_menu_box(160, 143);
+                    render_pause_castle_main_strings(104, 60);
+
+                    break;
+                }
+//            #if defined(WIDE) && !defined(PUPPYCAM)
+//                render_widescreen_setting();
+//            #endif
+            if (gDialogTextAlpha < 250) {
+                gDialogTextAlpha += 25;
             }
-#endif
+            break;
+        case 1: //options menu
+            shade_screen();
 
-            if (gPlayer1Controller->buttonPressed & (A_BUTTON | START_BUTTON)) {
-                level_set_transition(0, NULL);
-                play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
-                gDialogBoxState = DIALOG_STATE_OPENING;
-                gMenuMode = MENU_MODE_NONE;
-
-                if (gDialogLineNum == MENU_OPT_EXIT_COURSE) {
-                    index = gDialogLineNum;
-                } else { // MENU_OPT_CONTINUE or MENU_OPT_CAMERA_ANGLE_R
-                    index = MENU_OPT_DEFAULT;
+            if ((gPlayer1Controller->rawStickY > 60)&&(letgo == FALSE)) {
+                mindex--;
+                if (mindex < 0) {
+                    mindex = 1;
+                }
+                play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
+                letgo = TRUE;
+                }
+            if ((gPlayer1Controller->rawStickY < -60)&&(letgo == FALSE)) {
+                mindex++;
+                if (mindex > 1) {
+                    mindex = 0;
+                }
+                play_sound(SOUND_MENU_CHANGE_SELECT, gGlobalSoundSource);
+                letgo = TRUE;
+                }
+            if ((gPlayer1Controller->rawStickX > -60)&&(gPlayer1Controller->rawStickX < 60)&&(gPlayer1Controller->rawStickY > -60)&&(gPlayer1Controller->rawStickY < 60)) {
+                letgo = FALSE;
                 }
 
-                return index;
+
+            create_dl_translation_matrix(MENU_MTX_PUSH, 22, 181-(16*mindex), 0);
+            create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.5f, 0.2f, 1.0f);
+            gDPSetEnvColor(gDisplayListHead++, 128, 128, 128, 128);
+            gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+            //is it toggled on?
+            gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
+            print_generic_string(44,165, optiontext);
+            gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+            print_generic_string(45,166, optiontext);
+
+            //prints ON/OFF
+            for (i=0;i<2;i++) {
+                changetext = txt_off;
+                if (gMarioState->Options &  (1 << i)) {
+                    changetext = txt_on;
+                }
+
+                gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
+                print_generic_string(24,165-(i*16), changetext);
+                gDPSetEnvColor(gDisplayListHead++, 255, 0, 0, 255);
+                if (gMarioState->Options &  (1 << i)) {
+                    gDPSetEnvColor(gDisplayListHead++, 0, 255, 0, 255);
+                }
+                print_generic_string(25,166-(i*16), changetext);
             }
 
-            if (gPlayer1Controller->buttonPressed & (B_BUTTON)) {
-                level_set_transition(0, NULL);
-                play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
-                gDialogBoxState = DIALOG_STATE_OPENING;
-                gMenuMode = MENU_MODE_NONE;
+            gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-                index = MENU_OPT_DEFAULT;
-
-                return index;
+            //turn option on/off
+            if (gPlayer1Controller->buttonPressed & A_BUTTON) {
+                gMarioState->Options ^= (1 << mindex);
+                save_file_set_stats();
             }
-            break;
 
-        case DIALOG_STATE_HORIZONTAL:
-            shade_screen();
-            print_hud_pause_colorful_str();
-            render_pause_castle_menu_box(160, 143);
-            render_pause_castle_main_strings(104, 60);
-
-            if (gPlayer1Controller->buttonPressed & (A_BUTTON | START_BUTTON | Z_TRIG)) {
-                level_set_transition(0, NULL);
-                play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
-                gMenuMode = MENU_MODE_NONE;
-                gDialogBoxState = DIALOG_STATE_OPENING;
-
-                return MENU_OPT_DEFAULT;
-            }
             break;
     }
-#if defined(WIDE) && !defined(PUPPYCAM)
-        render_widescreen_setting();
-#endif
-    if (gDialogTextAlpha < 250) {
-        gDialogTextAlpha += 25;
+
+    if (gDialogBoxState != DIALOG_STATE_OPENING) {
+        //tab control
+        if (gPlayer1Controller->buttonPressed == R_TRIG) {
+            mindex = 0;
+            tab_index += 1;
+            tab_index %= tablist_count;
+        }
+        if (gPlayer1Controller->buttonPressed == L_TRIG || gPlayer1Controller->buttonPressed == Z_TRIG) {
+            mindex = 0;
+            tab_index -= 1;
+            if (tab_index < 0) {
+                tab_index = tablist_count-1;
+            }
+        }
+
+        //exit control
+        if (gPlayer1Controller->buttonPressed & START_BUTTON) {
+            level_set_transition(0, NULL);
+            play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
+            gMenuMode = MENU_MODE_NONE;
+            gDialogBoxState = DIALOG_STATE_OPENING;
+
+            return MENU_OPT_DEFAULT;
+        }
+
+        //print tab boxes
+        for (i=0;i<tablist_count;i++) {
+            create_dl_translation_matrix(MENU_MTX_PUSH, 19+(i*60), 226, 0);
+            create_dl_scale_matrix(MENU_MTX_NOPUSH, .4f, 0.2f, 1.0f);
+            gDPSetEnvColor(gDisplayListHead++, 20, 20, 20, 255);
+            if (tab_index==i) {
+                gDPSetEnvColor(gDisplayListHead++, 60, 60, 60, 255);
+            }
+            if (i > tablist_count-1) {
+                gDPSetEnvColor(gDisplayListHead++, 20, 20, 20, 150);
+            }
+            gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+            gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+        }
+
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+
+        //print tab names
+        for (i=0;i<tablist_count;i++) {
+            gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+            print_generic_string(20+(i*60), 210, tabs[tablist[i]]);
+        }
+        gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
     }
-#ifdef PUPPYCAM
+    #ifdef PUPPYCAM
     } else {
         shade_screen();
         puppycam_display_options();
     }
 
     puppycam_render_option_text();
-#endif
+    #endif
     return MENU_OPT_NONE;
 }
 

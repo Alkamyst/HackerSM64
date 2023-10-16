@@ -108,32 +108,22 @@ void render_100_coin_star(u8 stars) {
     if (save_file_get_course_coin_score(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(gCurrCourseNum)) != 0) {
     if (stars & STAR_FLAG_ACT_100_COINS) {
         // If the 100 coin star has been collected, create a new star selector next to the coin score.
-    #ifdef WIDE
-        if (gConfig.widescreen) {
+        if (gMarioState->Options & (1<<OPT_WIDESCREEN)) {
             sStarSelectorModels[6] = spawn_object_abs_with_rot(o, 0, MODEL_STAR,
                                                             bhvActSelectorStarType, (370 * 4.0f) / 3, 24, -300, 0, 0, 0);
         } else {
             sStarSelectorModels[6] = spawn_object_abs_with_rot(o, 0, MODEL_STAR,
                                                             bhvActSelectorStarType, 370, 24, -300, 0, 0, 0);
         }
-    #else
-        sStarSelectorModels[6] = spawn_object_abs_with_rot(o, 0, MODEL_STAR,
-                                                        bhvActSelectorStarType, 370, 24, -300, 0, 0, 0);
-    #endif
 
     } else {
-    #ifdef WIDE
-        if (gConfig.widescreen) {
+        if (gMarioState->Options & (1<<OPT_WIDESCREEN)) {
             sStarSelectorModels[6] = spawn_object_abs_with_rot(o, 0, MODEL_TRANSPARENT_STAR,
                                                             bhvActSelectorStarType, (370 * 4.0f) / 3, 24, -300, 0, 0, 0);
         } else {
             sStarSelectorModels[6] = spawn_object_abs_with_rot(o, 0, MODEL_TRANSPARENT_STAR,
                                                             bhvActSelectorStarType, 370, 24, -300, 0, 0, 0);
         }
-    #else
-        sStarSelectorModels[6] = spawn_object_abs_with_rot(o, 0, MODEL_TRANSPARENT_STAR,
-                                                        bhvActSelectorStarType, 370, 24, -300, 0, 0, 0);
-    #endif
     }
 
         sStarSelectorModels[6]->oStarSelectorType = STAR_SELECTOR_100_COINS;
@@ -197,8 +187,7 @@ void bhv_act_selector_init(void) {
 //    }
 
     // Render star selector objects
-#ifdef WIDE
-    if (gConfig.widescreen) {
+    if (gMarioState->Options & (1<<OPT_WIDESCREEN)) {
         for (i = 0; i < sVisibleStars; i++) {
             sStarSelectorModels[i] =
                 spawn_object_abs_with_rot(o, 0, selectorModelIDs[i], bhvActSelectorStarType,
@@ -213,14 +202,6 @@ void bhv_act_selector_init(void) {
             sStarSelectorModels[i]->oStarSelectorSize = 0.5f;
         }
     }
-#else
-    for (i = 0; i < sVisibleStars; i++) {
-        sStarSelectorModels[i] =
-            spawn_object_abs_with_rot(o, 0, selectorModelIDs[i], bhvActSelectorStarType,
-                                    (75 + (sVisibleStars * -75) + (i * 152)), 248, -300, 0, 0, 0);
-        sStarSelectorModels[i]->oStarSelectorSize = 0.5f;
-    }
-#endif
 
     render_100_coin_star(stars);
 }
