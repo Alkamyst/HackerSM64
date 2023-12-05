@@ -1,0 +1,15 @@
+extern const GeoLayout breakable_metal_box_geo[];
+extern u8 breakable_metal_box_metal_box_top_ci8[];
+extern u8 breakable_metal_box_metal_box_top_ci8_pal_rgba16[];
+extern u8 breakable_metal_box_metal_box_side_rgba16_ci8[];
+extern u8 breakable_metal_box_metal_box_side_rgba16_ci8_pal_rgba16[];
+extern Vtx breakable_metal_box_skinned_mesh_layer_1_vtx_0[4];
+extern Gfx breakable_metal_box_skinned_mesh_layer_1_tri_0[];
+extern Vtx breakable_metal_box_skinned_mesh_layer_1_vtx_1[20];
+extern Gfx breakable_metal_box_skinned_mesh_layer_1_tri_1[];
+extern Gfx mat_breakable_metal_box_f3dlite_material_001[];
+extern Gfx mat_revert_breakable_metal_box_f3dlite_material_001[];
+extern Gfx mat_breakable_metal_box_f3dlite_material[];
+extern Gfx mat_revert_breakable_metal_box_f3dlite_material[];
+extern Gfx breakable_metal_box_skinned_mesh_layer_1[];
+extern Gfx breakable_metal_box_material_revert_render_settings[];
