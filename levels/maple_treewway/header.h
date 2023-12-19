@@ -13,5 +13,12 @@ extern const LevelScript level_maple_treewway_entry[];
 #include "levels/maple_treewway/chestnut/geo_header.h"
 #include "levels/maple_treewway/golden_chestnut/geo_header.h"
 #include "levels/maple_treewway/maple_tree/geo_header.h"
+#include "levels/maple_treewway/gpswitch/geo_header.h"
+
+#include "levels/maple_treewway/gpswitch/collision_header.h"
+
+#include "levels/maple_treewway/tree_door/geo_header.h"
+
+#include "levels/maple_treewway/tree_door/collision_header.h"
 
 #endif
