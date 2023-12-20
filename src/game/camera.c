@@ -1226,6 +1226,8 @@ void mode_8_directions_camera(struct Camera *c) {
     }
 // #endif
 
+    // Camera collision by Rovert
+
     lakitu_zoom(400.f, 0x900);
     c->nextYaw = update_8_directions_camera(c, c->focus, pos);
     c->pos[0] = pos[0];

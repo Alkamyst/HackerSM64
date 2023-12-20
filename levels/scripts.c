@@ -291,6 +291,7 @@ const LevelScript script_func_global_12[] = {
     LOAD_MODEL_FROM_GEO(MODEL_WIGGLER_HEAD,            wiggler_head_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WIGGLER_BODY,            wiggler_body_geo),
     LOAD_MODEL_FROM_GEO(MODEL_BUBBA,                   bubba_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_FLYBUG,                  flybug_geo),
     RETURN(),
 };
 

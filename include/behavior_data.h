@@ -545,5 +545,6 @@ extern const BehaviorScript bhvLuigimanChestnut[];
 extern const BehaviorScript bhvLuigimanGoldenChestnut[];
 extern const BehaviorScript bhvGroundPoundSwitch[];
 extern const BehaviorScript bhvTreeDoor[];
+extern const BehaviorScript bhvFlyBug[];
 
 #endif // BEHAVIOR_DATA_H
