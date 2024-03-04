@@ -30,7 +30,7 @@
 /**
  * Enables widescreen (16:9) support.
  */
-#define WIDE
+// #define WIDE
 
 /**
  * Skybox size modifier, changing this will add support for larger skybox images. NOTE: Vanilla skyboxes may break if you change this option. Be sure to rescale them accordingly.
@@ -132,7 +132,7 @@
  * Makes objects below the screen be culled. 
  * NOTE: Vanilla objects do not account for vertical culling.
  */
-// #define VERTICAL_CULLING
+#define VERTICAL_CULLING
 
 /**
  * If the first command of an object´s geolayout is not GEO_CULLING_RADIUS, DEFAULT_CULLING_RADIUS

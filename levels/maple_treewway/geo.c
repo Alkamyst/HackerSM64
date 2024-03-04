@@ -20,3 +20,5 @@
 #include "levels/maple_treewway/chestnut/geo.inc.c"
 #include "levels/maple_treewway/golden_chestnut/geo.inc.c"
 #include "levels/maple_treewway/maple_tree/geo.inc.c"
+#include "levels/maple_treewway/gpswitch/geo.inc.c"
+#include "levels/maple_treewway/tree_door/geo.inc.c"

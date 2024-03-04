@@ -18,3 +18,7 @@
 #include "levels/maple_treewway/golden_chestnut/model.inc.c"
 #include "levels/maple_treewway/maple_tree/model.inc.c"
 #include "levels/maple_treewway/area_1/trajectory.inc.c"
+#include "levels/maple_treewway/gpswitch/collision.inc.c"
+#include "levels/maple_treewway/gpswitch/model.inc.c"
+#include "levels/maple_treewway/tree_door/model.inc.c"
+#include "levels/maple_treewway/tree_door/collision.inc.c"

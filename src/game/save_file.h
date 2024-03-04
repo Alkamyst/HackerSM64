@@ -43,6 +43,8 @@ struct SaveFile {
 
     u8 courseCoinScores[COURSE_STAGES_COUNT]; // 120 bits
 
+    u8 OptionFlags;
+
     struct SaveBlockSignature signature; // 32 bits
 };
 
@@ -51,6 +53,11 @@ enum SaveFileIndex {
     SAVE_FILE_B,
     SAVE_FILE_C,
     SAVE_FILE_D
+};
+
+enum Options {
+    OPT_WIDESCREEN,
+    OPT_INVERT_CAMERA,
 };
 
 struct MainMenuSaveData {
@@ -184,6 +191,8 @@ s32 save_file_get_course_coin_score(s32 fileIndex, s32 courseIndex);
 s32 save_file_is_cannon_unlocked(void);
 void save_file_set_cannon_unlocked(void);
 void save_file_set_cap_pos(s16 x, s16 y, s16 z);
+void save_file_set_stats(void);
+void save_file_get_stats(void);
 s32 save_file_get_cap_pos(Vec3s capPos);
 void save_file_set_sound_mode(u16 mode);
 u32 save_file_get_sound_mode(void);

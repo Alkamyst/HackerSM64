@@ -13,3 +13,5 @@
 #include "lakitu_enemy/geo.inc.c"
 #include "spiny_egg/geo.inc.c"
 #include "spiny/geo.inc.c"
+
+#include "flybug/geo.inc.c"

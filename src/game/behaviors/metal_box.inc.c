@@ -37,5 +37,35 @@ void bhv_pushable_loop(void) {
         }
     }
 
+    // Ground pound box to break it and make it respawn at its home (in case it gets stuck)
+    switch (o->oAction) {
+        case 0:
+            if (cur_obj_is_mario_ground_pounding_platform()) {
+                spawn_mist_particles();
+                spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
+                cur_obj_play_sound_2(SOUND_GENERAL_BREAK_BOX);
+                o->oPosX = o->oHomeX;
+                o->oPosY = o->oHomeY;
+                o->oPosZ = o->oHomeZ;
+                o->oAction = 1;
+            } 
+            break;
+
+        case 1:
+            o->oBreakableBoxSmallFramesSinceReleased++;
+
+            // Begin flashing
+            if (o->oBreakableBoxSmallFramesSinceReleased < 90) {
+                COND_BIT((o->oBreakableBoxSmallFramesSinceReleased & 0x1), o->header.gfx.node.flags, GRAPH_RENDER_INVISIBLE);
+            }
+
+            // Stop flashing
+            if (o->oBreakableBoxSmallFramesSinceReleased >= 90) {
+                o->oBreakableBoxSmallFramesSinceReleased = 0;
+                o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+                o->oAction = 0;
+            }
+    }
+
     cur_obj_move_using_fvel_and_gravity();
 }

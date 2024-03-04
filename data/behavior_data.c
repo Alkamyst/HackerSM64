@@ -6129,3 +6129,45 @@ const BehaviorScript bhvLuigimanGoldenChestnut[] = {
         CALL_NATIVE(bhv_luigiman_golden_chestnut_loop),
     END_LOOP(),
 };
+
+extern const Collision gpswitch_collision[];
+extern void bhv_ground_pound_switch();
+const BehaviorScript bhvGroundPoundSwitch[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(gpswitch_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_ground_pound_switch),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+extern const Collision tree_door_collision[];
+extern void bhv_tree_door();
+const BehaviorScript bhvTreeDoor[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(tree_door_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_tree_door),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+extern void bhv_flybug();
+const BehaviorScript bhvFlyBug[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_MOVE_XZ_USING_FVEL | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(flybugcol_collision),
+    LOAD_ANIMATIONS(oAnimations, flybug_anims),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SCALE(/*Unused*/ 0, /*Field*/ 60),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_flybug),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+

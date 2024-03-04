@@ -1,0 +1,15 @@
+extern const GeoLayout gpswitch_geo[];
+extern u8 gpswitch_top_ci8[];
+extern u8 gpswitch_top_ci8_pal_rgba16[];
+extern u8 gpswitch_sides_ci8[];
+extern u8 gpswitch_sides_ci8_pal_rgba16[];
+extern Vtx gpswitch_skinned_mesh_layer_1_vtx_0[4];
+extern Gfx gpswitch_skinned_mesh_layer_1_tri_0[];
+extern Vtx gpswitch_skinned_mesh_layer_1_vtx_1[13];
+extern Gfx gpswitch_skinned_mesh_layer_1_tri_1[];
+extern Gfx mat_gpswitch_f3dlite_material_001[];
+extern Gfx mat_revert_gpswitch_f3dlite_material_001[];
+extern Gfx mat_gpswitch_f3dlite_material[];
+extern Gfx mat_revert_gpswitch_f3dlite_material[];
+extern Gfx gpswitch_skinned_mesh_layer_1[];
+extern Gfx gpswitch_material_revert_render_settings[];

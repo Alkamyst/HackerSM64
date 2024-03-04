@@ -1136,26 +1136,54 @@ void mode_8_directions_camera(struct Camera *c) {
 
     radial_camera_input(c);
 
-    if (gPlayer1Controller->buttonPressed & R_CBUTTONS) {
-        s8DirModeYawOffset += DEGREES(45);
-        // play_sound_cbutton_side();
-    }
-    if (gPlayer1Controller->buttonPressed & L_CBUTTONS) {
-        s8DirModeYawOffset -= DEGREES(45);
-        // play_sound_cbutton_side();
-    }
-
-    if (gPlayer2Controller->stickX != 0) 
-    {
-        if (gPlayer2Controller->stickX > 0) 
-        {
-            gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_RIGHT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
-            s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * 1.0f;
+    if (gMarioState->Options & (1<<OPT_INVERT_CAMERA)){
+        if (gPlayer1Controller->buttonPressed & R_CBUTTONS) {
+            s8DirModeYawOffset += DEGREES(45);
+            // play_sound_cbutton_side();
         }
-        else 
+        if (gPlayer1Controller->buttonPressed & L_CBUTTONS) {
+            s8DirModeYawOffset -= DEGREES(45);
+            // play_sound_cbutton_side();
+        }
+
+
+        if (gPlayer2Controller->stickX != 0) 
         {
-            gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_LEFT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
-            s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * -1.0f;
+            if (gPlayer2Controller->stickX > 0) 
+            {
+                gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_RIGHT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
+                s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * 1.0f;
+            }
+            else 
+            {
+                gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_LEFT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
+                s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * -1.0f;
+            }
+        }
+
+    } else {
+        if (gPlayer1Controller->buttonPressed & L_CBUTTONS) {
+            s8DirModeYawOffset += DEGREES(45);
+            // play_sound_cbutton_side();
+        }
+        if (gPlayer1Controller->buttonPressed & R_CBUTTONS) {
+            s8DirModeYawOffset -= DEGREES(45);
+            // play_sound_cbutton_side();
+        }  
+
+
+        if (gPlayer2Controller->stickX != 0) 
+        {
+            if (gPlayer2Controller->stickX > 0) 
+            {
+                gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_RIGHT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
+                s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * -1.0f;
+            }
+            else 
+            {
+                gCameraMovementFlags &= ~(CAM_MOVE_ROTATE_LEFT | CAM_MOVE_ENTERED_ROTATE_SURFACE);
+                s8DirModeYawOffset += ANALOG_AMOUNT * ((gPlayer2Controller->stickX / 64.0f) * (gPlayer2Controller->stickX / 64.0f)) * 1.0f;
+            }
         }
     }
 
@@ -1183,7 +1211,7 @@ void mode_8_directions_camera(struct Camera *c) {
 
 // #ifdef PARALLEL_LAKITU_CAM
     // extra functionality
-    else if (gPlayer1Controller->buttonPressed & U_JPAD) {
+    if (gPlayer1Controller->buttonPressed & U_JPAD) {
         s8DirModeYawOffset = 0;
         s8DirModeYawOffset = gMarioState->faceAngle[1] - 0x8000;
     }
@@ -1197,6 +1225,8 @@ void mode_8_directions_camera(struct Camera *c) {
         s8DirModeYawOffset = snap_to_45_degrees(s8DirModeYawOffset);
     }
 // #endif
+
+    // Camera collision by Rovert
 
     lakitu_zoom(400.f, 0x900);
     c->nextYaw = update_8_directions_camera(c, c->focus, pos);

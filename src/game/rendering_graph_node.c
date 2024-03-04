@@ -22,6 +22,8 @@
 #include "config.h"
 #include "config/config_world.h"
 
+#include "src/game/save_file.h"
+
 /**
  * This file contains the code that processes the scene graph for rendering.
  * The scene graph is responsible for drawing everything except the HUD / text boxes.
@@ -557,15 +559,11 @@ void geo_process_perspective(struct GraphNodePerspective *node) {
     if (node->fnNode.node.children != NULL) {
         u16 perspNorm;
         Mtx *mtx = alloc_display_list(sizeof(*mtx));
-#ifdef WIDE
-        if (gConfig.widescreen && gCurrLevelNum != 0x01){
+        if (gMarioState->Options & (1<<OPT_WIDESCREEN)){
             sAspectRatio = 16.0f / 9.0f; // 1.775f
         } else {
             sAspectRatio = 4.0f / 3.0f; // 1.33333f
         }
-#else
-        sAspectRatio = 4.0f / 3.0f; // 1.33333f
-#endif
 
         f32 vHalfFov = ( ((node->fov * 4096.f) + 8192.f) ) / 45.f;
 

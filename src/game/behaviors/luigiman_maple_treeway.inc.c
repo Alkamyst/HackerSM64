@@ -201,3 +201,111 @@ void bhv_luigiman_golden_chestnut_loop(void) {
         obj_set_hitbox(o, &sChestnutHitbox);
     }
 }
+
+void bhv_ground_pound_switch(void) {
+    switch (o->oAction) {
+        case 0:
+            if (cur_obj_is_mario_ground_pounding_platform()) {
+                cur_obj_play_sound_2(SOUND_GENERAL_SWITCH_DOOR_OPEN);
+                play_puzzle_jingle();
+                o->oVelY = -20.0f;
+                o->oAction = 1;
+            } 
+            break;
+
+        case 1:
+            if (o->oTimer > 3) {
+                o->oVelY = 0.0f;
+            } else {
+                cur_obj_move_using_fvel_and_gravity();
+            }
+            break;
+    }
+}
+
+void bhv_tree_door(void) {
+    o->parentObj = cur_obj_nearest_object_with_behavior(bhvGroundPoundSwitch);
+
+    if (o->parentObj->oAction == 1) {
+        spawn_mist_particles();
+        spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
+        cur_obj_play_sound_2(SOUND_GENERAL_BREAK_BOX);
+        obj_mark_for_deletion(o);
+    }
+}
+
+struct ObjectHitbox sFlyBugHurt = {
+    /* interactType:      */ INTERACT_DAMAGE,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 2,
+    /* health:            */ 0,
+    /* numLootCoins:      */ 5,
+    /* radius:            */ 250,
+    /* height:            */ 100,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+void bhv_flybug(void) {
+    f32 floor = find_floor_height(o->oPosX, o->oPosY + 200.0f, o->oPosZ);
+    f32 targetY;
+
+    // Handles hurting Mario interaction
+    obj_set_hitbox(o, &sFlyBugHurt);
+    if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        o->oInteractStatus = INT_STATUS_NONE;
+    }
+
+    // Changes action based on distance to Mario
+    if (o->oDistanceToMario > 1000.0f) {
+        o->oAction = 0;
+    } else {
+        cur_obj_init_animation(1);
+        o->oAction = 1;
+    }
+
+    switch (o->oAction) {
+        case 0: // Idle
+            if (o->oPosY <= floor) {
+                cur_obj_init_animation(0);
+            } else {
+                o->oPosY = approach_s16_symmetric(o->oPosY, floor, 10);
+            }
+            cur_obj_forward_vel_approach_upward(0, 0.8f);
+            targetY = floor;
+            break;
+
+        case 1: // Move
+            if (floor > (o->oPosY-100)) {
+                targetY = floor;
+                if ((targetY - o->oPosY) < 50) {
+                    o->oPosY = approach_s16_symmetric(o->oPosY, (targetY+100), 5);
+                } else {
+                    o->oMoveAngleYaw += 0x8000;
+                }
+            }
+
+            // Change velocity and rotation speed based on Mario's distance
+            // If Mario is closer, they are slower
+            if (lateral_dist_between_objects(o, gMarioObject) > 100.0f) {
+                cur_obj_forward_vel_approach_upward(13.0f, 0.8f);
+                cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x300);
+            } else {
+                cur_obj_forward_vel_approach_upward(2.5f, 0.8f);
+                cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x200);
+                targetY = floor;
+                o->oPosY = approach_s16_symmetric(o->oPosY, (targetY+100), 5);
+            }
+            break;
+    }
+
+    // Ground Pound Enemy to Kill
+    if (cur_obj_is_mario_ground_pounding_platform()) {
+        spawn_mist_particles();
+        cur_obj_play_sound_2(SOUND_OBJ_SNUFIT_SKEETER_DEATH);
+        cur_obj_spawn_loot_blue_coin();
+        obj_mark_for_deletion(o);
+    } 
+
+    cur_obj_update_floor_and_walls();
+}

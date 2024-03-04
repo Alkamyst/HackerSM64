@@ -382,6 +382,7 @@
 #define MODEL_WIGGLER_HEAD                0x57        // wiggler_head_geo
 #define MODEL_WIGGLER_BODY                0x58        // wiggler_body_geo
 #define MODEL_BUBBA                       0x59        // bubba_geo
+#define MODEL_FLYBUG                      0x5A        // flybug_geo
 
 // referenced in macro presets. Unknown usage.
 #define MODEL_UNKNOWN_54                  0x54
@@ -576,6 +577,8 @@
 #define MODEL_CHESTNUT 0x38
 #define MODEL_GOLDEN_CHESTNUT 0x39
 #define MODEL_MAPLE_TREE 0x3A
+#define MODEL_GPSWITCH 0x3B
+#define MODEL_TREE_DOOR 0x3C
 
 
 #endif // MODEL_IDS_H
