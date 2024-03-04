@@ -289,7 +289,7 @@ void bhv_flybug(void) {
             // If Mario is closer, they are slower
             if (lateral_dist_between_objects(o, gMarioObject) > 100.0f) {
                 cur_obj_forward_vel_approach_upward(13.0f, 0.8f);
-                cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
+                cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x300);
             } else {
                 cur_obj_forward_vel_approach_upward(2.5f, 0.8f);
                 cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x200);
