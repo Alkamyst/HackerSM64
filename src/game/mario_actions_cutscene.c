@@ -1022,6 +1022,8 @@ s32 act_spawn_spin_airborne(struct MarioState *m) {
     // updates all velocity variables based on m->forwardVel
     mario_set_forward_vel(m, m->forwardVel);
 
+    if (m->vel[1] > 0) m->vel[1] = 0;
+
     // landed on floor, play spawn land animation
     if (perform_air_step(m, AIR_STEP_CHECK_NONE) == AIR_STEP_LANDED) {
         play_mario_landing_sound(m, SOUND_ACTION_TERRAIN_LANDING);

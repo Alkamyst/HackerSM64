@@ -1374,6 +1374,8 @@ void update_mario_inputs(struct MarioState *m) {
     if (m->doubleJumpTimer > 0) {
         m->doubleJumpTimer--;
     }
+
+    if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
 }
 
 /**

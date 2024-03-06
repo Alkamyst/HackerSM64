@@ -618,7 +618,7 @@ void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags)
     } else if (destArea != gCurrentArea->index) {
         sWarpDest.type = WARP_TYPE_CHANGE_AREA;
     } else {
-        sWarpDest.type = WARP_TYPE_SAME_AREA;
+        sWarpDest.type = WARP_TYPE_CHANGE_LEVEL; // Make level reset when warping always. Usually WARP_TYPE_SAME_LEVEL
     }
 
     sWarpDest.levelNum = destLevel;
@@ -824,6 +824,14 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 }
                 fadeMusic = FALSE;
                 break;
+            
+            case WARP_OP_RESET:
+                sDelayedWarpTimer = 10;
+                sSourceWarpNodeId = WARP_NODE_LOOK_UP; // 0xF2
+                play_transition(WARP_TRANSITION_FADE_INTO_COLOR, sDelayedWarpTimer, 0x00, 0x00, 0x00);
+                play_sound(SOUND_GENERAL2_SWITCH_TICK_SLOW, gGlobalSoundSource);
+                break;
+
         }
 
         if (fadeMusic && gCurrDemoInput == NULL) {
@@ -1354,7 +1362,7 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     gCurrLevelNum = levelNum;
     gCurrCourseNum = gLevelToCourseNumTable[levelNum - 1];
 	if (gCurrLevelNum == LEVEL_BOB) return 0;
-
+	
     if (gCurrDemoInput != NULL || gCurrCreditsEntry != NULL || gCurrCourseNum == COURSE_NONE) {
         return FALSE;
     }

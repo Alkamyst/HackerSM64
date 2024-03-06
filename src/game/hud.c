@@ -616,5 +616,9 @@ void render_hud(void) {
             render_debug_mode();
         }
 #endif
+
+        // Reset Text
+        print_small_text(310, 220, "PRESS R TO RESET", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+
     }
 }
