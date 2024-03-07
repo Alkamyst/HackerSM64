@@ -1033,17 +1033,19 @@ s32 act_spawn_spin_airborne(struct MarioState *m) {
     }
 
     // is 300 units above floor, spin and play woosh sounds
+    /*
     if (m->actionState == ACT_STATE_SPAWN_SPIN_AIRBORNE_SPINNING && m->pos[1] - m->floorHeight > 300.0f) {
         if (set_mario_animation(m, MARIO_ANIM_FORWARD_SPINNING) == 0) { // first anim frame
             play_sound(SOUND_ACTION_SPIN, m->marioObj->header.gfx.cameraToObject);
         }
     }
+    */ // Makes Mario's spawn animation not seem off
 
     // under 300 units above floor, enter freefall animation
-    else {
+    //else {
         m->actionState = ACT_STATE_SPAWN_SPIN_AIRBORNE_FALLING;
         set_mario_animation(m, MARIO_ANIM_GENERAL_FALL);
-    }
+    //}
 
     return FALSE;
 }
@@ -1051,10 +1053,10 @@ s32 act_spawn_spin_airborne(struct MarioState *m) {
 s32 act_spawn_spin_landing(struct MarioState *m) {
     stop_and_set_height_to_floor(m);
     set_mario_animation(m, MARIO_ANIM_GENERAL_LAND);
-    if (is_anim_at_end(m)) {
+    //if (is_anim_at_end(m)) { // Makes Mario not stop when landing
         load_level_init_text(0);
         set_mario_action(m, ACT_IDLE, 0);
-    }
+    //}
     return FALSE;
 }
 
