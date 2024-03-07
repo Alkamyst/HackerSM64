@@ -6089,3 +6089,15 @@ const BehaviorScript bhvTiltPlatformWide[] = {
         CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
+
+extern void bhv_tilt_platform();
+const BehaviorScript bhvTiltPlatform[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(tilt_platform_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_tilt_platform),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};

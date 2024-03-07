@@ -685,9 +685,11 @@ s32 act_fall_after_star_grab(struct MarioState *m) {
 
 s32 common_death_handler(struct MarioState *m, s32 animation, s32 frameToDeathWarp) {
     s32 animFrame = set_mario_animation(m, animation);
+    /*
     if (animFrame == frameToDeathWarp) {
         level_trigger_warp(m, WARP_OP_DEATH);
     }
+    */
     m->marioBodyState->eyeState = MARIO_EYES_DEAD;
     stop_and_set_height_to_floor(m);
 #ifdef PREVENT_DEATH_LOOP
@@ -1554,11 +1556,12 @@ s32 act_squished(struct MarioState *m) {
             m->actionTimer++;
             if (m->actionTimer >= 15) {
                 // 1 unit of health
+                /*
                 if (m->health < 0x100) {
                     level_trigger_warp(m, WARP_OP_DEATH);
                     // woosh, he's gone!
                     set_mario_action(m, ACT_DISAPPEARED, 0);
-                } else if (m->hurtCounter == 0) {
+                } else */ if (m->hurtCounter == 0) {
                     // un-squish animation
                     m->squishTimer = 30;
                     set_mario_action(m, ACT_IDLE, 0);
@@ -1593,6 +1596,7 @@ s32 act_squished(struct MarioState *m) {
     }
 
     // squished for more than 10 seconds, so kill Mario
+    /*
     if (m->actionArg++ > 300) {
         // 0 units of health
         m->health = 0x00FF;
@@ -1601,6 +1605,7 @@ s32 act_squished(struct MarioState *m) {
         // woosh, he's gone!
         set_mario_action(m, ACT_DISAPPEARED, 0);
     }
+    */
     stop_and_set_height_to_floor(m);
     set_mario_animation(m, MARIO_ANIM_A_POSE);
     return FALSE;

@@ -1650,7 +1650,7 @@ void print_small_text(s32 x, s32 y, const char *str, s32 align, s32 amount, u8 f
                 if (xlu > 250) {
                     gDPSetRenderMode(gDisplayListHead++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2);
                 } else {
-                    gDPSetRenderMode(gDisplayListHead++, G_RM_XLU_SURF, G_RM_XLU_SURF);
+                    gDPSetRenderMode(gDisplayListHead++, G_RM_TEX_EDGE, G_RM_TEX_EDGE2); // Replaced G_RM_XLU_SURF with G_RM_TEX_EDGE and G_RM_TEX_EDGE2. Might cause issues, but fixes a transparency bug
                 }
             }
 

@@ -1317,9 +1317,9 @@ void update_mario_geometry_inputs(struct MarioState *m) {
             m->input |= INPUT_IN_POISON_GAS;
         }
 
-    } else {
-        level_trigger_warp(m, WARP_OP_DEATH);
-    }
+    } //else {
+       // level_trigger_warp(m, WARP_OP_DEATH);
+    //}
 }
 
 /**
@@ -1375,7 +1375,12 @@ void update_mario_inputs(struct MarioState *m) {
         m->doubleJumpTimer--;
     }
 
+    // Reset level by pressing R
     if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
+
+    // DEBUG! Kill mario by pressing L
+    if (gPlayer1Controller->buttonPressed & L_TRIG) m->health = 0x00FF;
+
 }
 
 /**
@@ -1712,6 +1717,8 @@ s32 execute_mario_action(UNUSED struct Object *obj) {
     vec3f_get_dist_and_angle(gMarioState->prevPos, gMarioState->pos, &gMarioState->moveSpeed, &gMarioState->movePitch, &gMarioState->moveYaw);
     vec3f_get_lateral_dist(gMarioState->prevPos, gMarioState->pos, &gMarioState->lateralSpeed);
     vec3f_copy(gMarioState->prevPos, gMarioState->pos);
+
+    gMarioState->pos[2] = gMarioSpawnInfo->startPos[2];
 
     if (gMarioState->action) {
 #ifdef ENABLE_DEBUG_FREE_MOVE
