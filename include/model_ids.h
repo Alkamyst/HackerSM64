@@ -111,7 +111,6 @@
 #define MODEL_BOB_CHAIN_CHOMP_GATE             0x36        // bob_geo_000440
 #define MODEL_BOB_SEESAW_PLATFORM              0x37        // bob_geo_000458
 #define MODEL_BOB_BARS_GRILLS                  0x38        // bob_geo_000470
-#define MODEL_TILT_PLATFORM_WIDE               0x39        // tilt_platform_wide_geo
 
 // sl
 #define MODEL_SL_SNOW_TRIANGLE                 0x36        // sl_geo_000390
@@ -326,6 +325,7 @@
 #define MODEL_BLARGG                      0x54        // blargg_geo
 #define MODEL_BULLY                       0x56        // bully_geo
 #define MODEL_BULLY_BOSS                  0x57        // bully_boss_geo
+#define MODEL_TILT_PLATFORM_WIDE          0x58        // tilt_platform_wide_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo

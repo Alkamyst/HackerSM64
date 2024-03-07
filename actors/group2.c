@@ -15,3 +15,6 @@ UNUSED static const u64 binid_0 = 0;
 #include "blargg/anims/data.inc.c"
 #include "blargg/anims/table.inc.c"
 UNUSED static const u64 binid_1 = 1;
+
+#include "tilt_platform_wide/model.inc.c"
+#include "tilt_platform_wide/collision.inc.c"
