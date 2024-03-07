@@ -7,7 +7,5 @@
 #include "common1.h"
 #include "group2.h"
 
-#include "bully/geo.inc.c"
-#include "blargg/geo.inc.c"
-
 #include "tilt_platform_wide/geo.inc.c"
+#include "tilt_platform/geo.inc.c"

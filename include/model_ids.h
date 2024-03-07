@@ -268,7 +268,6 @@
 #define MODEL_WF_KICKABLE_BOARD                   0x38        // wf_geo_000BA8
 #define MODEL_WF_TOWER_DOOR                       0x39        // wf_geo_000BE0
 #define MODEL_WF_KICKABLE_BOARD_FELLED            0x3A        // wf_geo_000BC8
-#define MODEL_TILT_PLATFORM                       0x3B        // tilt_platform_geo
 
 // ending
 
@@ -322,15 +321,16 @@
 #define MODEL_HEAVE_HO                    0x59        // heave_ho_geo
 
 // group 2
-#define MODEL_BLARGG                      0x54        // blargg_geo
-#define MODEL_BULLY                       0x56        // bully_geo
-#define MODEL_BULLY_BOSS                  0x57        // bully_boss_geo
-#define MODEL_TILT_PLATFORM_WIDE          0x58        // tilt_platform_wide_geo
+#define MODEL_TILT_PLATFORM_WIDE          0x54        // tilt_platform_wide_geo
+#define MODEL_TILT_PLATFORM               0x55        // tilt_platform_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo
 #define MODEL_WATER_BOMB_SHADOW           0x55        // water_bomb_shadow_geo
 #define MODEL_KING_BOBOMB                 0x56        // king_bobomb_geo
+#define MODEL_BLARGG                      0x57        // blargg_geo
+#define MODEL_BULLY                       0x58        // bully_geo
+#define MODEL_BULLY_BOSS                  0x59        // bully_boss_geo
 
 // group 4
 #define MODEL_MANTA_RAY                   0x54        // manta_seg5_geo_05008D14

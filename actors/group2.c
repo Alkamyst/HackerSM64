@@ -6,15 +6,7 @@
 #include "types.h"
 #include "make_const_nonconst.h"
 
-#include "bully/model.inc.c"
-#include "bully/anims/data.inc.c"
-#include "bully/anims/table.inc.c"
-UNUSED static const u64 binid_0 = 0;
-
-#include "blargg/model.inc.c"
-#include "blargg/anims/data.inc.c"
-#include "blargg/anims/table.inc.c"
-UNUSED static const u64 binid_1 = 1;
-
 #include "tilt_platform_wide/model.inc.c"
 #include "tilt_platform_wide/collision.inc.c"
+#include "tilt_platform/collision.inc.c"
+#include "tilt_platform/model.inc.c"

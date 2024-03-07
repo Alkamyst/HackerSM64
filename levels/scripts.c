@@ -211,10 +211,8 @@ const LevelScript script_func_global_2[] = {
 };
 
 const LevelScript script_func_global_3[] = {
-    LOAD_MODEL_FROM_GEO(MODEL_BLARGG,                  blargg_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BULLY,                   bully_geo),
-    LOAD_MODEL_FROM_GEO(MODEL_BULLY_BOSS,              bully_boss_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TILT_PLATFORM_WIDE,      tilt_platform_wide_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_TILT_PLATFORM,           tilt_platform_geo),
     RETURN(),
 };
 
@@ -222,6 +220,9 @@ const LevelScript script_func_global_4[] = {
     LOAD_MODEL_FROM_GEO(MODEL_WATER_BOMB,              water_bomb_geo),
     LOAD_MODEL_FROM_GEO(MODEL_WATER_BOMB_SHADOW,       water_bomb_shadow_geo),
     LOAD_MODEL_FROM_GEO(MODEL_KING_BOBOMB,             king_bobomb_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BLARGG,                  blargg_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BULLY,                   bully_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_BULLY_BOSS,              bully_boss_geo),
     RETURN(),
 };
 
