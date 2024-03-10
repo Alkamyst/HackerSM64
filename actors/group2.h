@@ -11,4 +11,12 @@
 
 #include "tilt_platform/geo_header.h"
 
+#include "tilt_box/collision_header.h"
+
+#include "tilt_box/geo_header.h"
+
+#include "slide_platform_small/collision_header.h"
+
+#include "slide_platform_small/geo_header.h"
+
 #endif

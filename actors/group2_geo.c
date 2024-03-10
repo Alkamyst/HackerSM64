@@ -9,3 +9,5 @@
 
 #include "tilt_platform_wide/geo.inc.c"
 #include "tilt_platform/geo.inc.c"
+#include "tilt_box/geo.inc.c"
+#include "slide_platform_small/geo.inc.c"

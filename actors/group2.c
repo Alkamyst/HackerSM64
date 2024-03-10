@@ -10,3 +10,7 @@
 #include "tilt_platform_wide/collision.inc.c"
 #include "tilt_platform/collision.inc.c"
 #include "tilt_platform/model.inc.c"
+#include "tilt_box/collision.inc.c"
+#include "tilt_box/model.inc.c"
+#include "slide_platform_small/collision.inc.c"
+#include "slide_platform_small/model.inc.c"

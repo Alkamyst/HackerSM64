@@ -323,6 +323,8 @@
 // group 2
 #define MODEL_TILT_PLATFORM_WIDE          0x54        // tilt_platform_wide_geo
 #define MODEL_TILT_PLATFORM               0x55        // tilt_platform_geo
+#define MODEL_TILT_BOX                    0x56        // tilt_box_geo
+#define MODEL_SLIDE_PLATFORM_SMALL        0x57        // slide_platform_small_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo

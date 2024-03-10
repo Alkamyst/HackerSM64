@@ -213,6 +213,8 @@ const LevelScript script_func_global_2[] = {
 const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_TILT_PLATFORM_WIDE,      tilt_platform_wide_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TILT_PLATFORM,           tilt_platform_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_TILT_BOX,                tilt_box_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SLIDE_PLATFORM_SMALL,    slide_platform_small_geo),
     RETURN(),
 };
 

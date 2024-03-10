@@ -1378,9 +1378,6 @@ void update_mario_inputs(struct MarioState *m) {
     // Reset level by pressing R
     if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
 
-    // DEBUG! Kill mario by pressing L
-    if (gPlayer1Controller->buttonPressed & L_TRIG) m->health = 0x00FF;
-
 }
 
 /**
