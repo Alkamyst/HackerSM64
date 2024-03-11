@@ -6135,3 +6135,25 @@ const BehaviorScript bhvMarker[] = {
     BEGIN_LOOP(),
     END_LOOP(),
 };
+
+extern void bhv_fan();
+const BehaviorScript bhvFan[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(slide_platform_small_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_fan),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+extern void bhv_wind_fan_loop();
+const BehaviorScript bhvWindFan[] = {
+    BEGIN(OBJ_LIST_UNIMPORTANT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_HOME(),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_wind_fan_loop),
+    END_LOOP(),
+};

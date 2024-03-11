@@ -1339,8 +1339,8 @@ void update_mario_inputs(struct MarioState *m) {
 #endif
 
     // Mario inputs are disabled!
-    //update_mario_button_inputs(m);
-    //update_mario_joystick_inputs(m);
+    update_mario_button_inputs(m);
+    update_mario_joystick_inputs(m);
     update_mario_geometry_inputs(m);
 #ifdef VANILLA_DEBUG
     debug_print_speed_action_normal(m);
