@@ -49,7 +49,7 @@ const LevelScript level_bob_entry[] = {
 
 	AREA(1, bob_area_1),
 		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
-		WARP_NODE(0xF0, LEVEL_WF, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x02, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0xF1, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_STAR, 821, -7, -3491, 0, -180, 0, 0x00000000, bhvStar),
 		OBJECT(MODEL_TILT_PLATFORM_WIDE, 7, -145, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatformWide),
@@ -57,6 +57,72 @@ const LevelScript level_bob_entry[] = {
 		MARIO_POS(0x01, 0, -821, 0, -3491),
 		TERRAIN(bob_area_1_collision),
 		MACRO_OBJECTS(bob_area_1_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(2, bob_area_2),
+		WARP_NODE(0x0A, LEVEL_WF, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x03, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x02, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_STAR, 821, -7, -3491, 0, -180, 0, (1 << 24), bhvStar),
+		OBJECT(MODEL_TILT_PLATFORM, -410, -145, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_NONE, -821, 261, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		TERRAIN(bob_area_2_collision),
+		MACRO_OBJECTS(bob_area_2_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(3, bob_area_3),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x04, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x03, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_STAR, -526, -706, -3491, 0, -180, 0, (2 << 24), bhvStar),
+		OBJECT(MODEL_TILT_PLATFORM, -820, -84, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_TILT_PLATFORM, 807, -84, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_NONE, -1399, 398, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		TERRAIN(bob_area_3_collision),
+		MACRO_OBJECTS(bob_area_3_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(4, bob_area_4),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_BOB, 0x05, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x04, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_RED_COIN, 0, 647, -3500, 0, -180, 0, 0x00000000, bhvRedCoin),
+		OBJECT(MODEL_RED_COIN, 0, -383, -3500, 0, -180, 0, 0x00000000, bhvRedCoin),
+		OBJECT(MODEL_NONE, 0, -906, -3491, 0, -180, 0, (3 << 24), bhvHiddenRedCoinStar),
+		OBJECT(MODEL_TILT_PLATFORM, -820, 378, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_TILT_PLATFORM, 807, 378, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_TILT_PLATFORM, 807, -383, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_TILT_PLATFORM, -820, -383, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
+		OBJECT(MODEL_NONE, -1399, 1121, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		TERRAIN(bob_area_4_collision),
+		MACRO_OBJECTS(bob_area_4_macro_objs),
+		STOP_MUSIC(0),
+		TERRAIN_TYPE(TERRAIN_GRASS),
+		/* Fast64 begin persistent block [area commands] */
+		/* Fast64 end persistent block [area commands] */
+	END_AREA(),
+
+	AREA(5, bob_area_5),
+		WARP_NODE(0x0A, LEVEL_BOB, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF0, LEVEL_WF, 0x01, 0x0A, WARP_NO_CHECKPOINT),
+		WARP_NODE(0xF1, LEVEL_BOB, 0x05, 0x0A, WARP_NO_CHECKPOINT),
+		OBJECT(MODEL_STAR, 0, -315, -3491, 0, -180, 0, (4 << 24), bhvStar),
+		OBJECT(MODEL_TILT_BOX, 0, 0, -3491, 0, 0, 0, 0x00000000, bhvTiltBox),
+		OBJECT(MODEL_NONE, 0, -800, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		TERRAIN(bob_area_5_collision),
+		MACRO_OBJECTS(bob_area_5_macro_objs),
 		STOP_MUSIC(0),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */

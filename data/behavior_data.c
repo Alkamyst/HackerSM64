@@ -6157,3 +6157,35 @@ const BehaviorScript bhvWindFan[] = {
         CALL_NATIVE(bhv_wind_fan_loop),
     END_LOOP(),
 };
+
+extern void bhv_level_button();
+extern void bhv_level_button_init();
+const BehaviorScript bhvLevelButton[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_level_button_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_level_button),
+    END_LOOP(),
+};
+
+extern void bhv_selector();
+const BehaviorScript bhvSelector[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_selector),
+    END_LOOP(),
+};
+
+extern void bhv_level_number();
+const BehaviorScript bhvLevelNumber[] = {
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BILLBOARD(),
+    CALL_NATIVE(bhv_level_number),
+    BEGIN_LOOP(),
+    END_LOOP(),
+};

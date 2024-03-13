@@ -618,7 +618,10 @@ void render_hud(void) {
 #endif
 
         // Reset Text
-        print_small_text(310, 220, "PRESS R TO RESET", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+        if (gCurrCourseNum >= COURSE_MIN
+            && gCurrCourseNum <= COURSE_MAX) {
+            print_small_text(310, 220, "PRESS R TO RESET", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+        }
 
     }
 }

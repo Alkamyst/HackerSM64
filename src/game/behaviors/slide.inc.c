@@ -1,15 +1,16 @@
 // slide.inc.c
 
 #define ANALOG_AMOUNT 162144 / 315
-#define RATE (ANALOG_AMOUNT * ((gPlayer1Controller->stickX / 64.0f) * (gPlayer1Controller->stickX / 64.0f)) * 1.0f)
+#define RATEX (ANALOG_AMOUNT * ((gPlayer1Controller->stickX / 64.0f) * (gPlayer1Controller->stickX / 64.0f)) * 1.0f)
+#define RATEY (ANALOG_AMOUNT * ((gPlayer1Controller->stickY / 64.0f) * (gPlayer1Controller->stickY / 64.0f)) * 1.0f)
 
 void bhv_tilt_platform(void) {
 
     // Tilts the platform based on the left joystick
-    if (gPlayer1Controller->rawStickX > 0) {
-        o->oFaceAngleRoll += RATE;
-    } else if (gPlayer1Controller->rawStickX < 0) {
-        o->oFaceAngleRoll += RATE * -1.0;
+    if (gPlayer1Controller->rawStickX > 2) {
+        o->oFaceAngleRoll += RATEX;
+    } else if (gPlayer1Controller->rawStickX < -2) {
+        o->oFaceAngleRoll += RATEX * -1.0;
     }
 
     // Makes it so the platform doesn't rotate past 45 degrees
@@ -26,10 +27,10 @@ void bhv_tilt_platform(void) {
 void bhv_tilt_box(void) {
 
     // Tilts the platform based on the left joystick
-    if (gPlayer1Controller->rawStickX > 0) {
-        o->oFaceAngleRoll += RATE * -1.0;
-    } else if (gPlayer1Controller->rawStickX < 0) {
-        o->oFaceAngleRoll += RATE;
+    if (gPlayer1Controller->rawStickX > 2) {
+        o->oFaceAngleRoll += RATEX * -1.0;
+    } else if (gPlayer1Controller->rawStickX < -2) {
+        o->oFaceAngleRoll += RATEX;
     }
     
 }
@@ -37,10 +38,10 @@ void bhv_tilt_box(void) {
 void bhv_slide_platform_hori(void) {
 
     // Left joystick makes the platform move left/right
-    if (gPlayer1Controller->rawStickX > 0) {
-        o->oPosX += RATE / 13;
-    } else if (gPlayer1Controller->rawStickX < 0) {
-        o->oPosX += RATE / 13 * -1.0;
+    if (gPlayer1Controller->rawStickX > 2) {
+        o->oPosX += RATEX / 13;
+    } else if (gPlayer1Controller->rawStickX < -2) {
+        o->oPosX += RATEX / 13 * -1.0;
     }
 
     f32 limitRight = GET_BPARAM1(o->oBehParams);
@@ -69,10 +70,10 @@ void bhv_slide_platform_hori(void) {
 void bhv_slide_platform_vert(void) {
 
     // Left joystick makes the platform move up/down
-    if (gPlayer1Controller->rawStickX > 0) {
-        o->oPosY += RATE / 10;
-    } else if (gPlayer1Controller->rawStickX < 0) {
-        o->oPosY += RATE / 10 * -1.0;
+    if (gPlayer1Controller->rawStickY > 2) {
+        o->oPosY += RATEX / 10;
+    } else if (gPlayer1Controller->rawStickY < -2) {
+        o->oPosY += RATEX / 10 * -1.0;
     }
 
     // Limits the platform to be in between BPARAM2 and BPARAM 3 divided by 10
@@ -245,4 +246,105 @@ void bhv_wind_fan_loop(void) {
     m->slideYaw = atan2s(m->slideVelZ, m->slideVelX);
     m->forwardVel = speed * coss(m->faceAngle[1] - m->slideYaw);
     */
+}
+
+void bhv_level_button_init(void) {
+    spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+    o->oFlameScale = 1.0f;
+}
+
+void bhv_level_button(void) {
+    f32 areaTop;
+    f32 areaBottom;
+    f32 areaLeft;
+    f32 areaRight;
+    s16 size = 100;
+
+    areaTop = o->oPosY + size;
+    areaBottom = o->oPosY - size;
+    areaLeft = o->oPosX - size;
+    areaRight = o->oPosX + size;
+    
+    o->parentObj = cur_obj_nearest_object_with_behavior(bhvSelector);
+
+    switch (o->oAction) {
+        case 0:
+            // Button Selected
+            if ((o->parentObj->oPosX > areaLeft) && (o->parentObj->oPosX < areaRight) && (o->parentObj->oPosY > areaBottom) && (o->parentObj->oPosY < areaTop) 
+            && (gPlayer1Controller->buttonPressed & (A_BUTTON))) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
+                spawn_mist_particles();
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            if (o->oFlameScale > 1.1) {
+                o->oAction = 2;
+            } else {
+                o->oFlameScale += 0.05f;
+            }
+            break;
+        case 2:
+            if (o->oFlameScale > 1.0) {
+                o->oFlameScale -= 0.05f;
+            } else {
+                play_sound(SOUND_MENU_ENTER_HOLE, gGlobalSoundSource);
+                gMarioState->usedObj = o;
+                level_trigger_warp(gMarioState, WARP_OP_WARP_OBJECT);
+                o->oAction = 3;
+            }
+            break;
+    }
+
+    // Debug Markers for top right and bottom left of push area
+    /*
+    if (o->oTimer == 0) {
+        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+                                    areaRight, areaTop, o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+                                    areaLeft, areaBottom, o->oPosZ, 0, 0, 0);
+    }
+    */
+
+    cur_obj_scale(o->oFlameScale);
+
+}
+
+void bhv_level_number(void) {
+    o->oAnimState = o->oBehParams2ndByte;
+}
+
+void bhv_selector(void) {
+
+    s16 rawStickX = gPlayer1Controller->rawStickX;
+    s16 rawStickY = gPlayer1Controller->rawStickY;
+    
+
+    // Handle deadzone
+    if (rawStickY > -2 && rawStickY < 2) {
+        rawStickY = 0;
+    }
+    if (rawStickX > -2 && rawStickX < 2) {
+        rawStickX = 0;
+    }
+
+    // Move cursor
+    o->oPosX += rawStickX / 2;
+    o->oPosY += rawStickY / 2;
+
+    // Stop cursor from going offscreen
+    if (o->oPosX > 1320.0f) {
+        o->oPosX = 1320.0f;
+    }
+    if (o->oPosX < -1320.0f) {
+        o->oPosX = -1320.0f;
+    }
+
+    if (o->oPosY > 900.0f) {
+        o->oPosY = 900.0f;
+    }
+    if (o->oPosY < -900.0f) {
+        o->oPosY = -900.0f;
+    }
 }

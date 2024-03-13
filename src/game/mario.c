@@ -1339,8 +1339,8 @@ void update_mario_inputs(struct MarioState *m) {
 #endif
 
     // Mario inputs are disabled!
-    update_mario_button_inputs(m);
-    update_mario_joystick_inputs(m);
+    //update_mario_button_inputs(m);
+    //update_mario_joystick_inputs(m);
     update_mario_geometry_inputs(m);
 #ifdef VANILLA_DEBUG
     debug_print_speed_action_normal(m);
@@ -1375,8 +1375,12 @@ void update_mario_inputs(struct MarioState *m) {
         m->doubleJumpTimer--;
     }
 
+
     // Reset level by pressing R
-    if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
+    if (gCurrCourseNum >= COURSE_MIN
+        && gCurrCourseNum <= COURSE_MAX) {
+        if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
+    }
 
 }
 

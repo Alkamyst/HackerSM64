@@ -14,3 +14,5 @@
 #include "tilt_box/model.inc.c"
 #include "slide_platform_small/collision.inc.c"
 #include "slide_platform_small/model.inc.c"
+#include "level_button/model.inc.c"
+#include "selector/model.inc.c"

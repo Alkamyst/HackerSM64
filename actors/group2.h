@@ -19,4 +19,8 @@
 
 #include "slide_platform_small/geo_header.h"
 
+#include "level_button/geo_header.h"
+
+#include "selector/geo_header.h"
+
 #endif

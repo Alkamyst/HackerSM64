@@ -547,5 +547,8 @@ extern const BehaviorScript bhvSlidePlatformHori[];
 extern const BehaviorScript bhvMarker[];
 extern const BehaviorScript bhvFan[];
 extern const BehaviorScript bhvWindFan[];
+extern const BehaviorScript bhvLevelButton[];
+extern const BehaviorScript bhvSelector[];
+extern const BehaviorScript bhvLevelNumber[];
 
 #endif // BEHAVIOR_DATA_H

@@ -11,3 +11,5 @@
 #include "tilt_platform/geo.inc.c"
 #include "tilt_box/geo.inc.c"
 #include "slide_platform_small/geo.inc.c"
+#include "level_button/geo.inc.c"
+#include "selector/geo.inc.c"
