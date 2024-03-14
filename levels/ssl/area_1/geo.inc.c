@@ -8,8 +8,8 @@ const GeoLayout ssl_area_1_geo[] = {
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, ssl_dl_Cube_mesh_layer_6),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, ssl_dl_Cube_mesh_layer_5),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 0, -402, -3391, -180, 0, 0, ssl_dl_Cube_001_mesh_layer_1),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4720, 0, ssl_dl_Plane_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 0, -3498, ssl_dl_World_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

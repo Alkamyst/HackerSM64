@@ -6129,9 +6129,8 @@ const BehaviorScript bhvSlidePlatformHori[] = {
 const BehaviorScript bhvMarker[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_ANIMATIONS(oAnimations, dAmpAnimsList),
-    ANIMATE(AMP_ANIM_DEFAULT),
     //SET_FLOAT(oGraphYOffset, 40),
+    SCALE(/*Unused*/ 0, /*Field*/ 25),
     BEGIN_LOOP(),
     END_LOOP(),
 };

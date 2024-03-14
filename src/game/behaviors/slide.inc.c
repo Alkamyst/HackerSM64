@@ -65,6 +65,15 @@ void bhv_slide_platform_hori(void) {
         o->oPosX = limitLeft * -10.0;
     }
 
+    // Spawns Markers
+    if (o->oTimer == 0) {
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
+                                    ((limitLeft * -10.0) - 250.0), o->oPosY, o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
+                                    ((limitRight * 10.0) + 250.0), o->oPosY, o->oPosZ, 0, 0, 0);
+    }
+
 }
 
 void bhv_slide_platform_vert(void) {
