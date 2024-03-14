@@ -258,7 +258,12 @@ void bhv_wind_fan_loop(void) {
 }
 
 void bhv_level_button_init(void) {
-    spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+    if (GET_BPARAM2(o->oBehParams) >= 0x10) {
+        spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x0F), 30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+        spawn_object_relative(GET_BPARAM2(o->oBehParams), -30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+    } else {
+        spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+    }
     o->oFlameScale = 1.0f;
 }
 

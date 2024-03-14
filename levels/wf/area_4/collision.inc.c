@@ -1,4 +1,4 @@
-const Collision jrb_area_1_collision[] = {
+const Collision wf_area_4_collision[] = {
 	COL_INIT(),
 	COL_VERTEX_INIT(56),
 	COL_VERTEX(-5909, -4544, -6834),
