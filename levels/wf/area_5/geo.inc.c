@@ -3,12 +3,13 @@
 const GeoLayout wf_area_5_geo[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 7, -810, 3, 0, -180, 0, wf_dl_Cube_004_mesh_layer_1),
+		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 7, -810, 3, 0, -180, 0, wf_dl_Cube_003_mesh_layer_1),
 		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, wf_dl_Cube_004_mesh_layer_6),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, wf_dl_Cube_004_mesh_layer_5),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, wf_dl_Cube_003_mesh_layer_6),
+			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, wf_dl_Cube_003_mesh_layer_5),
 		GEO_CLOSE_NODE(),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4720, 0, wf_dl_Plane_004_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4720, 0, wf_dl_Plane_003_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 0, -3498, wf_dl_World_001_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
