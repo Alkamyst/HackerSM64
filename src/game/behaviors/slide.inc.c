@@ -1,3 +1,7 @@
+#include <ultra64.h>
+
+#include "sm64.h"
+
 // slide.inc.c
 
 #define ANALOG_AMOUNT 162144 / 315
@@ -7,10 +11,12 @@
 void bhv_tilt_platform(void) {
 
     // Tilts the platform based on the left joystick
-    if (gPlayer1Controller->rawStickX > 2) {
-        o->oFaceAngleRoll += RATEX;
-    } else if (gPlayer1Controller->rawStickX < -2) {
-        o->oFaceAngleRoll += RATEX * -1.0;
+    if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+        if (gPlayer1Controller->rawStickX > 2) {
+            o->oFaceAngleRoll += RATEX;
+        } else if (gPlayer1Controller->rawStickX < -2) {
+            o->oFaceAngleRoll += RATEX * -1.0;
+        }
     }
 
     // Makes it so the platform doesn't rotate past 45 degrees
@@ -27,10 +33,12 @@ void bhv_tilt_platform(void) {
 void bhv_tilt_box(void) {
 
     // Tilts the platform based on the left joystick
-    if (gPlayer1Controller->rawStickX > 2) {
-        o->oFaceAngleRoll += RATEX * -1.0;
-    } else if (gPlayer1Controller->rawStickX < -2) {
-        o->oFaceAngleRoll += RATEX;
+    if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+        if (gPlayer1Controller->rawStickX > 2) {
+            o->oFaceAngleRoll += RATEX * -1.0;
+        } else if (gPlayer1Controller->rawStickX < -2) {
+            o->oFaceAngleRoll += RATEX;
+        }
     }
     
 }
@@ -38,10 +46,12 @@ void bhv_tilt_box(void) {
 void bhv_slide_platform_hori(void) {
 
     // Left joystick makes the platform move left/right
-    if (gPlayer1Controller->rawStickX > 2) {
-        o->oPosX += RATEX / 13;
-    } else if (gPlayer1Controller->rawStickX < -2) {
-        o->oPosX += RATEX / 13 * -1.0;
+    if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+        if (gPlayer1Controller->rawStickX > 2) {
+            o->oPosX += RATEX / 13;
+        } else if (gPlayer1Controller->rawStickX < -2) {
+            o->oPosX += RATEX / 13 * -1.0;
+        }
     }
 
     f32 limitRight = GET_BPARAM1(o->oBehParams);
@@ -79,10 +89,12 @@ void bhv_slide_platform_hori(void) {
 void bhv_slide_platform_vert(void) {
 
     // Left joystick makes the platform move up/down
-    if (gPlayer1Controller->rawStickY > 2) {
-        o->oPosY += RATEX / 10;
-    } else if (gPlayer1Controller->rawStickY < -2) {
-        o->oPosY += RATEX / 10 * -1.0;
+    if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+        if (gPlayer1Controller->rawStickY > 2) {
+            o->oPosY += RATEX / 10;
+        } else if (gPlayer1Controller->rawStickY < -2) {
+            o->oPosY += RATEX / 10 * -1.0;
+        }
     }
 
     // Limits the platform to be in between BPARAM2 and BPARAM 3 divided by 10
@@ -361,4 +373,20 @@ void bhv_selector(void) {
     if (o->oPosY < -900.0f) {
         o->oPosY = -900.0f;
     }
+}
+
+void bhv_caged_star(void) {
+    o->parentObj = cur_obj_nearest_object_with_behavior(bhvBreakableBoxSmall);
+    
+    if (o->parentObj == NULL) {
+        obj_mark_for_deletion(o);
+    } else {
+        o->oPosY = (o->parentObj->oPosY + 50);
+        o->oPosX = o->parentObj->oPosX;
+    }
+
+    //o->oFaceAngleRoll = o->parentObj->oFaceAngleRoll;
+    //o->oFaceAnglePitch = o->parentObj->oFaceAnglePitch;
+
+
 }

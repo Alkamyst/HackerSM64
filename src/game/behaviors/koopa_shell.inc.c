@@ -64,12 +64,14 @@ void koopa_shell_spawn_sparkles(f32 a) {
 
 void bhv_koopa_shell_loop(void) {
     struct Surface *floor;
+    struct Object *platform = o->platform;
 
     obj_set_hitbox(o, &sKoopaShellHitbox);
     cur_obj_scale(1.0f);
 
     switch (o->oAction) {
         case KOOPA_SHELL_ACT_MARIO_NOT_RIDING:
+
             cur_obj_update_floor_and_walls();
             cur_obj_if_hit_wall_bounce_away();
 
@@ -81,6 +83,12 @@ void bhv_koopa_shell_loop(void) {
             cur_obj_move_standard(-20);
             koopa_shell_spawn_sparkles(10.0f);
             check_shell_despawn();
+            
+            // Align object gfx to floor if it is on the floor
+            if (o->oPosY <= o->oFloorHeight) {
+                cur_obj_align_gfx_with_floor();
+            }
+
             break;
 
         case KOOPA_SHELL_ACT_MARIO_RIDING:

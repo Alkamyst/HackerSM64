@@ -16,3 +16,4 @@
 #include "slide_platform_small/model.inc.c"
 #include "level_button/model.inc.c"
 #include "selector/model.inc.c"
+#include "star_ball/model.inc.c"

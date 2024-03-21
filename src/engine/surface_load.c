@@ -673,7 +673,7 @@ static void get_optimal_coll_dist(struct Object *obj) {
         collisionData += 3;
         vertsLeft--;
     }
-    obj->oCollisionDistance = (sqrtf(maxDist) + 100.0f);
+    obj->oCollisionDistance = (sqrtf(maxDist) + 10000.0f); // I made this number very big, tee hee
 }
 #endif
 

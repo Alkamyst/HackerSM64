@@ -327,6 +327,7 @@
 #define MODEL_SLIDE_PLATFORM_SMALL        0x57        // slide_platform_small_geo
 #define MODEL_LEVEL_BUTTON                0x58        // level_button_geo
 #define MODEL_SELECTOR                    0x59        // selector_geo
+#define MODEL_STAR_BALL                   0x5A        // star_ball_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo

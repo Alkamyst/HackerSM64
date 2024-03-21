@@ -23,4 +23,6 @@
 
 #include "selector/geo_header.h"
 
+#include "star_ball/geo_header.h"
+
 #endif

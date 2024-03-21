@@ -217,6 +217,7 @@ const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_SLIDE_PLATFORM_SMALL,    slide_platform_small_geo),
     LOAD_MODEL_FROM_GEO(MODEL_LEVEL_BUTTON,            level_button_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SELECTOR,                selector_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_STAR_BALL,               star_ball_geo),
     RETURN(),
 };
 

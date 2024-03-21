@@ -9,7 +9,6 @@ const GeoLayout bbh_area_1_geo[] = {
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, bbh_dl_Cube_mesh_layer_5),
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4720, 0, bbh_dl_Plane_mesh_layer_1),
-		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 0, -3498, bbh_dl_World_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };

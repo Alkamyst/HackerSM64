@@ -550,5 +550,6 @@ extern const BehaviorScript bhvWindFan[];
 extern const BehaviorScript bhvLevelButton[];
 extern const BehaviorScript bhvSelector[];
 extern const BehaviorScript bhvLevelNumber[];
+extern const BehaviorScript bhvCagedStar[];
 
 #endif // BEHAVIOR_DATA_H

@@ -13,3 +13,4 @@
 #include "slide_platform_small/geo.inc.c"
 #include "level_button/geo.inc.c"
 #include "selector/geo.inc.c"
+#include "star_ball/geo.inc.c"
