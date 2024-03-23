@@ -4782,10 +4782,9 @@ const BehaviorScript bhvControllablePlatformSub[] = {
 };
 
 const BehaviorScript bhvBreakableBoxSmall[] = {
-    BEGIN(OBJ_LIST_DESTRUCTIVE),
-    OR_INT(oFlags, (OBJ_FLAG_HOLDABLE | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    BEGIN(OBJ_LIST_LEVEL),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE |OBJ_FLAG_COMPUTE_DIST_TO_MARIO)),
     SET_FLOAT(oGraphYOffset, 50),
-    DROP_TO_FLOOR(),
     SET_HOME(),
     CALL_NATIVE(bhv_breakable_box_small_init),
     BEGIN_LOOP(),
@@ -6136,15 +6135,18 @@ const BehaviorScript bhvMarker[] = {
     END_LOOP(),
 };
 
+extern void bhv_fan_init();
 extern void bhv_fan();
 const BehaviorScript bhvFan[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_COLLISION_DATA(slide_platform_small_collision),
+    //LOAD_COLLISION_DATA(slide_platform_small_collision),
     SET_FLOAT(oDrawingDistance, 20000),
+    SET_HOME(),
+    CALL_NATIVE(bhv_fan_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_fan),
-        CALL_NATIVE(load_object_collision_model),
+        //CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };
 
@@ -6199,5 +6201,28 @@ const BehaviorScript bhvCagedStar[] = {
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_collect_star_loop),
         CALL_NATIVE(bhv_caged_star),
+    END_LOOP(),
+};
+
+extern void bhv_pinball_init();
+extern void bhv_pinball();
+const BehaviorScript bhvPinball[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(pinball_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    CALL_NATIVE(bhv_pinball_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_pinball),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
+extern void bhv_button_indicator();
+const BehaviorScript bhvButtonIndicator[] = {
+    BEGIN(OBJ_LIST_UNIMPORTANT),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_button_indicator),
     END_LOOP(),
 };

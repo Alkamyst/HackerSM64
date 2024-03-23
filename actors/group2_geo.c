@@ -14,3 +14,5 @@
 #include "level_button/geo.inc.c"
 #include "selector/geo.inc.c"
 #include "star_ball/geo.inc.c"
+#include "pinball/geo.inc.c"
+#include "fan/geo.inc.c"

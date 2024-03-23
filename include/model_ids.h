@@ -328,6 +328,8 @@
 #define MODEL_LEVEL_BUTTON                0x58        // level_button_geo
 #define MODEL_SELECTOR                    0x59        // selector_geo
 #define MODEL_STAR_BALL                   0x5A        // star_ball_geo
+#define MODEL_PINBALL                     0x5B        // pinball_geo
+#define MODEL_FAN                         0x5C        // fan_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo

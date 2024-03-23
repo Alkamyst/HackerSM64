@@ -31,7 +31,18 @@ void small_breakable_box_spawn_dust(void) {
 }
 
 void small_breakable_box_act_move(void) {
-    s16 collisionFlags = object_step();
+    s16 collisionFlags = object_step_without_floor_orient();
+    struct Object *platform = o->platform;
+
+    if ((o->oPosY <= o->oFloorHeight) && (platform != NULL)) {
+        o->oPosX += o->oFloor->object->oVelX;
+    }
+
+    if ((o->oFloor != NULL) && (o->oFloor->object != NULL)) {
+        o->platform = o->oFloor->object;
+    } else {
+        o->platform = NULL;
+    }
 
     //obj_attack_collided_from_other_object(o);
 

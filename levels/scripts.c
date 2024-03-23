@@ -218,6 +218,8 @@ const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_LEVEL_BUTTON,            level_button_geo),
     LOAD_MODEL_FROM_GEO(MODEL_SELECTOR,                selector_geo),
     LOAD_MODEL_FROM_GEO(MODEL_STAR_BALL,               star_ball_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_PINBALL,                 pinball_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_FAN,                     fan_geo),
     RETURN(),
 };
 

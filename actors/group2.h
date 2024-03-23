@@ -25,4 +25,10 @@
 
 #include "star_ball/geo_header.h"
 
+#include "pinball/geo_header.h"
+
+#include "pinball/collision_header.h"
+
+#include "fan/geo_header.h"
+
 #endif

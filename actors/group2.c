@@ -17,3 +17,6 @@
 #include "level_button/model.inc.c"
 #include "selector/model.inc.c"
 #include "star_ball/model.inc.c"
+#include "pinball/model.inc.c"
+#include "pinball/collision.inc.c"
+#include "fan/model.inc.c"

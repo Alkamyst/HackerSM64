@@ -44,15 +44,20 @@ void bhv_tilt_box(void) {
 }
 
 void bhv_slide_platform_hori(void) {
+    o->oVelX = 0;
 
     // Left joystick makes the platform move left/right
     if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
         if (gPlayer1Controller->rawStickX > 2) {
-            o->oPosX += RATEX / 13;
+            o->oVelX = RATEX / 13;
+            //o->oPosX += RATEX / 13;
         } else if (gPlayer1Controller->rawStickX < -2) {
-            o->oPosX += RATEX / 13 * -1.0;
+             o->oVelX = RATEX / 13 * -1.0;
+            //o->oPosX += RATEX / 13 * -1.0;
         }
     }
+
+    o->oPosX += o->oVelX;
 
     f32 limitRight = GET_BPARAM1(o->oBehParams);
     f32 limitLeft = GET_BPARAM3(o->oBehParams);
@@ -108,6 +113,22 @@ void bhv_slide_platform_vert(void) {
 
 }
 
+void bhv_fan_init(void) {
+    o->oOnOff = FALSE;
+    o->oActivated = TRUE;
+    o->oRotVel = 0;
+
+    if (GET_BPARAM1(o->oBehParams) != 0) {
+        o->oOnOff = TRUE;
+        spawn_object_relative(ORANGE_NUMBER_A, 0, 0, 50, o, MODEL_NONE, bhvButtonIndicator);
+    }
+
+    if (GET_BPARAM1(o->oBehParams) >= 2) {
+        o->oActivated = FALSE;
+    }
+
+}
+
 void bhv_fan(void) {
     f32 areaTop;
     f32 areaBottom;
@@ -115,8 +136,6 @@ void bhv_fan(void) {
     f32 areaRight;
     f32 direction;
     f32 speed = 32.0f;
-
-    spawn_wind_fan_particles(o->oFaceAnglePitch);
 
     // 0: North
     // 1: East
@@ -154,17 +173,41 @@ void bhv_fan(void) {
         areaRight = o->oPosX;
     }
 
-    if ((gMarioState->pos[0] > areaLeft) && (gMarioState->pos[0] < areaRight) && (gMarioState->pos[1] > areaBottom) && (gMarioState->pos[1] < areaTop)) {
-        if (direction == 0) {
-            gMarioState->vel[1] = speed;
-        } else if (direction == 1) {
-            gMarioState->pos[0] += speed;
-        } else if (direction == 2) {
-            gMarioState->vel[1] = (speed * -1.0);
+    if (o->oActivated) {
+        spawn_wind_fan_particles(o->oFaceAnglePitch);
+        if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+            if ((gMarioState->pos[0] > areaLeft) && (gMarioState->pos[0] < areaRight) && (gMarioState->pos[1] > areaBottom) && (gMarioState->pos[1] < areaTop)) {
+                if (direction == 0) {
+                    gMarioState->vel[1] = speed;
+                } else if (direction == 1) {
+                    gMarioState->pos[0] += speed;
+                } else if (direction == 2) {
+                    gMarioState->vel[1] = (speed * -1.0);
+                } else {
+                    gMarioState->pos[0] -= speed;
+                }
+            }
+        }
+
+        if (o->oRotVel < 3000) {
+            o->oRotVel += 500;
         } else {
-            gMarioState->pos[0] -= speed;
+            o->oRotVel = 3000;
+        }
+
+    } else {
+        if (o->oRotVel > 0) {
+            o->oRotVel -= 500;
+        } else {
+            o->oRotVel = 0;
         }
     }
+
+    if ((o->oOnOff) && (gPlayer1Controller->buttonPressed & (A_BUTTON))) {
+        o->oActivated = !(o->oActivated);
+    }
+
+    o->oFaceAngleRoll -= o->oRotVel;
 
     /*
     // Debug Markers for top right and bottom left of push area
@@ -389,4 +432,35 @@ void bhv_caged_star(void) {
     //o->oFaceAnglePitch = o->parentObj->oFaceAnglePitch;
 
 
+}
+
+void bhv_pinball_init(void) {
+    struct Object *orangeNumber;
+    orangeNumber = spawn_object_relative(ORANGE_NUMBER_A, 50, 0, 0, o, MODEL_NONE, bhvButtonIndicator);
+    orangeNumber->oPosZ += 250;
+}
+
+void bhv_pinball(void) {
+
+    if (gPlayer1Controller->buttonDown & (A_BUTTON)) {
+        if (o->oFaceAngleRoll > -12000) {
+            o->oFaceAngleRoll -= 3000;
+        } else {
+            o->oFaceAngleRoll = -12000;
+        }
+    } else {
+        if (o->oFaceAngleRoll < 0) {
+            o->oFaceAngleRoll += 3000;
+        } else {
+            o->oFaceAngleRoll = 0;
+        }
+    }
+
+}
+
+void bhv_button_indicator(void) {
+    struct Object *orangeNumber;
+    orangeNumber = spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvOrangeNumber);
+    orangeNumber->oHomeX = orangeNumber->oPosX;
+    orangeNumber->oHomeZ = orangeNumber->oPosZ;
 }

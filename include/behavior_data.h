@@ -551,5 +551,7 @@ extern const BehaviorScript bhvLevelButton[];
 extern const BehaviorScript bhvSelector[];
 extern const BehaviorScript bhvLevelNumber[];
 extern const BehaviorScript bhvCagedStar[];
+extern const BehaviorScript bhvPinball[];
+extern const BehaviorScript bhvButtonIndicator[];
 
 #endif // BEHAVIOR_DATA_H
