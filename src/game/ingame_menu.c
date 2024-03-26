@@ -1688,9 +1688,9 @@ void render_pause_camera_options(s16 x, s16 y, s8 *index, s16 xIndex) {
 void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
     u8 textContinue[] = { TEXT_CONTINUE };
     u8 textExitCourse[] = { TEXT_EXIT_COURSE };
-    u8 textCameraAngleR[] = { TEXT_CAMERA_ANGLE_R };
+    //u8 textCameraAngleR[] = { TEXT_CAMERA_ANGLE_R };
 
-    handle_menu_scrolling(MENU_SCROLL_VERTICAL, index, 1, 3);
+    handle_menu_scrolling(MENU_SCROLL_VERTICAL, index, 1, 2);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
@@ -1698,8 +1698,8 @@ void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
     print_generic_string(x + 10, y - 2, LANGUAGE_ARRAY(textContinue));
     print_generic_string(x + 10, y - 17, LANGUAGE_ARRAY(textExitCourse));
 
-    if (*index != MENU_OPT_CAMERA_ANGLE_R) {
-        print_generic_string(x + 10, y - 33, LANGUAGE_ARRAY(textCameraAngleR));
+    //if (*index != MENU_OPT_CAMERA_ANGLE_R) {
+       // print_generic_string(x + 10, y - 33, LANGUAGE_ARRAY(textCameraAngleR));
         gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
         create_dl_translation_matrix(MENU_MTX_PUSH, x - X_VAL8, (y - ((*index - 1) * yIndex)) - Y_VAL8, 0);
@@ -1707,11 +1707,11 @@ void render_pause_course_options(s16 x, s16 y, s8 *index, s16 yIndex) {
         gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, gDialogTextAlpha);
         gSPDisplayList(gDisplayListHead++, dl_draw_triangle);
         gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
-    }
+    //}
 
-    if (*index == MENU_OPT_CAMERA_ANGLE_R) {
-        render_pause_camera_options(x - 42, y - 42, &gDialogCameraAngleIndex, 110);
-    }
+    //if (*index == MENU_OPT_CAMERA_ANGLE_R) {
+    //    render_pause_camera_options(x - 42, y - 42, &gDialogCameraAngleIndex, 110);
+    //}
 }
 
 void render_pause_castle_menu_box(s16 x, s16 y) {
@@ -1897,20 +1897,22 @@ s32 render_pause_courses_and_castle(void) {
 
         case DIALOG_STATE_VERTICAL:
             shade_screen();
-            render_pause_my_score_coins();
+            //render_pause_my_score_coins();
             render_pause_red_coins();
 #ifndef DISABLE_EXIT_COURSE
+/*
 #ifdef EXIT_COURSE_WHILE_MOVING
             if ((gMarioStates[0].action & (ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER | ACT_FLAG_PAUSE_EXIT))
              || (gMarioStates[0].pos[1] <= gMarioStates[0].floorHeight)) {
 #else
             if (gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT) {
 #endif
-                render_pause_course_options(99, 93, &gDialogLineNum, 15);
-            }
+*/
+                render_pause_course_options(99, 123, &gDialogLineNum, 15);
+//            }
 #endif
 
-            if (gPlayer1Controller->buttonPressed & (A_BUTTON | START_BUTTON)) {
+            if (gPlayer1Controller->buttonPressed & (A_BUTTON)) {
                 level_set_transition(0, NULL);
                 play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
                 gDialogBoxState = DIALOG_STATE_OPENING;
@@ -1922,6 +1924,14 @@ s32 render_pause_courses_and_castle(void) {
                     index = MENU_OPT_DEFAULT;
                 }
 
+                return index;
+            } else if (gPlayer1Controller->buttonPressed & (START_BUTTON)) {
+                level_set_transition(0, NULL);
+                play_sound(SOUND_MENU_PAUSE_CLOSE, gGlobalSoundSource);
+                gDialogBoxState = DIALOG_STATE_OPENING;
+                gMenuMode = MENU_MODE_NONE;
+
+                index = MENU_OPT_DEFAULT;
                 return index;
             }
             break;

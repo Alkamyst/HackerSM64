@@ -1046,12 +1046,15 @@ s32 play_mode_normal(void) {
         } else if (sTransitionTimer != 0) {
             set_play_mode(PLAY_MODE_CHANGE_AREA);
         } else if (pressed_pause()) {
-            lower_background_noise(1);
+            if (gCurrCourseNum >= COURSE_MIN
+             && gCurrCourseNum <= COURSE_MAX) {
+                lower_background_noise(1);
 #if ENABLE_RUMBLE
-            cancel_rumble();
+                cancel_rumble();
 #endif
-            gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
-            set_play_mode(PLAY_MODE_PAUSED);
+                gCameraMovementFlags |= CAM_MOVE_PAUSE_SCREEN;
+                set_play_mode(PLAY_MODE_PAUSED);
+            }
         }
     }
     

@@ -616,6 +616,9 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                 break;
 
             case 80:
+                // Saves to file when star is collected
+                save_file_do_save(gCurrSaveFileNum - 1);
+                
                 if (!(m->actionArg & 1)) {
                     level_trigger_warp(m, WARP_OP_STAR_EXIT);
                 } else {

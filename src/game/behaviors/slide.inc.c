@@ -313,13 +313,24 @@ void bhv_wind_fan_loop(void) {
 }
 
 void bhv_level_button_init(void) {
+    s16 numStars = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
+    s16 requiredNumStars = requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 1);
     if (GET_BPARAM2(o->oBehParams) >= 0x10) {
-        spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x0F), 30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
-        spawn_object_relative(GET_BPARAM2(o->oBehParams), -30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
-    } else {
-        spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+        requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 7);
     }
-    o->oFlameScale = 1.0f;
+
+    // Deletes the object if not enough stars
+    if (numStars < requiredNumStars) {
+        obj_mark_for_deletion(o);
+    } else {
+        if (GET_BPARAM2(o->oBehParams) >= 0x10) {
+            spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x0F), 30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+            spawn_object_relative(GET_BPARAM2(o->oBehParams), -30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+        } else {
+            spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+        }
+        o->oFlameScale = 1.0f;
+    }
 }
 
 void bhv_level_button(void) {

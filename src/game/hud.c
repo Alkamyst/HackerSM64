@@ -621,6 +621,10 @@ void render_hud(void) {
         if (gCurrCourseNum >= COURSE_MIN
             && gCurrCourseNum <= COURSE_MAX) {
             print_small_text(310, 220, "PRESS R TO RESET", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+        } else if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
+            // Level Select Text
+            print_set_envcolour(83, 219, 237, 255);
+            print_small_text(160, 20, "LEVEL SELECT", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
         }
 
     }
