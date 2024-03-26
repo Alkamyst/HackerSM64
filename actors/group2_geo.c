@@ -16,3 +16,5 @@
 #include "star_ball/geo.inc.c"
 #include "pinball/geo.inc.c"
 #include "fan/geo.inc.c"
+#include "credits_button/geo.inc.c"
+#include "level_button_star/geo.inc.c"

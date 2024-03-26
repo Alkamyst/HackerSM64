@@ -1257,8 +1257,13 @@
 
 /* Fan */
 #define /*0x0F4*/ oOnOff     OBJECT_FIELD_S32(0x1B)
-#define /*0x0FC*/ oActivated OBJECT_FIELD_S32(0x1C)
-#define /*0x100*/ oRotVel    OBJECT_FIELD_S32(0x1D)
+#define /*0x0F8*/ oActivated OBJECT_FIELD_S32(0x1C)
+#define /*0x0FC*/ oRotVel    OBJECT_FIELD_S32(0x1D)
+
+/* Level Select Button */
+#define /*0x0F4*/ oButtonScale    OBJECT_FIELD_F32(0x1B)
+#define /*0x0FC*/ oButtonSizeHori OBJECT_FIELD_F32(0x1D)
+#define /*0x104*/ oButtonSizeVert OBJECT_FIELD_F32(0x1E)
 
 
 /*Custom general defines:

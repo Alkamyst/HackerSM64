@@ -319,6 +319,10 @@ void bhv_level_button_init(void) {
         requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 7);
     }
 
+    if (numStars > requiredNumStars) {
+        cur_obj_set_model(MODEL_LEVEL_BUTTON_STAR);
+    }
+
     // Deletes the object if not enough stars
     if (numStars < requiredNumStars) {
         obj_mark_for_deletion(o);
@@ -329,7 +333,7 @@ void bhv_level_button_init(void) {
         } else {
             spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
         }
-        o->oFlameScale = 1.0f;
+        o->oButtonScale = 1.0f;
     }
 }
 
@@ -338,12 +342,11 @@ void bhv_level_button(void) {
     f32 areaBottom;
     f32 areaLeft;
     f32 areaRight;
-    s16 size = 100;
 
-    areaTop = o->oPosY + size;
-    areaBottom = o->oPosY - size;
-    areaLeft = o->oPosX - size;
-    areaRight = o->oPosX + size;
+    areaTop = o->oPosY + o->oButtonSizeVert;
+    areaBottom = o->oPosY - o->oButtonSizeVert;
+    areaLeft = o->oPosX - o->oButtonSizeHori;
+    areaRight = o->oPosX + o->oButtonSizeHori;
     
     o->parentObj = cur_obj_nearest_object_with_behavior(bhvSelector);
 
@@ -358,15 +361,15 @@ void bhv_level_button(void) {
             }
             break;
         case 1:
-            if (o->oFlameScale > 1.1) {
+            if (o->oButtonScale > 1.1) {
                 o->oAction = 2;
             } else {
-                o->oFlameScale += 0.05f;
+                o->oButtonScale += 0.05f;
             }
             break;
         case 2:
-            if (o->oFlameScale > 1.0) {
-                o->oFlameScale -= 0.05f;
+            if (o->oButtonScale > 1.0) {
+                o->oButtonScale -= 0.05f;
             } else {
                 play_sound(SOUND_MENU_ENTER_HOLE, gGlobalSoundSource);
                 gMarioState->usedObj = o;
@@ -387,7 +390,7 @@ void bhv_level_button(void) {
     }
     */
 
-    cur_obj_scale(o->oFlameScale);
+    cur_obj_scale(o->oButtonScale);
 
 }
 

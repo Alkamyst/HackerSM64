@@ -1,0 +1,15 @@
+extern const GeoLayout credits_button_geo[];
+extern u8 credits_button_EARTHWORM_JIM_3D_0A73F969_0_7_all_ci8[];
+extern u8 credits_button_EARTHWORM_JIM_3D_0A73F969_0_7_all_ci8_pal_rgba16[];
+extern u8 credits_button_Words_ia8[];
+extern Vtx credits_button_Cube_mesh_layer_1_vtx_0[24];
+extern Gfx credits_button_Cube_mesh_layer_1_tri_0[];
+extern Vtx credits_button_Cube_mesh_layer_4_vtx_0[4];
+extern Gfx credits_button_Cube_mesh_layer_4_tri_0[];
+extern Gfx mat_credits_button_f3dlite_material_002[];
+extern Gfx mat_revert_credits_button_f3dlite_material_002[];
+extern Gfx mat_credits_button_f3dlite_material[];
+extern Gfx mat_revert_credits_button_f3dlite_material[];
+extern Gfx credits_button_Cube_mesh_layer_1[];
+extern Gfx credits_button_Cube_mesh_layer_4[];
+extern Gfx credits_button_material_revert_render_settings[];

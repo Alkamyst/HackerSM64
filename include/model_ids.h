@@ -330,6 +330,8 @@
 #define MODEL_STAR_BALL                   0x5A        // star_ball_geo
 #define MODEL_PINBALL                     0x5B        // pinball_geo
 #define MODEL_FAN                         0x5C        // fan_geo
+#define MODEL_CREDITS_BUTTON              0x5D        // credits_button_geo
+#define MODEL_LEVEL_BUTTON_STAR           0x5E        // level_button_star_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo

@@ -2205,6 +2205,35 @@ s32 render_course_complete_screen(void) {
     return MENU_OPT_NONE;
 }
 
+s32 render_star_name(void) {
+    u8 *name;
+
+    void **actNameTbl    = segmented_to_virtual(languageTable[gInGameLanguage][2]);
+
+    name = segmented_to_virtual(actNameTbl[COURSE_NUM_TO_INDEX(gCurrCourseNum) * 6 + gCurrAreaIndex - 1]);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
+
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
+    print_generic_string(16, 15, name);
+
+    gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
+    print_generic_string(14, 17, name);
+
+    gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
+
+    gCourseDoneMenuTimer++;
+
+    if (gCourseDoneMenuTimer > 110) {
+        gCourseDoneMenuTimer = 0;
+        gMenuMode = MENU_MODE_NONE;
+    }
+    
+    //print_small_text(160, 200, starName, PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_VANILLA);
+
+    return MENU_OPT_NONE;
+}
+
 s32 render_menus_and_dialogs(void) {
     s32 mode = MENU_OPT_NONE;
 
@@ -2222,7 +2251,7 @@ s32 render_menus_and_dialogs(void) {
                 mode = render_course_complete_screen();
                 break;
             case MENU_MODE_UNUSED_3:
-                mode = render_course_complete_screen();
+                mode = render_star_name();
                 break;
         }
 

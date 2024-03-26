@@ -609,6 +609,8 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                         play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_STAR), 0);
                     }
                 }
+                // Shows the star name
+                set_menu_mode(MENU_MODE_UNUSED_3);
                 break;
 
             case 42:
@@ -618,7 +620,7 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
             case 80:
                 // Saves to file when star is collected
                 save_file_do_save(gCurrSaveFileNum - 1);
-                
+
                 if (!(m->actionArg & 1)) {
                     level_trigger_warp(m, WARP_OP_STAR_EXIT);
                 } else {

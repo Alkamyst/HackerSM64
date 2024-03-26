@@ -548,6 +548,7 @@ extern const BehaviorScript bhvMarker[];
 extern const BehaviorScript bhvFan[];
 extern const BehaviorScript bhvWindFan[];
 extern const BehaviorScript bhvLevelButton[];
+extern const BehaviorScript bhvCreditsButton[];
 extern const BehaviorScript bhvSelector[];
 extern const BehaviorScript bhvLevelNumber[];
 extern const BehaviorScript bhvCagedStar[];

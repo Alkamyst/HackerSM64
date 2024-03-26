@@ -31,4 +31,8 @@
 
 #include "fan/geo_header.h"
 
+#include "credits_button/geo_header.h"
+
+#include "level_button_star/geo_header.h"
+
 #endif

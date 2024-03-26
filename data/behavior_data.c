@@ -6166,7 +6166,22 @@ const BehaviorScript bhvLevelButton[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oButtonSizeHori, 100),
+    SET_FLOAT(oButtonSizeVert, 100),
     CALL_NATIVE(bhv_level_button_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_level_button),
+    END_LOOP(),
+};
+
+extern void bhv_level_button();
+const BehaviorScript bhvCreditsButton[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oButtonScale, 1),
+    SET_FLOAT(oButtonSizeHori, 200),
+    SET_FLOAT(oButtonSizeVert, 100),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_level_button),
     END_LOOP(),

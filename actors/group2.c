@@ -20,3 +20,5 @@
 #include "pinball/model.inc.c"
 #include "pinball/collision.inc.c"
 #include "fan/model.inc.c"
+#include "credits_button/model.inc.c"
+#include "level_button_star/model.inc.c"
