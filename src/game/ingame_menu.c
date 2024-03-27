@@ -2215,10 +2215,10 @@ s32 render_star_name(void) {
     gSPDisplayList(gDisplayListHead++, dl_ia_text_begin);
 
     gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 255);
-    print_generic_string(16, 15, name);
+    print_generic_string(23, 15, name);
 
     gDPSetEnvColor(gDisplayListHead++, 255, 255, 255, 255);
-    print_generic_string(14, 17, name);
+    print_generic_string(21, 17, name);
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 

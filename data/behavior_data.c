@@ -6207,15 +6207,16 @@ const BehaviorScript bhvLevelNumber[] = {
     END_LOOP(),
 };
 
+extern void bhv_caged_star_init();
 extern void bhv_caged_star();
 const BehaviorScript bhvCagedStar[] = {
     BEGIN(OBJ_LIST_LEVEL),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    CALL_NATIVE(bhv_init_room),
+    CALL_NATIVE(bhv_caged_star_init),
     CALL_NATIVE(bhv_collect_star_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_collect_star_loop),
         CALL_NATIVE(bhv_caged_star),
+        CALL_NATIVE(bhv_collect_star_loop),
     END_LOOP(),
 };
 

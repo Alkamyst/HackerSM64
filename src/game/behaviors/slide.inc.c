@@ -212,10 +212,10 @@ void bhv_fan(void) {
     /*
     // Debug Markers for top right and bottom left of push area
     if (o->oTimer == 0) {
-        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
                                     areaRight, areaTop, o->oPosZ, 0, 0, 0);
 
-        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
                                     areaLeft, areaBottom, o->oPosZ, 0, 0, 0);
     }
     */
@@ -314,7 +314,7 @@ void bhv_wind_fan_loop(void) {
 
 void bhv_level_button_init(void) {
     s16 numStars = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
-    s16 requiredNumStars = requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 1);
+    s16 requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 1);
     if (GET_BPARAM2(o->oBehParams) >= 0x10) {
         requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 7);
     }
@@ -328,8 +328,8 @@ void bhv_level_button_init(void) {
         obj_mark_for_deletion(o);
     } else {
         if (GET_BPARAM2(o->oBehParams) >= 0x10) {
-            spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x0F), 30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
-            spawn_object_relative(GET_BPARAM2(o->oBehParams), -30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+            spawn_object_relative(((GET_BPARAM2(o->oBehParams) - 0x06) / 10), 30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+            spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x10), -30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
         } else {
             spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
         }
@@ -432,6 +432,11 @@ void bhv_selector(void) {
     }
 }
 
+void bhv_caged_star_init(void) {
+    // Sets the BPARAM of the star
+    SET_BPARAM1(o->oBehParams, GET_BPARAM2(o->oBehParams));
+}
+
 void bhv_caged_star(void) {
     o->parentObj = cur_obj_nearest_object_with_behavior(bhvBreakableBoxSmall);
     
@@ -441,11 +446,6 @@ void bhv_caged_star(void) {
         o->oPosY = (o->parentObj->oPosY + 50);
         o->oPosX = o->parentObj->oPosX;
     }
-
-    //o->oFaceAngleRoll = o->parentObj->oFaceAngleRoll;
-    //o->oFaceAnglePitch = o->parentObj->oFaceAnglePitch;
-
-
 }
 
 void bhv_pinball_init(void) {

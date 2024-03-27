@@ -21,7 +21,7 @@ void bhv_breakable_box_small_init(void) {
     o->oAnimState = BREAKABLE_BOX_ANIM_STATE_CORK_BOX;
     o->activeFlags |= ACTIVE_FLAG_DESTRUCTIVE_OBJ_DONT_DESTROY;
     // Make Star
-    spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NONE, bhvCagedStar);
+    spawn_object_relative(GET_BPARAM1(o->oBehParams), 0, 0, 0, o, MODEL_NONE, bhvCagedStar);
 }
 
 void small_breakable_box_spawn_dust(void) {

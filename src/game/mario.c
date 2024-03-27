@@ -1380,6 +1380,8 @@ void update_mario_inputs(struct MarioState *m) {
     if (gCurrCourseNum >= COURSE_MIN
         && gCurrCourseNum <= COURSE_MAX) {
         if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
+    } else if (gCurrLevelNum == LEVEL_CASTLE) {
+        if (gPlayer1Controller->buttonPressed & B_BUTTON) level_trigger_warp(m, WARP_OP_RESET);
     }
 
 }

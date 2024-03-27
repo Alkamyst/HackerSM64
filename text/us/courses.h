@@ -1,14 +1,14 @@
 COURSE_ACTS(COURSE_BOB, _(" 1 BOB-OMB BATTLEFIELD"),
-       _("SLIDE IS YOU")                  , _("TILT AND TUMBLE")               , _("TO AND FRO"),
+       _("MARIO SLIDES")                  , _("MARIO FLINGS")                  , _("TO AND FRO"),
        _("HIGH AND LOW")                  , _("ORBIT")                         , _("BEHIND CHAIN CHOMP'S GATE"))
 
 COURSE_ACTS(COURSE_WF, _(" 2 WHOMP'S FORTRESS"),
-       _("SLIDE IS PLATFORM")             , _("BACK AND FORTH")                , _("BACK IT UP"),
+       _("PLATFORM SLIDES")               , _("SEESAW")                        , _("BACK IT UP"),
        _("SLAM DUNK")                     , _("TRUST FALL")                    , _("BLAST AWAY THE WALL"))
 
 COURSE_ACTS(COURSE_JRB, _(" 3 JOLLY ROGER BAY"),
-       _("PLUNDER IN THE SUNKEN SHIP")    , _("CAN THE EEL COME OUT TO PLAY?") , _("TREASURE OF THE OCEAN CAVE"),
-       _("RED COINS ON THE SHIP AFLOAT")  , _("BLAST TO THE STONE PILLAR")     , _("THROUGH THE JET STREAM"))
+       _("STAR SLIDES")                   , _("MIDDLE MANAGEMENT")             , _("NOT A BIG FAN"),
+       _("CATCH")                         , _("CATCHING AIR")                  , _("THROUGH THE JET STREAM"))
 
 COURSE_ACTS(COURSE_CCM, _(" 4 COOL, COOL MOUNTAIN"),
        _("SLIP SLIDIN' AWAY")             , _("LI'L PENGUIN LOST")             , _("BIG PENGUIN RACE"),
