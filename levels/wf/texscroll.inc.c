@@ -2,7 +2,7 @@ void scroll_wf_dl_Cube_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 4;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -29,7 +29,7 @@ void scroll_wf_dl_Cube_mesh_layer_1_vtx_0() {
 
 void scroll_sts_mat_wf_dl_black() {
 	Gfx *mat = segmented_to_virtual(mat_wf_dl_black);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+	shift_s(mat, 8, PACK_TILESIZE(0, 1));
 };
 
 void scroll_wf_dl_Cube_mesh_layer_6_vtx_0() {
@@ -69,7 +69,7 @@ void scroll_wf_dl_Cube_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -77,7 +77,7 @@ void scroll_wf_dl_Cube_mesh_layer_5_vtx_0() {
 	int deltaY;
 	Vtx *vertices = segmented_to_virtual(wf_dl_Cube_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.10000000149011612 * 0x20 * random_float() * random_sign()) % width;
+	deltaX = (int)(0.0 * 0x20 * random_float() * random_sign()) % width;
 	deltaY = (int)(0.10000000149011612 * 0x20) % height;
 
 	if (absi(currentX) > width) {
@@ -98,7 +98,7 @@ void scroll_wf_dl_Cube_001_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 4;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -123,9 +123,9 @@ void scroll_wf_dl_Cube_001_mesh_layer_1_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_sts_mat_wf_dl_black_001() {
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_001);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+void scroll_sts_mat_wf_dl_black_003() {
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_003);
+	shift_s(mat, 8, PACK_TILESIZE(0, 1));
 };
 
 void scroll_wf_dl_Cube_001_mesh_layer_6_vtx_0() {
@@ -149,10 +149,10 @@ void scroll_wf_dl_Cube_001_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_sts_mat_wf_dl_stars_001() {
+void scroll_sts_mat_wf_dl_stars_003() {
 	static int intervalTex1 = 3;
 	static int curInterval1 = 3;
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_001);
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_003);
 
 	if (--curInterval1 <= 0) {
 		shift_s(mat, -1, PACK_TILESIZE(0, 2));
@@ -165,7 +165,7 @@ void scroll_wf_dl_Cube_001_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -173,7 +173,7 @@ void scroll_wf_dl_Cube_001_mesh_layer_5_vtx_0() {
 	int deltaY;
 	Vtx *vertices = segmented_to_virtual(wf_dl_Cube_001_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.10000000149011612 * 0x20 * random_float() * random_sign()) % width;
+	deltaX = (int)(0.0 * 0x20 * random_float() * random_sign()) % width;
 	deltaY = (int)(0.10000000149011612 * 0x20) % height;
 
 	if (absi(currentX) > width) {
@@ -194,7 +194,7 @@ void scroll_wf_dl_Cube_002_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 4;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -219,9 +219,9 @@ void scroll_wf_dl_Cube_002_mesh_layer_1_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_sts_mat_wf_dl_black_002() {
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_002);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+void scroll_sts_mat_wf_dl_black_006() {
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_006);
+	shift_s(mat, 8, PACK_TILESIZE(0, 1));
 };
 
 void scroll_wf_dl_Cube_002_mesh_layer_6_vtx_0() {
@@ -245,10 +245,10 @@ void scroll_wf_dl_Cube_002_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_sts_mat_wf_dl_stars_002() {
+void scroll_sts_mat_wf_dl_stars_006() {
 	static int intervalTex1 = 3;
 	static int curInterval1 = 3;
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_002);
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_006);
 
 	if (--curInterval1 <= 0) {
 		shift_s(mat, -1, PACK_TILESIZE(0, 2));
@@ -261,7 +261,7 @@ void scroll_wf_dl_Cube_002_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -269,7 +269,7 @@ void scroll_wf_dl_Cube_002_mesh_layer_5_vtx_0() {
 	int deltaY;
 	Vtx *vertices = segmented_to_virtual(wf_dl_Cube_002_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.10000000149011612 * 0x20 * random_float() * random_sign()) % width;
+	deltaX = (int)(0.0 * 0x20 * random_float() * random_sign()) % width;
 	deltaY = (int)(0.10000000149011612 * 0x20) % height;
 
 	if (absi(currentX) > width) {
@@ -290,7 +290,7 @@ void scroll_wf_dl_Cube_004_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 4;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -315,9 +315,9 @@ void scroll_wf_dl_Cube_004_mesh_layer_1_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_sts_mat_wf_dl_black_004() {
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_004);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+void scroll_sts_mat_wf_dl_black_007() {
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_007);
+	shift_s(mat, 8, PACK_TILESIZE(0, 1));
 };
 
 void scroll_wf_dl_Cube_004_mesh_layer_6_vtx_0() {
@@ -341,10 +341,10 @@ void scroll_wf_dl_Cube_004_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_sts_mat_wf_dl_stars_004() {
+void scroll_sts_mat_wf_dl_stars_007() {
 	static int intervalTex1 = 3;
 	static int curInterval1 = 3;
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_004);
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_007);
 
 	if (--curInterval1 <= 0) {
 		shift_s(mat, -1, PACK_TILESIZE(0, 2));
@@ -357,7 +357,7 @@ void scroll_wf_dl_Cube_004_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -365,7 +365,7 @@ void scroll_wf_dl_Cube_004_mesh_layer_5_vtx_0() {
 	int deltaY;
 	Vtx *vertices = segmented_to_virtual(wf_dl_Cube_004_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.10000000149011612 * 0x20 * random_float() * random_sign()) % width;
+	deltaX = (int)(0.0 * 0x20 * random_float() * random_sign()) % width;
 	deltaY = (int)(0.10000000149011612 * 0x20) % height;
 
 	if (absi(currentX) > width) {
@@ -386,7 +386,7 @@ void scroll_wf_dl_Cube_003_mesh_layer_1_vtx_0() {
 	int i = 0;
 	int count = 4;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -411,9 +411,9 @@ void scroll_wf_dl_Cube_003_mesh_layer_1_vtx_0() {
 	currentX += deltaX;	currentY += deltaY;
 }
 
-void scroll_sts_mat_wf_dl_black_005() {
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_005);
-	shift_s(mat, 13, PACK_TILESIZE(0, 1));
+void scroll_sts_mat_wf_dl_black_008() {
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_black_008);
+	shift_s(mat, 8, PACK_TILESIZE(0, 1));
 };
 
 void scroll_wf_dl_Cube_003_mesh_layer_6_vtx_0() {
@@ -437,10 +437,10 @@ void scroll_wf_dl_Cube_003_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_sts_mat_wf_dl_stars_005() {
+void scroll_sts_mat_wf_dl_stars_008() {
 	static int intervalTex1 = 3;
 	static int curInterval1 = 3;
-	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_005);
+	Gfx *mat = segmented_to_virtual(mat_wf_dl_stars_008);
 
 	if (--curInterval1 <= 0) {
 		shift_s(mat, -1, PACK_TILESIZE(0, 2));
@@ -453,7 +453,7 @@ void scroll_wf_dl_Cube_003_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
-	int height = 32 * 0x20;
+	int height = 64 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
@@ -461,7 +461,7 @@ void scroll_wf_dl_Cube_003_mesh_layer_5_vtx_0() {
 	int deltaY;
 	Vtx *vertices = segmented_to_virtual(wf_dl_Cube_003_mesh_layer_5_vtx_0);
 
-	deltaX = (int)(0.10000000149011612 * 0x20 * random_float() * random_sign()) % width;
+	deltaX = (int)(0.0 * 0x20 * random_float() * random_sign()) % width;
 	deltaY = (int)(0.10000000149011612 * 0x20) % height;
 
 	if (absi(currentX) > width) {
@@ -485,23 +485,23 @@ void scroll_wf() {
 	scroll_sts_mat_wf_dl_stars();
 	scroll_wf_dl_Cube_mesh_layer_5_vtx_0();
 	scroll_wf_dl_Cube_001_mesh_layer_1_vtx_0();
-	scroll_sts_mat_wf_dl_black_001();
+	scroll_sts_mat_wf_dl_black_003();
 	scroll_wf_dl_Cube_001_mesh_layer_6_vtx_0();
-	scroll_sts_mat_wf_dl_stars_001();
+	scroll_sts_mat_wf_dl_stars_003();
 	scroll_wf_dl_Cube_001_mesh_layer_5_vtx_0();
 	scroll_wf_dl_Cube_002_mesh_layer_1_vtx_0();
-	scroll_sts_mat_wf_dl_black_002();
+	scroll_sts_mat_wf_dl_black_006();
 	scroll_wf_dl_Cube_002_mesh_layer_6_vtx_0();
-	scroll_sts_mat_wf_dl_stars_002();
+	scroll_sts_mat_wf_dl_stars_006();
 	scroll_wf_dl_Cube_002_mesh_layer_5_vtx_0();
 	scroll_wf_dl_Cube_004_mesh_layer_1_vtx_0();
-	scroll_sts_mat_wf_dl_black_004();
+	scroll_sts_mat_wf_dl_black_007();
 	scroll_wf_dl_Cube_004_mesh_layer_6_vtx_0();
-	scroll_sts_mat_wf_dl_stars_004();
+	scroll_sts_mat_wf_dl_stars_007();
 	scroll_wf_dl_Cube_004_mesh_layer_5_vtx_0();
 	scroll_wf_dl_Cube_003_mesh_layer_1_vtx_0();
-	scroll_sts_mat_wf_dl_black_005();
+	scroll_sts_mat_wf_dl_black_008();
 	scroll_wf_dl_Cube_003_mesh_layer_6_vtx_0();
-	scroll_sts_mat_wf_dl_stars_005();
+	scroll_sts_mat_wf_dl_stars_008();
 	scroll_wf_dl_Cube_003_mesh_layer_5_vtx_0();
 }

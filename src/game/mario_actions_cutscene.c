@@ -596,18 +596,20 @@ void general_star_dance_handler(struct MarioState *m, s32 isInWater) {
                     obj_set_model(celebStar, gStarModelLastCollected);
                 }
 #endif
-                disable_background_sound();
+                //disable_background_sound();
                 //! TODO: Is this check necessary? Both seem to do the exact same thing.
                 if (m->actionArg & 1) {
                     // No exit
                     play_course_clear(obj_has_model(celebStar, MODEL_BOWSER_KEY));
                 } else {
                     // Exit
+                    /*
                     if (obj_has_model(celebStar, MODEL_BOWSER_KEY)) {
                         play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_KEY), 0);
                     } else {
                         play_music(SEQ_PLAYER_ENV, SEQUENCE_ARGS(15, SEQ_EVENT_CUTSCENE_COLLECT_STAR), 0);
                     }
+                    */
                 }
                 // Shows the star name
                 set_menu_mode(MENU_MODE_UNUSED_3);
