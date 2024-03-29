@@ -1,6 +1,11 @@
 extern void scroll_ccm_dl_Cube_mesh_layer_1_vtx_0();
-extern void scroll_sts_mat_ccm_dl_black();
-extern void scroll_ccm_dl_Cube_mesh_layer_6_vtx_0();
-extern void scroll_sts_mat_ccm_dl_stars();
 extern void scroll_ccm_dl_Cube_mesh_layer_5_vtx_0();
+extern void scroll_ccm_dl_Cube_001_mesh_layer_1_vtx_0();
+extern void scroll_ccm_dl_Cube_001_mesh_layer_5_vtx_0();
+extern void scroll_ccm_dl_Cube_002_mesh_layer_1_vtx_0();
+extern void scroll_ccm_dl_Cube_002_mesh_layer_5_vtx_0();
+extern void scroll_ccm_dl_Cube_004_mesh_layer_1_vtx_0();
+extern void scroll_ccm_dl_Cube_004_mesh_layer_5_vtx_0();
+extern void scroll_ccm_dl_Cube_005_mesh_layer_1_vtx_0();
+extern void scroll_ccm_dl_Cube_005_mesh_layer_5_vtx_0();
 extern void scroll_ccm();

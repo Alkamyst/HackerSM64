@@ -62,6 +62,10 @@ void bhv_slide_platform_hori(void) {
     f32 limitRight = GET_BPARAM1(o->oBehParams);
     f32 limitLeft = GET_BPARAM3(o->oBehParams);
 
+    if ((o->oPosX > limitRight * 10.0) || (o->oPosX < limitLeft * -10.0)) {
+        o->oVelX = 0;
+    }
+
     // Flips the limit if the next BPARAM is not 0
     if (GET_BPARAM2(o->oBehParams) > 0) {
         limitRight = (GET_BPARAM1(o->oBehParams) * -1.0);
@@ -96,19 +100,41 @@ void bhv_slide_platform_vert(void) {
     // Left joystick makes the platform move up/down
     if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
         if (gPlayer1Controller->rawStickY > 2) {
-            o->oPosY += RATEX / 10;
+            o->oPosY += RATEY / 10;
         } else if (gPlayer1Controller->rawStickY < -2) {
-            o->oPosY += RATEX / 10 * -1.0;
+            o->oPosY += RATEY / 10 * -1.0;
         }
     }
 
-    // Limits the platform to be in between BPARAM2 and BPARAM 3 divided by 10
-    if (o->oPosX > GET_BPARAM2(o->oBehParams) * 10.0) {
-        o->oPosX = GET_BPARAM2(o->oBehParams) * 10.0;
+    f32 limitTop = GET_BPARAM1(o->oBehParams);
+    f32 limitBottom = GET_BPARAM3(o->oBehParams);
+
+    // Flips the limit if the next BPARAM is not 0
+    if (GET_BPARAM2(o->oBehParams) > 0) {
+        limitTop = (GET_BPARAM1(o->oBehParams) * -1.0);
     }
 
-    if (o->oPosX < (GET_BPARAM3(o->oBehParams) * -10.0)) {
-        o->oPosX = (GET_BPARAM3(o->oBehParams) * -10.0);
+    if (GET_BPARAM4(o->oBehParams) > 0) {
+        limitBottom = (GET_BPARAM3(o->oBehParams) * -1.0);
+    }
+
+
+    // Limits the platform to be in between BPARAM2 and BPARAM 3 divided by 10
+    if (o->oPosY > limitTop * 10.0) {
+        o->oPosY = limitTop * 10.0;
+    }
+
+    if (o->oPosY < limitBottom * -10.0) {
+        o->oPosY = limitBottom * -10.0;
+    }
+
+    // Spawns Markers
+    if (o->oTimer == 0) {
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
+                                    o->oPosX, ((limitBottom * -10.0) - 250.0), o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
+                                    o->oPosX, ((limitTop * 10.0) + 250.0), o->oPosZ, 0, 0, 0);
     }
 
 }
@@ -141,11 +167,12 @@ void bhv_fan(void) {
     // 1: East
     // 2: South
     // 3: West
-    if ((o->oMoveAnglePitch > 0) && (o->oMoveAngleYaw == 0)){
+
+    if ((o->oMoveAnglePitch < 0) && (o->oMoveAngleYaw == 0)) {
         direction = 0;
-    } else if ((o->oMoveAnglePitch == 0) && (o->oMoveAngleYaw > 0)){
+    } else if ((o->oMoveAnglePitch == 0) && (o->oMoveAngleYaw > 0)) {
         direction = 1;
-    } else if ((o->oMoveAnglePitch < 0) && (o->oMoveAngleYaw == 0)) {
+    } else if ((o->oMoveAnglePitch > 0) && (o->oMoveAngleYaw == 0)) {
         direction = 2;
     } else {
         direction = 3;
@@ -154,7 +181,7 @@ void bhv_fan(void) {
     if (o->oMoveAnglePitch == 0) {
         areaTop = o->oPosY + 300.0f;
         areaBottom = o->oPosY - 300.0f;
-    } else if (o->oMoveAnglePitch > 0) {
+    } else if (o->oMoveAnglePitch < 0) {
         areaTop = (o->oPosY + (o->oBehParams2ndByte * 10.0));
         areaBottom = o->oPosY;
     } else {
@@ -248,9 +275,9 @@ void bhv_wind_fan_loop(void) {
             obj_translate_xz_random(o, 600.0f);
             //o->oPosY -= 300;
             if (o->oMoveAnglePitch > 0) {
-                o->oVelY = random_float() * 30.0f + 50.0f;
-            } else {
                 o->oVelY = random_float() * 30.0f + 50.0f * -1.0;
+            } else {
+                o->oVelY = random_float() * 30.0f + 50.0f;
             }
             //o->oMoveAngleYaw = random_u16();
             o->oForwardVel = 10.0f;
@@ -315,7 +342,9 @@ void bhv_wind_fan_loop(void) {
 void bhv_level_button_init(void) {
     s16 numStars = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
     s16 requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 1);
-    if (GET_BPARAM2(o->oBehParams) >= 0x10) {
+    if (GET_BPARAM2(o->oBehParams) >= 0x20) {
+        requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 13);
+    } else if (GET_BPARAM2(o->oBehParams) >= 0x10) {
         requiredNumStars = ((GET_BPARAM2(o->oBehParams)) - 7);
     }
 
@@ -477,4 +506,40 @@ void bhv_button_indicator(void) {
     orangeNumber = spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvOrangeNumber);
     orangeNumber->oHomeX = orangeNumber->oPosX;
     orangeNumber->oHomeZ = orangeNumber->oPosZ;
+}
+
+void bhv_gate_init(void) {
+    spawn_object_relative(ORANGE_NUMBER_A, -200, 0, -300, o, MODEL_NONE, bhvButtonIndicator);
+
+    if (GET_BPARAM1(o->oBehParams) != 0) {
+        o->oPosY = (o->oHomeY + 400.0);
+        o->oAction = 1;
+    }
+}
+
+void bhv_gate(void) {
+    switch (o->oAction) {
+        case 0:
+            if (o->oPosY > o->oHomeY) {
+                o->oPosY -= 50.0;
+            } else {
+                o->oPosY = o->oHomeY;
+            }
+            break;
+        case 1:
+            if (o->oPosY < (o->oHomeY + 400.0)) {
+                o->oPosY += 50.0;
+            } else {
+                o->oPosY = (o->oHomeY + 400.0);
+            }
+            break;
+    }
+
+    if (gPlayer1Controller->buttonPressed & (A_BUTTON)) {
+        if (o->oAction == 0) {
+             o->oAction = 1;
+        } else {
+             o->oAction = 0;
+        }
+    }
 }

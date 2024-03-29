@@ -6126,6 +6126,18 @@ const BehaviorScript bhvSlidePlatformHori[] = {
     END_LOOP(),
 };
 
+extern void bhv_slide_platform_vert();
+const BehaviorScript bhvSlidePlatformVert[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(slide_platform_small_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_slide_platform_vert),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
+
 const BehaviorScript bhvMarker[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
@@ -6240,5 +6252,20 @@ const BehaviorScript bhvButtonIndicator[] = {
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_button_indicator),
+    END_LOOP(),
+};
+
+extern void bhv_gate_init();
+extern void bhv_gate();
+const BehaviorScript bhvGate[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    LOAD_COLLISION_DATA(gate_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_HOME(),
+    CALL_NATIVE(bhv_gate_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_gate),
+        CALL_NATIVE(load_object_collision_model),
     END_LOOP(),
 };

@@ -544,6 +544,7 @@ extern const BehaviorScript bhvTiltPlatformWide[];
 extern const BehaviorScript bhvTiltPlatform[];
 extern const BehaviorScript bhvTiltBox[];
 extern const BehaviorScript bhvSlidePlatformHori[];
+extern const BehaviorScript bhvSlidePlatformVert[];
 extern const BehaviorScript bhvMarker[];
 extern const BehaviorScript bhvFan[];
 extern const BehaviorScript bhvWindFan[];
@@ -554,5 +555,6 @@ extern const BehaviorScript bhvLevelNumber[];
 extern const BehaviorScript bhvCagedStar[];
 extern const BehaviorScript bhvPinball[];
 extern const BehaviorScript bhvButtonIndicator[];
+extern const BehaviorScript bhvGate[];
 
 #endif // BEHAVIOR_DATA_H

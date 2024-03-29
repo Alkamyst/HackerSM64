@@ -4,15 +4,15 @@ COURSE_ACTS(COURSE_BOB, _(" 1 BOB-OMB BATTLEFIELD"),
 
 COURSE_ACTS(COURSE_WF, _(" 2 WHOMP'S FORTRESS"),
        _("PLATFORM SLIDES")               , _("SEESAW")                        , _("BACK IT UP"),
-       _("SLAM DUNK")                     , _("TRUST FALL")                    , _("BLAST AWAY THE WALL"))
+       _("SLAM DUNK")                     , _("WHY ARE YOU HITTING YOURSELF?") , _("BLAST AWAY THE WALL"))
 
 COURSE_ACTS(COURSE_JRB, _(" 3 JOLLY ROGER BAY"),
        _("STAR SLIDES")                   , _("MIDDLE MANAGEMENT")             , _("NOT A BIG FAN"),
        _("CATCH")                         , _("CATCHING AIR")                  , _("THROUGH THE JET STREAM"))
 
 COURSE_ACTS(COURSE_CCM, _(" 4 COOL, COOL MOUNTAIN"),
-       _("SLIP SLIDIN' AWAY")             , _("LI'L PENGUIN LOST")             , _("BIG PENGUIN RACE"),
-       _("FROSTY SLIDE FOR 8 RED COINS")  , _("SNOWMAN'S LOST HIS HEAD")       , _("WALL KICKS WILL WORK"))
+       _("BUTTON SLIDES")                 , _("PINBALL")                       , _("MULTITASK"),
+       _("TRUST FALL")                    , _("FINALE")                        , _("WALL KICKS WILL WORK"))
 
 COURSE_ACTS(COURSE_BBH, _(" 5 BIG BOO'S HAUNT"),
        _("GO ON A GHOST HUNT")            , _("RIDE BIG BOO'S MERRY-GO-ROUND") , _("SECRET OF THE HAUNTED BOOKS"),

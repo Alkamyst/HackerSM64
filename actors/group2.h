@@ -35,4 +35,8 @@
 
 #include "level_button_star/geo_header.h"
 
+#include "gate/collision_header.h"
+
+#include "gate/geo_header.h"
+
 #endif
