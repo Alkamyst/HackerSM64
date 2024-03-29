@@ -630,7 +630,16 @@ void render_hud(void) {
             print_set_envcolour(83, 219, 237, 255);
             print_small_text(20, 20, "Mario Slides", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
             print_set_envcolour(255, 255, 255, 255);
-            print_small_text(20, 36, "An SM64 Hack Made By Alkamyst", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(20, 36, "An SM64 Hack made by Alkamyst", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(20, 52, "Music from Baba Is You", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 84, "Thank you for playing this hack!", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 100, "This was made for SimpleFlips's Slide Competition 2024.", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 116, "Honestly, I do not like making slides. They just seem so", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 132, "hard to design. But, I did want to make something.", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 148, "So, I came up with a lot of different concepts.", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 164, "Then, it hit me... what if you WERE the slide?", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 180, "I thought making a more experimental hack would be a nice", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(10, 196, "change of pace, for both me and the audience. ", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
             print_small_text(310, 220, "Press B to Return", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
         }
 

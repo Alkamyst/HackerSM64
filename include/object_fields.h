@@ -1265,6 +1265,9 @@
 #define /*0x0FC*/ oButtonSizeHori OBJECT_FIELD_F32(0x1D)
 #define /*0x104*/ oButtonSizeVert OBJECT_FIELD_F32(0x1E)
 
+/* Level Select Button */
+#define /*0x0F4*/ oFlashed OBJECT_FIELD_U32(0x1B)
+
 
 /*Custom general defines:
 

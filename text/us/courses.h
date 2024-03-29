@@ -12,7 +12,7 @@ COURSE_ACTS(COURSE_JRB, _(" 3 JOLLY ROGER BAY"),
 
 COURSE_ACTS(COURSE_CCM, _(" 4 COOL, COOL MOUNTAIN"),
        _("BUTTON SLIDES")                 , _("PINBALL")                       , _("MULTITASK"),
-       _("TRUST FALL")                    , _("FINALE")                        , _("WALL KICKS WILL WORK"))
+       _("BACK TO THE WALL")              , _("FINALE")                        , _("WALL KICKS WILL WORK"))
 
 COURSE_ACTS(COURSE_BBH, _(" 5 BIG BOO'S HAUNT"),
        _("GO ON A GHOST HUNT")            , _("RIDE BIG BOO'S MERRY-GO-ROUND") , _("SECRET OF THE HAUNTED BOOKS"),

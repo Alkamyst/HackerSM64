@@ -98,18 +98,18 @@ const LevelScript level_castle_grounds_entry[] = {
 		OBJECT(MODEL_LEVEL_BUTTON, 500, -600, -2546, 0, -180, 0, (0x19 << 16), bhvLevelButton),
 		OBJECT(MODEL_LEVEL_BUTTON, 1000, -600, -2546, 0, -180, 0, (0x20 << 16), bhvLevelButton),
 		OBJECT(MODEL_SELECTOR, 0, 0, -2546, 0, -180, 0, 0x00000000, bhvSelector),
-		OBJECT(MODEL_NONE, 0, -1731, -3406, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
-		MARIO_POS(0x01, 0, 0, -1703, -3398),
+		OBJECT(MODEL_NONE, 0, -1758, -3406, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		MARIO_POS(0x01, 0, 0, -1730, -3398),
 		TERRAIN(castle_grounds_area_1_collision),
 		MACRO_OBJECTS(castle_grounds_area_1_macro_objs),
-		STOP_MUSIC(0),
+		SET_BACKGROUND_MUSIC(0x00, SEQ_BABA_IS_YOU),
 		TERRAIN_TYPE(TERRAIN_GRASS),
 		/* Fast64 begin persistent block [area commands] */
 		/* Fast64 end persistent block [area commands] */
 	END_AREA(),
 
 	FREE_LEVEL_POOL(),
-	MARIO_POS(0x01, 0, 0, -1703, -3398),
+	MARIO_POS(0x01, 0, 0, -1730, -3398),
 	CALL(0, lvl_init_or_update),
 	CALL_LOOP(1, lvl_init_or_update),
 	CLEAR_LEVEL(),

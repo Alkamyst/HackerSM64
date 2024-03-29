@@ -131,5 +131,11 @@
     ],
     "25_water_is_sink": [
         "water_is_sink"
+    ],
+    "26_crystal_is_still": [
+        "crystal_is_still"
+    ],
+    "27_baba_is_you": [
+        "baba_is_you"
     ]
 }

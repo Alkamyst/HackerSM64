@@ -1,7 +1,7 @@
 #include "src/game/envfx_snow.h"
 
 const GeoLayout star_ball_geo[] = {
-	GEO_NODE_START(),
+	GEO_CULLING_RADIUS(2000),
 	GEO_OPEN_NODE(),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, star_ball_Sphere_mesh_layer_5),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, star_ball_material_revert_render_settings),

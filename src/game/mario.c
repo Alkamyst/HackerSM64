@@ -1377,11 +1377,13 @@ void update_mario_inputs(struct MarioState *m) {
 
 
     // Reset level by pressing R
-    if (gCurrCourseNum >= COURSE_MIN
-        && gCurrCourseNum <= COURSE_MAX) {
-        if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
-    } else if (gCurrLevelNum == LEVEL_CASTLE) {
-        if (gPlayer1Controller->buttonPressed & B_BUTTON) level_trigger_warp(m, WARP_OP_RESET);
+    if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+        if (gCurrCourseNum >= COURSE_MIN
+            && gCurrCourseNum <= COURSE_MAX) {
+            if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
+        } else if (gCurrLevelNum == LEVEL_CASTLE) {
+            if (gPlayer1Controller->buttonPressed & B_BUTTON) level_trigger_warp(m, WARP_OP_RESET);
+        }
     }
 
 }

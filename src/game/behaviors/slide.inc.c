@@ -84,6 +84,10 @@ void bhv_slide_platform_hori(void) {
         o->oPosX = limitLeft * -10.0;
     }
 
+    f32 limitAvg = (((limitRight + 25.0) + (limitLeft * -1.0 - 25.0)) / 2);
+    f32 limitAvgRight = (((limitRight + 25.0) + (limitAvg)) / 2);
+    f32 limitAvgLeft = (((limitAvg) + (limitLeft * -1.0 - 25.0)) / 2);
+
     // Spawns Markers
     if (o->oTimer == 0) {
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
@@ -91,6 +95,15 @@ void bhv_slide_platform_hori(void) {
 
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
                                     ((limitRight * 10.0) + 250.0), o->oPosY, o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
+                                    (limitAvg * 10.0), o->oPosY, o->oPosZ, -15, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
+                                    (limitAvgRight * 10.0), o->oPosY, o->oPosZ, -15, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
+                                    (limitAvgLeft * 10.0), o->oPosY, o->oPosZ, -15, 0, 0);
     }
 
 }
@@ -128,6 +141,10 @@ void bhv_slide_platform_vert(void) {
         o->oPosY = limitBottom * -10.0;
     }
 
+    f32 limitAvg = (((limitTop + 25.0) + (limitBottom * -1.0 - 25.0)) / 2);
+    f32 limitAvgTop = (((limitTop + 25.0) + (limitAvg)) / 2);
+    f32 limitAvgDown = (((limitAvg) + (limitBottom * -1.0 - 25.0)) / 2);
+
     // Spawns Markers
     if (o->oTimer == 0) {
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
@@ -135,6 +152,15 @@ void bhv_slide_platform_vert(void) {
 
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
                                     o->oPosX, ((limitTop * 10.0) + 250.0), o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
+                                    o->oPosX, (limitAvg * 10.0), o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
+                                    o->oPosX, (limitAvgTop * 10.0), o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
+                                    o->oPosX, (limitAvgDown * 10.0), o->oPosZ, 0, 0, 0);
     }
 
 }
@@ -146,7 +172,7 @@ void bhv_fan_init(void) {
 
     if (GET_BPARAM1(o->oBehParams) != 0) {
         o->oOnOff = TRUE;
-        spawn_object_relative(ORANGE_NUMBER_A, 0, 0, 50, o, MODEL_NONE, bhvButtonIndicator);
+        spawn_object_relative(ORANGE_NUMBER_A, 0, 0, 70, o, MODEL_NONE, bhvButtonIndicator);
     }
 
     if (GET_BPARAM1(o->oBehParams) >= 2) {
@@ -366,6 +392,16 @@ void bhv_level_button_init(void) {
     }
 }
 
+void bhv_credits_button_init(void) {
+    s16 numStars = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
+    s16 requiredNumStars = 20;
+
+    // Deletes the object if not enough stars
+    if (numStars < requiredNumStars) {
+        obj_mark_for_deletion(o);
+    }
+}
+
 void bhv_level_button(void) {
     f32 areaTop;
     f32 areaBottom;
@@ -484,26 +520,33 @@ void bhv_pinball_init(void) {
 }
 
 void bhv_pinball(void) {
-
     if (gPlayer1Controller->buttonDown & (A_BUTTON)) {
         if (o->oFaceAngleRoll > -12000) {
             o->oFaceAngleRoll -= 3000;
+            o->oTimer = 0;
+            load_object_collision_model();
         } else {
+            if (o->oTimer > 5) {
+                load_object_collision_model();
+            }
             o->oFaceAngleRoll = -12000;
         }
     } else {
+        if (o->oTimer > 5) {
+            load_object_collision_model();
+        }
         if (o->oFaceAngleRoll < 0) {
             o->oFaceAngleRoll += 3000;
         } else {
             o->oFaceAngleRoll = 0;
         }
     }
-
 }
 
 void bhv_button_indicator(void) {
     struct Object *orangeNumber;
     orangeNumber = spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvOrangeNumber);
+    vec3_same(orangeNumber->header.gfx.scale, 1.5);
     orangeNumber->oHomeX = orangeNumber->oPosX;
     orangeNumber->oHomeZ = orangeNumber->oPosZ;
 }

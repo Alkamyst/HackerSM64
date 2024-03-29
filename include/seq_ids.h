@@ -48,6 +48,8 @@ enum SeqId {
     SEQ_WALL_IS_STOP,  // 0x23
     SEQ_BOX_HAS_KEY,  // 0x24
     SEQ_WATER_IS_SINK,  // 0x25
+    SEQ_CRYSTAL_IS_STILL,  // 0x26
+    SEQ_BABA_IS_YOU,  // 0x27
     SEQ_COUNT,
 };
 
