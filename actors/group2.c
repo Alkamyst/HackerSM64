@@ -24,3 +24,4 @@
 #include "level_button_star/model.inc.c"
 #include "gate/collision.inc.c"
 #include "gate/model.inc.c"
+#include "stone_star/model.inc.c"

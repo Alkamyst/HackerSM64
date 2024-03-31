@@ -16,6 +16,10 @@ void bhv_tilt_platform(void) {
             o->oFaceAngleRoll += RATEX;
         } else if (gPlayer1Controller->rawStickX < -2) {
             o->oFaceAngleRoll += RATEX * -1.0;
+        } else if (gPlayer1Controller->buttonDown & R_JPAD) {
+            o->oFaceAngleRoll += ANALOG_AMOUNT;
+        } else if (gPlayer1Controller->buttonDown & L_JPAD) {
+            o->oFaceAngleRoll += ANALOG_AMOUNT * -1.0;
         }
     }
 
@@ -38,6 +42,10 @@ void bhv_tilt_box(void) {
             o->oFaceAngleRoll += RATEX * -1.0;
         } else if (gPlayer1Controller->rawStickX < -2) {
             o->oFaceAngleRoll += RATEX;
+        } else if (gPlayer1Controller->buttonDown & R_JPAD) {
+            o->oFaceAngleRoll += ANALOG_AMOUNT * -1.0;
+        } else if (gPlayer1Controller->buttonDown & L_JPAD) {
+            o->oFaceAngleRoll += ANALOG_AMOUNT;
         }
     }
     
@@ -52,8 +60,12 @@ void bhv_slide_platform_hori(void) {
             o->oVelX = RATEX / 13;
             //o->oPosX += RATEX / 13;
         } else if (gPlayer1Controller->rawStickX < -2) {
-             o->oVelX = RATEX / 13 * -1.0;
+            o->oVelX = RATEX / 13 * -1.0;
             //o->oPosX += RATEX / 13 * -1.0;
+        } else if (gPlayer1Controller->buttonDown & R_JPAD) {
+            o->oVelX = ANALOG_AMOUNT / 13;
+        } else if (gPlayer1Controller->buttonDown & L_JPAD) {
+            o->oVelX = ANALOG_AMOUNT / 13 * -1.0;
         }
     }
 
@@ -112,10 +124,18 @@ void bhv_slide_platform_vert(void) {
 
     // Left joystick makes the platform move up/down
     if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
-        if (gPlayer1Controller->rawStickY > 2) {
+        if (gPlayer1Controller->buttonDown & U_CBUTTONS) {
+            o->oPosY += ANALOG_AMOUNT / 10;
+        } else if (gPlayer1Controller->buttonDown & D_CBUTTONS) {
+            o->oPosY += ANALOG_AMOUNT / 10 * -1.0;
+        } else if (gPlayer1Controller->rawStickY > 2) {
             o->oPosY += RATEY / 10;
         } else if (gPlayer1Controller->rawStickY < -2) {
             o->oPosY += RATEY / 10 * -1.0;
+        } else if (gPlayer1Controller->buttonDown & U_JPAD) {
+            o->oPosY += ANALOG_AMOUNT / 10;
+        } else if (gPlayer1Controller->buttonDown & D_JPAD) {
+            o->oPosY += ANALOG_AMOUNT / 10 * -1.0;
         }
     }
 
@@ -478,8 +498,23 @@ void bhv_selector(void) {
     }
 
     // Move cursor
-    o->oPosX += rawStickX / 2;
-    o->oPosY += rawStickY / 2;
+
+    o->oVelX = rawStickX / 2;
+    o->oVelY = rawStickY / 2;
+
+    if (gPlayer1Controller->buttonDown & U_JPAD) {
+            o->oVelY = 32.0f;
+    } else if (gPlayer1Controller->buttonDown & D_JPAD) {
+            o->oVelY = 32.0f * -1.0;
+    }
+    if (gPlayer1Controller->buttonDown & R_JPAD) {
+            o->oVelX = 32.0f;
+    } else if (gPlayer1Controller->buttonDown & L_JPAD) {
+            o->oVelX = 32.0f * -1.0;
+    }
+
+    o->oPosX += o->oVelX;
+    o->oPosY += o->oVelY;
 
     // Stop cursor from going offscreen
     if (o->oPosX > 1320.0f) {
@@ -564,14 +599,14 @@ void bhv_gate(void) {
     switch (o->oAction) {
         case 0:
             if (o->oPosY > o->oHomeY) {
-                o->oPosY -= 50.0;
+                o->oPosY -= 100.0;
             } else {
                 o->oPosY = o->oHomeY;
             }
             break;
         case 1:
             if (o->oPosY < (o->oHomeY + 400.0)) {
-                o->oPosY += 50.0;
+                o->oPosY += 100.0;
             } else {
                 o->oPosY = (o->oHomeY + 400.0);
             }

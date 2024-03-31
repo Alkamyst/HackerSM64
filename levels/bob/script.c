@@ -100,7 +100,7 @@ const LevelScript level_bob_entry[] = {
 		WARP_NODE(0xF1, LEVEL_BOB, 0x04, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_RED_COIN, 0, 647, -3500, 0, -180, 0, 0x00000000, bhvRedCoin),
 		OBJECT(MODEL_RED_COIN, 0, -383, -3500, 0, -180, 0, 0x00000000, bhvRedCoin),
-		OBJECT(MODEL_NONE, 0, -906, -3491, 0, -180, 0, (3 << 24), bhvHiddenRedCoinStar),
+		OBJECT(MODEL_STONE_STAR, 0, -906, -3491, 0, -180, 0, (3 << 24), bhvHiddenRedCoinStar),
 		OBJECT(MODEL_TILT_PLATFORM, -820, 378, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
 		OBJECT(MODEL_TILT_PLATFORM, 807, 378, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
 		OBJECT(MODEL_TILT_PLATFORM, 807, -383, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),

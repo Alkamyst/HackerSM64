@@ -7,7 +7,7 @@ COURSE_ACTS(COURSE_WF, _(" 2 WHOMP'S FORTRESS"),
        _("SLAM DUNK")                     , _("WHY ARE YOU HITTING YOURSELF?") , _("BLAST AWAY THE WALL"))
 
 COURSE_ACTS(COURSE_JRB, _(" 3 JOLLY ROGER BAY"),
-       _("STAR SLIDES")                   , _("MIDDLE MANAGEMENT")             , _("NOT A BIG FAN"),
+       _("STAR SLIDES")                   , _("MIDDLE MANAGEMENT")             , _("I'M A BIG FAN"),
        _("CATCH")                         , _("CATCHING AIR")                  , _("THROUGH THE JET STREAM"))
 
 COURSE_ACTS(COURSE_CCM, _(" 4 COOL, COOL MOUNTAIN"),

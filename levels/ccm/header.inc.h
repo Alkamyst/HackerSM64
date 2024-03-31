@@ -70,7 +70,7 @@ extern Vtx ccm_dl_Cube_004_mesh_layer_5_vtx_0[70];
 extern Gfx ccm_dl_Cube_004_mesh_layer_5_tri_0[];
 extern Vtx ccm_dl_Plane_003_mesh_layer_1_vtx_0[4];
 extern Gfx ccm_dl_Plane_003_mesh_layer_1_tri_0[];
-extern Vtx ccm_dl_World_001_mesh_layer_1_vtx_0[24];
+extern Vtx ccm_dl_World_001_mesh_layer_1_vtx_0[47];
 extern Gfx ccm_dl_World_001_mesh_layer_1_tri_0[];
 extern Vtx ccm_dl_Cube_005_mesh_layer_1_vtx_0[82];
 extern Gfx ccm_dl_Cube_005_mesh_layer_1_tri_0[];

@@ -19,3 +19,4 @@
 #include "credits_button/geo.inc.c"
 #include "level_button_star/geo.inc.c"
 #include "gate/geo.inc.c"
+#include "stone_star/geo.inc.c"

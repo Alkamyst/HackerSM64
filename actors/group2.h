@@ -39,4 +39,6 @@
 
 #include "gate/geo_header.h"
 
+#include "stone_star/geo_header.h"
+
 #endif
