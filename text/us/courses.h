@@ -3,11 +3,11 @@ COURSE_ACTS(COURSE_BOB, _(" 1 BOB-OMB BATTLEFIELD"),
        _("HIGH AND LOW")                  , _("ORBIT")                         , _("BEHIND CHAIN CHOMP'S GATE"))
 
 COURSE_ACTS(COURSE_WF, _(" 2 WHOMP'S FORTRESS"),
-       _("PLATFORM SLIDES")               , _("SEESAW")                        , _("BACK IT UP"),
+       _("PLATFORM SLIDES")               , _("MIDDLE MANAGEMENT")             , _("BACK IT UP"),
        _("SLAM DUNK")                     , _("WHY ARE YOU HITTING YOURSELF?") , _("BLAST AWAY THE WALL"))
 
 COURSE_ACTS(COURSE_JRB, _(" 3 JOLLY ROGER BAY"),
-       _("STAR SLIDES")                   , _("MIDDLE MANAGEMENT")             , _("I'M A BIG FAN"),
+       _("STAR SLIDES")                   , _("SEESAW")                        , _("I'M A BIG FAN"),
        _("CATCH")                         , _("CATCHING AIR")                  , _("THROUGH THE JET STREAM"))
 
 COURSE_ACTS(COURSE_CCM, _(" 4 COOL, COOL MOUNTAIN"),

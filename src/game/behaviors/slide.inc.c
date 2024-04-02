@@ -280,6 +280,10 @@ void bhv_fan(void) {
         o->oActivated = !(o->oActivated);
     }
 
+    if (gMarioState->action == ACT_STAR_DANCE_WATER) {
+        o->oActivated = FALSE;
+    }
+
     o->oFaceAngleRoll -= o->oRotVel;
 
     /*
@@ -524,11 +528,11 @@ void bhv_selector(void) {
         o->oPosX = -1320.0f;
     }
 
-    if (o->oPosY > 900.0f) {
-        o->oPosY = 900.0f;
+    if (o->oPosY > 700.0f) {
+        o->oPosY = 700.0f;
     }
-    if (o->oPosY < -900.0f) {
-        o->oPosY = -900.0f;
+    if (o->oPosY < -970.0f) {
+        o->oPosY = -970.0f;
     }
 }
 
@@ -555,19 +559,19 @@ void bhv_pinball_init(void) {
 }
 
 void bhv_pinball(void) {
-    if (gPlayer1Controller->buttonDown & (A_BUTTON)) {
+    if ((gPlayer1Controller->buttonDown & (A_BUTTON)) && (!(gMarioState->action == ACT_STAR_DANCE_WATER))) {
         if (o->oFaceAngleRoll > -12000) {
             o->oFaceAngleRoll -= 3000;
             o->oTimer = 0;
             load_object_collision_model();
         } else {
-            if (o->oTimer > 5) {
+            if (o->oTimer > 3) {
                 load_object_collision_model();
             }
             o->oFaceAngleRoll = -12000;
         }
     } else {
-        if (o->oTimer > 5) {
+        if (o->oTimer > 3) {
             load_object_collision_model();
         }
         if (o->oFaceAngleRoll < 0) {
@@ -613,7 +617,7 @@ void bhv_gate(void) {
             break;
     }
 
-    if (gPlayer1Controller->buttonPressed & (A_BUTTON)) {
+    if ((gPlayer1Controller->buttonPressed & (A_BUTTON)) && (!(gMarioState->action == ACT_STAR_DANCE_WATER))) {
         if (o->oAction == 0) {
              o->oAction = 1;
         } else {

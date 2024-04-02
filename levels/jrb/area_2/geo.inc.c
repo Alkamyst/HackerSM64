@@ -8,6 +8,7 @@ const GeoLayout jrb_area_2_geo[] = {
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, jrb_dl_Cube_001_mesh_layer_6),
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4720, 0, jrb_dl_Plane_001_mesh_layer_1),
+		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, 0, -3498, jrb_dl_World_001_mesh_layer_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
