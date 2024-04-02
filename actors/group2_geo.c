@@ -20,3 +20,5 @@
 #include "level_button_star/geo.inc.c"
 #include "gate/geo.inc.c"
 #include "stone_star/geo.inc.c"
+#include "time_attack/geo.inc.c"
+#include "time_attack_active/geo.inc.c"

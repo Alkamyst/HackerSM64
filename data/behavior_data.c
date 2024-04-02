@@ -6211,6 +6211,20 @@ const BehaviorScript bhvCreditsButton[] = {
     END_LOOP(),
 };
 
+extern void bhv_time_attack_button();
+const BehaviorScript bhvTimeAttackButton[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oButtonScale, 1),
+    SET_FLOAT(oButtonSizeHori, 100),
+    SET_FLOAT(oButtonSizeVert, 100),
+    CALL_NATIVE(bhv_credits_button_init),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_time_attack_button),
+    END_LOOP(),
+};
+
 extern void bhv_selector();
 const BehaviorScript bhvSelector[] = {
     BEGIN(OBJ_LIST_SURFACE),

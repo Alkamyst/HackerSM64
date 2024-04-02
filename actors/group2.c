@@ -25,3 +25,5 @@
 #include "gate/collision.inc.c"
 #include "gate/model.inc.c"
 #include "stone_star/model.inc.c"
+#include "time_attack/model.inc.c"
+#include "time_attack_active/model.inc.c"

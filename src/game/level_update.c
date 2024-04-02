@@ -161,10 +161,12 @@ u16 level_control_timer(s32 timerOp) {
             break;
 
         case TIMER_CONTROL_STOP:
+            gHudDisplay.flags |= HUD_DISPLAY_FLAG_HIGH_SCORE_TIMER;
             sTimerRunning = FALSE;
             break;
 
         case TIMER_CONTROL_HIDE:
+            gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_HIGH_SCORE_TIMER;
             gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIMER;
             sTimerRunning = FALSE;
             gHudDisplay.timer = 0;
@@ -831,7 +833,6 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 play_transition(WARP_TRANSITION_FADE_INTO_COLOR, sDelayedWarpTimer, 0x00, 0x00, 0x00);
                 play_sound(SOUND_GENERAL2_SWITCH_TICK_SLOW, gGlobalSoundSource);
                 break;
-
         }
 
         if (fadeMusic && gCurrDemoInput == NULL) {

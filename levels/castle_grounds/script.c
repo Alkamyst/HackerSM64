@@ -98,6 +98,7 @@ const LevelScript level_castle_grounds_entry[] = {
 		OBJECT(MODEL_LEVEL_BUTTON, 500, -600, -2546, 0, -180, 0, (0x19 << 16), bhvLevelButton),
 		OBJECT(MODEL_LEVEL_BUTTON, 1000, -600, -2546, 0, -180, 0, (0x20 << 16), bhvLevelButton),
 		OBJECT(MODEL_SELECTOR, 0, 0, -2546, 0, -180, 0, 0x00000000, bhvSelector),
+		OBJECT(MODEL_LEVEL_BUTTON_STAR, -1233, -909, -2546, 0, -180, 0, 0x00000000, bhvTimeAttackButton),
 		OBJECT(MODEL_NONE, 0, -1758, -3406, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		MARIO_POS(0x01, 0, 0, -1730, -3398),
 		TERRAIN(castle_grounds_area_1_collision),

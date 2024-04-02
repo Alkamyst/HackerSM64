@@ -467,7 +467,7 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
         }
 
         if (coinScore > save_file_get_course_coin_score(fileIndex, courseIndex)) {
-            gSaveBuffer.files[fileIndex][0].courseCoinScores[courseIndex] = coinScore;
+            //gSaveBuffer.files[fileIndex][0].courseCoinScores[courseIndex] = coinScore;
             touch_coin_score_age(fileIndex, courseIndex);
 
             gGotFileCoinHiScore = TRUE;
@@ -502,6 +502,23 @@ void save_file_collect_star_or_key(s16 coinScore, s16 starIndex) {
             }
 #endif
             break;
+    }
+}
+
+void save_high_score(s16 score) {
+    s32 fileIndex = gCurrSaveFileNum - 1;
+    s32 courseIndex = (COURSE_NUM_TO_INDEX(gCurrCourseNum) * 5 + gCurrAreaIndex - 1);
+
+    if (save_file_get_course_coin_score(fileIndex, courseIndex) == NULL) {
+        gSaveBuffer.files[fileIndex][0].courseCoinScores[courseIndex] = score;
+        gSaveFileModified = TRUE;
+        save_file_do_save(gCurrSaveFileNum - 1);
+    } else {
+        if (score < save_file_get_course_coin_score(fileIndex, courseIndex)) {
+            gSaveBuffer.files[fileIndex][0].courseCoinScores[courseIndex] = score;
+            gSaveFileModified = TRUE;
+            save_file_do_save(gCurrSaveFileNum - 1);
+        }
     }
 }
 

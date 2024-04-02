@@ -1764,7 +1764,7 @@ void print_hud_pause_colorful_str(void) {
 void render_pause_castle_course_stars(s16 x, s16 y, s16 fileIndex, s16 courseIndex) {
     s16 hasStar = 0;
 
-    u8 str[COURSE_STAGES_COUNT * 2];
+    u8 str[30];
 
     u8 textStar[] = { TEXT_STAR };
 
@@ -2222,10 +2222,7 @@ s32 render_star_name(void) {
 
     gSPDisplayList(gDisplayListHead++, dl_ia_text_end);
 
-    gCourseDoneMenuTimer++;
-
-    if (gCourseDoneMenuTimer > 110) {
-        gCourseDoneMenuTimer = 0;
+    if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
         gMenuMode = MENU_MODE_NONE;
     }
     

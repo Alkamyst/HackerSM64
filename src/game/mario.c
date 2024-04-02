@@ -1384,6 +1384,28 @@ void update_mario_inputs(struct MarioState *m) {
         } else if (gCurrLevelNum == LEVEL_CASTLE) {
             if (gPlayer1Controller->buttonPressed & B_BUTTON) level_trigger_warp(m, WARP_OP_RESET);
         }
+    // If in time attack mode and the level is finished, be able to reset or exit to level select
+    } else if ((gMarioState->action == ACT_STAR_DANCE_WATER) && (gMarioState->timeAttack)) {
+         if (gPlayer1Controller->buttonPressed & R_TRIG) level_trigger_warp(m, WARP_OP_RESET);
+         if (gPlayer1Controller->buttonPressed & B_BUTTON) {
+            gMarioState->action = ACT_FREEFALL;
+            initiate_warp(EXIT_COURSE_LEVEL, EXIT_COURSE_AREA, EXIT_COURSE_NODE, WARP_FLAG_EXIT_COURSE);
+            fade_into_special_warp(WARP_SPECIAL_NONE, 0);
+            gSavedCourseNum = COURSE_NONE;
+         }
+    }
+
+    // Slide Timer / Time Attack
+    if (gMarioState->timeAttack) {
+        if (gCurrCourseNum >= COURSE_MIN
+            && gCurrCourseNum <= COURSE_MAX) {
+            if (!(gMarioState->action == ACT_STAR_DANCE_WATER)) {
+                pss_begin_slide(m);
+            } else {
+                save_high_score(gHudDisplay.timer);
+                pss_end_slide(m);
+            }
+        }
     }
 
 }
@@ -1898,6 +1920,7 @@ void init_mario_from_save_file(void) {
     gMarioState->numCoins = 0;
     gMarioState->numStars = save_file_get_total_star_count(gCurrSaveFileNum - 1, COURSE_MIN - 1, COURSE_MAX - 1);
     gMarioState->numKeys = 0;
+    gMarioState->timeAttack = FALSE;
 #ifdef ENABLE_LIVES
     gMarioState->numLives = ENABLE_LIVES;
 #else

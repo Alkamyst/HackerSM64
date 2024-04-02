@@ -551,6 +551,7 @@ extern const BehaviorScript bhvFan[];
 extern const BehaviorScript bhvWindFan[];
 extern const BehaviorScript bhvLevelButton[];
 extern const BehaviorScript bhvCreditsButton[];
+extern const BehaviorScript bhvTimeAttackButton[];
 extern const BehaviorScript bhvSelector[];
 extern const BehaviorScript bhvLevelNumber[];
 extern const BehaviorScript bhvCagedStar[];

@@ -472,8 +472,46 @@ void render_hud_timer(void) {
         case LANGUAGE_GERMAN:  print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185,  "ZEIT"); break;
     }
 #else
-    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185, "TIME");
+    //print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(150), 185, "TIME");
 #endif
+
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(91), 209, "%0d", timerMins);
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71), 209, "%02d", timerSecs);
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(37), 209, "%d", timerFracSecs);
+
+    gSPDisplayList(gDisplayListHead++, dl_hud_img_begin);
+    render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(81), 8, (*hudLUT)[GLYPH_APOSTROPHE]);
+    render_hud_tex_lut(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(46), 8, (*hudLUT)[GLYPH_DOUBLE_QUOTE]);
+    gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
+}
+
+void render_hud_high_score_timer(void) {
+    s32 fileIndex = gCurrSaveFileNum - 1;
+    s32 courseIndex = (COURSE_NUM_TO_INDEX(gCurrCourseNum) * 5 + gCurrAreaIndex - 1);
+
+    Texture *(*hudLUT)[58] = segmented_to_virtual(&main_hud_lut);
+    u16 timerValFrames = save_file_get_course_coin_score(fileIndex, courseIndex);
+    u16 timerMins = timerValFrames / (30 * 60);
+    u16 timerSecs = (timerValFrames - (timerMins * 1800)) / 30;
+    u16 timerFracSecs = ((timerValFrames - (timerMins * 1800) - (timerSecs * 30)) & 0xFFFF) / 3;
+
+    // Creat black box in middle
+    create_dl_translation_matrix(MENU_MTX_PUSH, 82, 140, 0);
+    create_dl_scale_matrix(MENU_MTX_NOPUSH, 1.2f, 0.65f, 1.0f);
+    gDPSetEnvColor(gDisplayListHead++, 0, 0, 0, 105);
+    gSPDisplayList(gDisplayListHead++, dl_draw_text_bg_box);
+    gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
+
+    // Retry Text
+    print_set_envcolour(255, 255, 255, 255);
+    print_small_text(160, 110, "Press R to Retry", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
+    print_small_text(160, 130, "Press B to Exit", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
+
+    // Timer Text
+    print_set_envcolour(246, 226, 44, 255);
+    print_small_text(222, 16, "CURRENT TIME", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
+    print_set_envcolour(246, 226, 44, 255);
+    print_small_text(222, 40, "HIGH SCORE", PRINT_TEXT_ALIGN_RIGHT, PRINT_ALL, FONT_OUTLINE);
 
     print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(91), 185, "%0d", timerMins);
     print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71), 185, "%02d", timerSecs);
@@ -609,6 +647,18 @@ void render_hud(void) {
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIMER) {
             render_hud_timer();
+        }
+
+        if (hudDisplayFlags & HUD_DISPLAY_FLAG_HIGH_SCORE_TIMER) {
+            render_hud_high_score_timer();
+        }
+
+        if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIME_ATTACK_ON) {
+            print_small_text(40, 220, "TIME ATTACK ON", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+        }
+
+        if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIME_ATTACK_OFF) {
+            print_small_text(40, 220, "TIME ATTACK OFF", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
         }
 
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG

@@ -483,6 +483,74 @@ void bhv_level_button(void) {
 
 }
 
+void bhv_time_attack_button(void) {
+    f32 areaTop;
+    f32 areaBottom;
+    f32 areaLeft;
+    f32 areaRight;
+
+    areaTop = o->oPosY + o->oButtonSizeVert;
+    areaBottom = o->oPosY - o->oButtonSizeVert;
+    areaLeft = o->oPosX - o->oButtonSizeHori;
+    areaRight = o->oPosX + o->oButtonSizeHori;
+    
+    o->parentObj = cur_obj_nearest_object_with_behavior(bhvSelector);
+
+    switch (o->oAction) {
+        case 0:
+            // Button Selected
+            if ((o->parentObj->oPosX > areaLeft) && (o->parentObj->oPosX < areaRight) && (o->parentObj->oPosY > areaBottom) && (o->parentObj->oPosY < areaTop) 
+            && (gPlayer1Controller->buttonPressed & (A_BUTTON))) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
+                spawn_mist_particles();
+                gMarioState->timeAttack = !(gMarioState->timeAttack);
+                if (gMarioState->timeAttack == TRUE) {
+                    gHudDisplay.flags |= HUD_DISPLAY_FLAG_TIME_ATTACK_ON;
+                } else {
+                    gHudDisplay.flags |= HUD_DISPLAY_FLAG_TIME_ATTACK_OFF;
+                }
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            if (o->oButtonScale > 1.1) {
+                o->oAction = 2;
+            } else {
+                o->oButtonScale += 0.01f;
+            }
+            break;
+        case 2:
+            if (o->oButtonScale > 1.0) {
+                o->oButtonScale -= 0.01f;
+            } else {
+                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_ON;
+                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_OFF;
+                o->oAction = 0;
+            }
+            break;
+    }
+
+    if (gMarioState->timeAttack == TRUE) {
+        cur_obj_set_model(MODEL_TIME_ATTACK_ACTIVE);
+    } else {
+        cur_obj_set_model(MODEL_TIME_ATTACK);
+    }
+
+    // Debug Markers for top right and bottom left of push area
+    /*
+    if (o->oTimer == 0) {
+        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+                                    areaRight, areaTop, o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+                                    areaLeft, areaBottom, o->oPosZ, 0, 0, 0);
+    }
+    */
+
+    cur_obj_scale(o->oButtonScale);
+
+}
+
 void bhv_level_number(void) {
     o->oAnimState = o->oBehParams2ndByte;
 }

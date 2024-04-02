@@ -224,6 +224,8 @@ const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_LEVEL_BUTTON_STAR,       level_button_star_geo),
     LOAD_MODEL_FROM_GEO(MODEL_GATE,                    gate_geo),
     LOAD_MODEL_FROM_GEO(MODEL_STONE_STAR,              stone_star_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_TIME_ATTACK,             time_attack_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_TIME_ATTACK_ACTIVE,      time_attack_active_geo),
     RETURN(),
 };
 

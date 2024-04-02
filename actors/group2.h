@@ -41,4 +41,8 @@
 
 #include "stone_star/geo_header.h"
 
+#include "time_attack/geo_header.h"
+
+#include "time_attack_active/geo_header.h"
+
 #endif

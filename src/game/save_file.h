@@ -14,7 +14,7 @@
 #elif defined(EEP16K)
     #define EEPROM_SIZE 0x800
 #else
-    #define EEPROM_SIZE 0x200
+    #define EEPROM_SIZE 0x250
 #endif
 
 #define NUM_SAVE_FILES 4
@@ -171,6 +171,7 @@ void save_file_copy(s32 srcFileIndex, s32 destFileIndex);
 void save_file_load_all(void);
 void save_file_reload(void);
 void save_file_collect_star_or_key(s16 coinScore, s16 starIndex);
+void save_high_score(s16 score);
 s32 save_file_exists(s32 fileIndex);
 u32 save_file_get_max_coin_score(s32 courseIndex);
 s32 save_file_get_course_star_count(s32 fileIndex, s32 courseIndex);

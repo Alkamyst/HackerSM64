@@ -1,0 +1,16 @@
+extern const GeoLayout time_attack_geo[];
+extern u8 time_attack_EARTHWORM_JIM_3D_0A73F969_0_6_all_ci8[];
+extern u8 time_attack_EARTHWORM_JIM_3D_0A73F969_0_6_all_ci8_pal_rgba16[];
+extern u8 time_attack_stopwatch2_ci8[];
+extern u8 time_attack_stopwatch2_ci8_pal_rgba16[];
+extern Vtx time_attack_Cube_mesh_layer_1_vtx_0[24];
+extern Gfx time_attack_Cube_mesh_layer_1_tri_0[];
+extern Vtx time_attack_Cube_mesh_layer_4_vtx_0[4];
+extern Gfx time_attack_Cube_mesh_layer_4_tri_0[];
+extern Gfx mat_time_attack_f3dlite_material_002[];
+extern Gfx mat_revert_time_attack_f3dlite_material_002[];
+extern Gfx mat_time_attack_f3dlite_material[];
+extern Gfx mat_revert_time_attack_f3dlite_material[];
+extern Gfx time_attack_Cube_mesh_layer_1[];
+extern Gfx time_attack_Cube_mesh_layer_4[];
+extern Gfx time_attack_material_revert_render_settings[];
