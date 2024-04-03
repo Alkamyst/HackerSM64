@@ -105,7 +105,7 @@ const LevelScript level_bob_entry[] = {
 		OBJECT(MODEL_TILT_PLATFORM, 807, 378, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
 		OBJECT(MODEL_TILT_PLATFORM, 807, -383, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
 		OBJECT(MODEL_TILT_PLATFORM, -820, -383, -3500, 0, -180, 0, 0x00000000, bhvTiltPlatform),
-		OBJECT(MODEL_NONE, -1399, 1121, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
+		OBJECT(MODEL_NONE, -1399, 882, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		TERRAIN(bob_area_4_collision),
 		MACRO_OBJECTS(bob_area_4_macro_objs),
 		SET_BACKGROUND_MUSIC(0x00, SEQ_WALL_IS_STOP),

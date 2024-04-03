@@ -654,11 +654,11 @@ void render_hud(void) {
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIME_ATTACK_ON) {
-            print_small_text(40, 220, "TIME ATTACK ON", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(40, 220, "TIME ATTACK MODE: ON", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIME_ATTACK_OFF) {
-            print_small_text(40, 220, "TIME ATTACK OFF", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(40, 220, "TIME ATTACK MODE: OFF", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
         }
 
 #ifdef VANILLA_STYLE_CUSTOM_DEBUG
