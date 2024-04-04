@@ -407,12 +407,12 @@ void bhv_level_button_init(void) {
         obj_mark_for_deletion(o);
     } else {
         if (GET_BPARAM2(o->oBehParams) >= 0x10) {
-            spawn_object_relative(((GET_BPARAM2(o->oBehParams) - 0x06) / 10), 30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
-            spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x10), -30, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+            spawn_object_relative(((GET_BPARAM2(o->oBehParams) - 0x06) / 10), 50, 0, 5, o, MODEL_NUMBER, bhvLevelNumber);
+            spawn_object_relative((GET_BPARAM2(o->oBehParams) - 0x10), -50, 0, 5, o, MODEL_NUMBER, bhvLevelNumber);
         } else {
-            spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 0, o, MODEL_NUMBER, bhvLevelNumber);
+            spawn_object_relative(GET_BPARAM2(o->oBehParams), 0, 0, 5, o, MODEL_NUMBER, bhvLevelNumber);
         }
-        o->oButtonScale = 1.0f;
+        o->oButtonScale = 1.75f;
     }
 }
 
@@ -427,6 +427,64 @@ void bhv_credits_button_init(void) {
 }
 
 void bhv_level_button(void) {
+    f32 areaTop;
+    f32 areaBottom;
+    f32 areaLeft;
+    f32 areaRight;
+
+    areaTop = o->oPosY + o->oButtonSizeVert;
+    areaBottom = o->oPosY - o->oButtonSizeVert;
+    areaLeft = o->oPosX - o->oButtonSizeHori;
+    areaRight = o->oPosX + o->oButtonSizeHori;
+    
+    o->parentObj = cur_obj_nearest_object_with_behavior(bhvSelector);
+
+    switch (o->oAction) {
+        case 0:
+            // Button Selected
+            if ((o->parentObj->oPosX > areaLeft) && (o->parentObj->oPosX < areaRight) && (o->parentObj->oPosY > areaBottom) && (o->parentObj->oPosY < areaTop) 
+            && (gPlayer1Controller->buttonPressed & (A_BUTTON))) {
+                play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
+                spawn_mist_particles();
+                o->oAction = 1;
+            }
+            break;
+        case 1:
+            if (o->oButtonScale > 1.85) {
+                o->oAction = 2;
+            } else {
+                o->oButtonScale += 0.05f;
+            }
+            break;
+        case 2:
+            if (o->oButtonScale > 1.75) {
+                o->oButtonScale -= 0.05f;
+            } else {
+                play_sound(SOUND_MENU_ENTER_HOLE, gGlobalSoundSource);
+                gMarioState->usedObj = o;
+                level_trigger_warp(gMarioState, WARP_OP_WARP_OBJECT);
+                o->oAction = 3;
+            }
+            break;
+    }
+
+    // Debug Markers for top right and bottom left of push area
+    
+    /*
+    if (o->oTimer == 0) {
+        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+                                    areaRight, areaTop, o->oPosZ, 0, 0, 0);
+
+        spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,
+                                    areaLeft, areaBottom, o->oPosZ, 0, 0, 0);
+    }
+    */
+
+    cur_obj_scale(o->oButtonScale);
+
+}
+
+void bhv_credits_button(void) {
     f32 areaTop;
     f32 areaBottom;
     f32 areaLeft;
@@ -469,6 +527,7 @@ void bhv_level_button(void) {
     }
 
     // Debug Markers for top right and bottom left of push area
+    
     /*
     if (o->oTimer == 0) {
         spawn_object_abs_with_rot(o, 0, MODEL_AMP, bhvMarker,

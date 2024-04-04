@@ -5,7 +5,6 @@ const GeoLayout jrb_area_3_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 7, -810, 3, 0, -180, 0, jrb_dl_Cube_002_mesh_layer_1),
 		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, jrb_dl_Cube_002_mesh_layer_6),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, jrb_dl_Cube_002_mesh_layer_5),
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -4720, 0, jrb_dl_Plane_002_mesh_layer_1),
@@ -37,7 +36,6 @@ const GeoLayout jrb_area_3[] = {
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, jrb_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, jrb_dl_material_revert_render_settings),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, jrb_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

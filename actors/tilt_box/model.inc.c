@@ -312,11 +312,14 @@ Gfx tilt_box_Cube_mesh_layer_1_tri_0[] = {
 };
 
 
-Gfx mat_tilt_box_f3dlite_material_002[] = {
+Gfx mat_tilt_box_f3dlite_material_002_layer1[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, 0, PRIMITIVE, 0, SHADE_ALPHA, COMBINED, 0, 0, 0, 1),
+	gsDPSetFogColor(0, 0, 0, 255),
+	gsSPFogPosition(985, 1000),
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsDPSetCycleType(G_CYC_2CYCLE),
+	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, tilt_box_EARTHWORM_JIM_3D_0A73F969_0_2_all_ci8_pal_rgba16),
@@ -332,18 +335,19 @@ Gfx mat_tilt_box_f3dlite_material_002[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_tilt_box_f3dlite_material_002[] = {
+Gfx mat_revert_tilt_box_f3dlite_material_002_layer1[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsDPSetCycleType(G_CYC_1CYCLE),
+	gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
 
 Gfx tilt_box_Cube_mesh_layer_1[] = {
-	gsSPDisplayList(mat_tilt_box_f3dlite_material_002),
+	gsSPDisplayList(mat_tilt_box_f3dlite_material_002_layer1),
 	gsSPDisplayList(tilt_box_Cube_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_tilt_box_f3dlite_material_002),
+	gsSPDisplayList(mat_revert_tilt_box_f3dlite_material_002_layer1),
 	gsSPEndDisplayList(),
 };
 

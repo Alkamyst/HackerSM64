@@ -6188,8 +6188,8 @@ const BehaviorScript bhvLevelButton[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oDrawingDistance, 20000),
-    SET_FLOAT(oButtonSizeHori, 100),
-    SET_FLOAT(oButtonSizeVert, 100),
+    SET_FLOAT(oButtonSizeHori, 150),
+    SET_FLOAT(oButtonSizeVert, 150),
     CALL_NATIVE(bhv_level_button_init),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_level_button),
@@ -6197,17 +6197,17 @@ const BehaviorScript bhvLevelButton[] = {
 };
 
 extern void bhv_credits_button_init();
-extern void bhv_level_button();
+extern void bhv_credits_button();
 const BehaviorScript bhvCreditsButton[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     SET_FLOAT(oDrawingDistance, 20000),
     SET_FLOAT(oButtonScale, 1),
-    SET_FLOAT(oButtonSizeHori, 200),
+    SET_FLOAT(oButtonSizeHori, 330),
     SET_FLOAT(oButtonSizeVert, 100),
     CALL_NATIVE(bhv_credits_button_init),
     BEGIN_LOOP(),
-        CALL_NATIVE(bhv_level_button),
+        CALL_NATIVE(bhv_credits_button),
     END_LOOP(),
 };
 
@@ -6241,6 +6241,7 @@ const BehaviorScript bhvLevelNumber[] = {
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     BILLBOARD(),
     CALL_NATIVE(bhv_level_number),
+    SCALE(/*Unused*/ 0, /*Field*/ 190),
     BEGIN_LOOP(),
     END_LOOP(),
 };

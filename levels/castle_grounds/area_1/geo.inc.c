@@ -5,7 +5,6 @@ const GeoLayout castle_grounds_area_1_geo[] = {
 	GEO_OPEN_NODE(),
 		GEO_TRANSLATE_ROTATE_WITH_DL(LAYER_OPAQUE, 7, -810, 3, 0, -180, 0, castle_grounds_dl_Cube_mesh_layer_1),
 		GEO_OPEN_NODE(),
-			GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, castle_grounds_dl_Cube_mesh_layer_6),
 			GEO_DISPLAY_LIST(LAYER_TRANSPARENT, castle_grounds_dl_Cube_mesh_layer_5),
 		GEO_CLOSE_NODE(),
 		GEO_TRANSLATE_NODE_WITH_DL(LAYER_OPAQUE, 0, -1861, -3391, castle_grounds_dl_Mario_Platform_mesh_layer_1),
@@ -36,7 +35,6 @@ const GeoLayout castle_grounds_area_1[] = {
 		GEO_CLOSE_NODE(),
 		GEO_DISPLAY_LIST(LAYER_OPAQUE, castle_grounds_dl_material_revert_render_settings),
 		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, castle_grounds_dl_material_revert_render_settings),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT_DECAL, castle_grounds_dl_material_revert_render_settings),
 	GEO_CLOSE_NODE(),
 	GEO_END(),
 };

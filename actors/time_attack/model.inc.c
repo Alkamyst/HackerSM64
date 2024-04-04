@@ -338,26 +338,29 @@ Gfx time_attack_Cube_mesh_layer_1_tri_0[] = {
 	gsSPEndDisplayList(),
 };
 
-Vtx time_attack_Cube_mesh_layer_4_vtx_0[4] = {
-	{{ {-69, 68, 5}, 0, {1008, -22}, {0, 0, 129, 26} }},
-	{{ {69, 68, 5}, 0, {-16, -22}, {0, 0, 129, 22} }},
-	{{ {69, -68, 5}, 0, {-16, 1014}, {0, 0, 129, 16} }},
-	{{ {-69, -68, 5}, 0, {1008, 1014}, {0, 0, 129, 26} }},
+Vtx time_attack_Cube_mesh_layer_5_vtx_0[4] = {
+	{{ {-69, 68, 2}, 0, {1024, -6}, {0, 0, 129, 26} }},
+	{{ {69, 68, 2}, 0, {0, -6}, {0, 0, 129, 22} }},
+	{{ {69, -68, 2}, 0, {0, 1030}, {0, 0, 129, 16} }},
+	{{ {-69, -68, 2}, 0, {1024, 1030}, {0, 0, 129, 26} }},
 };
 
-Gfx time_attack_Cube_mesh_layer_4_tri_0[] = {
-	gsSPVertex(time_attack_Cube_mesh_layer_4_vtx_0 + 0, 4, 0),
+Gfx time_attack_Cube_mesh_layer_5_tri_0[] = {
+	gsSPVertex(time_attack_Cube_mesh_layer_5_vtx_0 + 0, 4, 0),
 	gsSP1Triangle(0, 1, 2, 0),
 	gsSP1Triangle(0, 2, 3, 0),
 	gsSPEndDisplayList(),
 };
 
 
-Gfx mat_time_attack_f3dlite_material_002[] = {
+Gfx mat_time_attack_f3dlite_material_002_layer1[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, 0, PRIMITIVE, 0, SHADE_ALPHA, COMBINED, 0, 0, 0, 1),
+	gsDPSetFogColor(0, 0, 0, 255),
+	gsSPFogPosition(985, 1000),
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsDPSetCycleType(G_CYC_2CYCLE),
+	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, time_attack_EARTHWORM_JIM_3D_0A73F969_0_6_all_ci8_pal_rgba16),
@@ -373,10 +376,11 @@ Gfx mat_time_attack_f3dlite_material_002[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_time_attack_f3dlite_material_002[] = {
+Gfx mat_revert_time_attack_f3dlite_material_002_layer1[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsDPSetCycleType(G_CYC_1CYCLE),
+	gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
@@ -385,6 +389,7 @@ Gfx mat_time_attack_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, TEXEL0, ENVIRONMENT, 0, TEXEL0, 0, 0, 0, 0, TEXEL0, ENVIRONMENT, 0, TEXEL0, 0),
 	gsSPClearGeometryMode(G_CULL_BACK),
+	gsDPSetTextureFilter(G_TF_POINT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, time_attack_stopwatch2_ci8_pal_rgba16),
@@ -402,20 +407,21 @@ Gfx mat_time_attack_f3dlite_material[] = {
 Gfx mat_revert_time_attack_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_CULL_BACK),
+	gsDPSetTextureFilter(G_TF_BILERP),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
 
 Gfx time_attack_Cube_mesh_layer_1[] = {
-	gsSPDisplayList(mat_time_attack_f3dlite_material_002),
+	gsSPDisplayList(mat_time_attack_f3dlite_material_002_layer1),
 	gsSPDisplayList(time_attack_Cube_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_time_attack_f3dlite_material_002),
+	gsSPDisplayList(mat_revert_time_attack_f3dlite_material_002_layer1),
 	gsSPEndDisplayList(),
 };
 
-Gfx time_attack_Cube_mesh_layer_4[] = {
+Gfx time_attack_Cube_mesh_layer_5[] = {
 	gsSPDisplayList(mat_time_attack_f3dlite_material),
-	gsSPDisplayList(time_attack_Cube_mesh_layer_4_tri_0),
+	gsSPDisplayList(time_attack_Cube_mesh_layer_5_tri_0),
 	gsSPDisplayList(mat_revert_time_attack_f3dlite_material),
 	gsSPEndDisplayList(),
 };

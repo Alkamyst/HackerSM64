@@ -674,7 +674,7 @@ void render_hud(void) {
         } else if (gCurrLevelNum == LEVEL_CASTLE_GROUNDS) {
             // Level Select Text
             print_set_envcolour(83, 219, 237, 255);
-            print_small_text(160, 16, "LEVEL SELECT", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(160, 12, "LEVEL SELECT", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
         } else if (gCurrLevelNum == LEVEL_CASTLE) {
             // Credits Text
             print_set_envcolour(83, 219, 237, 255);

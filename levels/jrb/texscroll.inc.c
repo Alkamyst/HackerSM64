@@ -1,11 +1,11 @@
-void scroll_jrb_dl_Cube_mesh_layer_6_vtx_0() {
+void scroll_jrb_dl_Cube_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 15;
 	int width = 32 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_mesh_layer_6_vtx_0);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_mesh_layer_5_vtx_0);
 
 	deltaX = (int)(-0.10000000149011612 * 0x20) % width;
 
@@ -19,7 +19,7 @@ void scroll_jrb_dl_Cube_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_jrb_dl_Cube_mesh_layer_6_vtx_1() {
+void scroll_jrb_dl_Cube_mesh_layer_5_vtx_1() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
@@ -29,7 +29,7 @@ void scroll_jrb_dl_Cube_mesh_layer_6_vtx_1() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_mesh_layer_6_vtx_1);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_mesh_layer_5_vtx_1);
 
 	deltaX = (int)(0.0 * 0x20) % width;
 	deltaY = (int)(-0.15000000596046448 * 0x20) % height;
@@ -60,14 +60,14 @@ void scroll_sts_mat_jrb_dl_stars() {
 	}
 };
 
-void scroll_jrb_dl_Cube_001_mesh_layer_6_vtx_0() {
+void scroll_jrb_dl_Cube_001_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 15;
 	int width = 32 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_001_mesh_layer_6_vtx_0);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_001_mesh_layer_5_vtx_0);
 
 	deltaX = (int)(-0.10000000149011612 * 0x20) % width;
 
@@ -81,7 +81,7 @@ void scroll_jrb_dl_Cube_001_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_jrb_dl_Cube_001_mesh_layer_6_vtx_1() {
+void scroll_jrb_dl_Cube_001_mesh_layer_5_vtx_1() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
@@ -91,7 +91,7 @@ void scroll_jrb_dl_Cube_001_mesh_layer_6_vtx_1() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_001_mesh_layer_6_vtx_1);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_001_mesh_layer_5_vtx_1);
 
 	deltaX = (int)(0.0 * 0x20) % width;
 	deltaY = (int)(-0.15000000596046448 * 0x20) % height;
@@ -122,14 +122,14 @@ void scroll_sts_mat_jrb_dl_stars_005() {
 	}
 };
 
-void scroll_jrb_dl_Cube_002_mesh_layer_6_vtx_0() {
+void scroll_jrb_dl_Cube_002_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 15;
 	int width = 32 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_002_mesh_layer_6_vtx_0);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_002_mesh_layer_5_vtx_0);
 
 	deltaX = (int)(-0.10000000149011612 * 0x20) % width;
 
@@ -143,7 +143,7 @@ void scroll_jrb_dl_Cube_002_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_jrb_dl_Cube_002_mesh_layer_6_vtx_1() {
+void scroll_jrb_dl_Cube_002_mesh_layer_5_vtx_1() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
@@ -153,7 +153,7 @@ void scroll_jrb_dl_Cube_002_mesh_layer_6_vtx_1() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_002_mesh_layer_6_vtx_1);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_002_mesh_layer_5_vtx_1);
 
 	deltaX = (int)(0.0 * 0x20) % width;
 	deltaY = (int)(-0.15000000596046448 * 0x20) % height;
@@ -184,14 +184,14 @@ void scroll_sts_mat_jrb_dl_stars_006() {
 	}
 };
 
-void scroll_jrb_dl_Cube_005_mesh_layer_6_vtx_0() {
+void scroll_jrb_dl_Cube_005_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 15;
 	int width = 32 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_005_mesh_layer_6_vtx_0);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_005_mesh_layer_5_vtx_0);
 
 	deltaX = (int)(-0.10000000149011612 * 0x20) % width;
 
@@ -205,7 +205,7 @@ void scroll_jrb_dl_Cube_005_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_jrb_dl_Cube_005_mesh_layer_6_vtx_1() {
+void scroll_jrb_dl_Cube_005_mesh_layer_5_vtx_1() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
@@ -215,7 +215,7 @@ void scroll_jrb_dl_Cube_005_mesh_layer_6_vtx_1() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_005_mesh_layer_6_vtx_1);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_005_mesh_layer_5_vtx_1);
 
 	deltaX = (int)(0.0 * 0x20) % width;
 	deltaY = (int)(-0.15000000596046448 * 0x20) % height;
@@ -246,14 +246,14 @@ void scroll_sts_mat_jrb_dl_stars_007() {
 	}
 };
 
-void scroll_jrb_dl_Cube_003_mesh_layer_6_vtx_0() {
+void scroll_jrb_dl_Cube_003_mesh_layer_5_vtx_0() {
 	int i = 0;
 	int count = 15;
 	int width = 32 * 0x20;
 
 	static int currentX = 0;
 	int deltaX;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_003_mesh_layer_6_vtx_0);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_003_mesh_layer_5_vtx_0);
 
 	deltaX = (int)(-0.10000000149011612 * 0x20) % width;
 
@@ -267,7 +267,7 @@ void scroll_jrb_dl_Cube_003_mesh_layer_6_vtx_0() {
 	currentX += deltaX;
 }
 
-void scroll_jrb_dl_Cube_003_mesh_layer_6_vtx_1() {
+void scroll_jrb_dl_Cube_003_mesh_layer_5_vtx_1() {
 	int i = 0;
 	int count = 32;
 	int width = 32 * 0x20;
@@ -277,7 +277,7 @@ void scroll_jrb_dl_Cube_003_mesh_layer_6_vtx_1() {
 	int deltaX;
 	static int currentY = 0;
 	int deltaY;
-	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_003_mesh_layer_6_vtx_1);
+	Vtx *vertices = segmented_to_virtual(jrb_dl_Cube_003_mesh_layer_5_vtx_1);
 
 	deltaX = (int)(0.0 * 0x20) % width;
 	deltaY = (int)(-0.15000000596046448 * 0x20) % height;
@@ -309,19 +309,19 @@ void scroll_sts_mat_jrb_dl_stars_008() {
 };
 
 void scroll_jrb() {
-	scroll_jrb_dl_Cube_mesh_layer_6_vtx_0();
-	scroll_jrb_dl_Cube_mesh_layer_6_vtx_1();
+	scroll_jrb_dl_Cube_mesh_layer_5_vtx_0();
+	scroll_jrb_dl_Cube_mesh_layer_5_vtx_1();
 	scroll_sts_mat_jrb_dl_stars();
-	scroll_jrb_dl_Cube_001_mesh_layer_6_vtx_0();
-	scroll_jrb_dl_Cube_001_mesh_layer_6_vtx_1();
+	scroll_jrb_dl_Cube_001_mesh_layer_5_vtx_0();
+	scroll_jrb_dl_Cube_001_mesh_layer_5_vtx_1();
 	scroll_sts_mat_jrb_dl_stars_005();
-	scroll_jrb_dl_Cube_002_mesh_layer_6_vtx_0();
-	scroll_jrb_dl_Cube_002_mesh_layer_6_vtx_1();
+	scroll_jrb_dl_Cube_002_mesh_layer_5_vtx_0();
+	scroll_jrb_dl_Cube_002_mesh_layer_5_vtx_1();
 	scroll_sts_mat_jrb_dl_stars_006();
-	scroll_jrb_dl_Cube_005_mesh_layer_6_vtx_0();
-	scroll_jrb_dl_Cube_005_mesh_layer_6_vtx_1();
+	scroll_jrb_dl_Cube_005_mesh_layer_5_vtx_0();
+	scroll_jrb_dl_Cube_005_mesh_layer_5_vtx_1();
 	scroll_sts_mat_jrb_dl_stars_007();
-	scroll_jrb_dl_Cube_003_mesh_layer_6_vtx_0();
-	scroll_jrb_dl_Cube_003_mesh_layer_6_vtx_1();
+	scroll_jrb_dl_Cube_003_mesh_layer_5_vtx_0();
+	scroll_jrb_dl_Cube_003_mesh_layer_5_vtx_1();
 	scroll_sts_mat_jrb_dl_stars_008();
 }

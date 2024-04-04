@@ -403,30 +403,30 @@ u8 credits_button_Words_ia8[] = {
 };
 
 Vtx credits_button_Cube_mesh_layer_1_vtx_0[24] = {
-	{{ {189, -93, 40}, 0, {680, -16}, {30, 1, 49, 2} }},
-	{{ {163, -68, 26}, 0, {680, 984}, {255, 233, 243, 16} }},
-	{{ {163, 68, 26}, 0, {312, 984}, {255, 233, 243, 22} }},
-	{{ {189, 93, 40}, 0, {312, -16}, {44, 1, 59, 0} }},
-	{{ {189, 93, 40}, 0, {1566, -16}, {44, 1, 59, 0} }},
-	{{ {163, 68, 26}, 0, {1566, 984}, {255, 233, 243, 22} }},
-	{{ {-163, 68, 26}, 0, {-574, 984}, {255, 233, 243, 26} }},
-	{{ {-189, 93, 40}, 0, {-574, -16}, {44, 5, 59, 0} }},
-	{{ {-189, 93, 40}, 0, {312, -16}, {44, 5, 59, 0} }},
-	{{ {-163, 68, 26}, 0, {312, 984}, {255, 233, 243, 26} }},
-	{{ {-163, -68, 26}, 0, {680, 984}, {255, 233, 243, 26} }},
-	{{ {-189, -93, 40}, 0, {680, -16}, {31, 11, 49, 0} }},
-	{{ {-189, -93, 40}, 0, {-574, -16}, {31, 11, 49, 0} }},
-	{{ {-163, -68, 26}, 0, {-574, 984}, {255, 233, 243, 26} }},
-	{{ {163, -68, 26}, 0, {1566, 984}, {255, 233, 243, 16} }},
-	{{ {189, -93, 40}, 0, {1566, -16}, {30, 1, 49, 2} }},
-	{{ {189, 93, 40}, 0, {-16, 16}, {44, 1, 59, 0} }},
-	{{ {-189, 93, 40}, 0, {1008, 16}, {44, 5, 59, 0} }},
-	{{ {-189, -93, 40}, 0, {1008, 192}, {31, 11, 49, 0} }},
-	{{ {189, -93, 40}, 0, {-16, 192}, {30, 1, 49, 2} }},
-	{{ {-163, 68, 26}, 0, {456, 994}, {255, 233, 243, 26} }},
-	{{ {163, 68, 26}, 0, {456, 994}, {255, 233, 243, 22} }},
-	{{ {163, -68, 26}, 0, {456, 994}, {255, 233, 243, 16} }},
-	{{ {-163, -68, 26}, 0, {456, 994}, {255, 233, 243, 26} }},
+	{{ {328, -93, 40}, 0, {680, -16}, {30, 1, 49, 2} }},
+	{{ {299, -68, 26}, 0, {680, 984}, {255, 233, 243, 16} }},
+	{{ {299, 68, 26}, 0, {312, 984}, {255, 233, 243, 22} }},
+	{{ {328, 93, 40}, 0, {312, -16}, {44, 1, 59, 0} }},
+	{{ {328, 93, 40}, 0, {1566, -16}, {44, 1, 59, 0} }},
+	{{ {299, 68, 26}, 0, {1566, 984}, {255, 233, 243, 22} }},
+	{{ {-299, 68, 26}, 0, {-574, 984}, {255, 233, 243, 26} }},
+	{{ {-328, 93, 40}, 0, {-574, -16}, {44, 5, 59, 0} }},
+	{{ {-328, 93, 40}, 0, {312, -16}, {44, 5, 59, 0} }},
+	{{ {-299, 68, 26}, 0, {312, 984}, {255, 233, 243, 26} }},
+	{{ {-299, -68, 26}, 0, {680, 984}, {255, 233, 243, 26} }},
+	{{ {-328, -93, 40}, 0, {680, -16}, {31, 11, 49, 0} }},
+	{{ {-328, -93, 40}, 0, {-574, -16}, {31, 11, 49, 0} }},
+	{{ {-299, -68, 26}, 0, {-574, 984}, {255, 233, 243, 26} }},
+	{{ {299, -68, 26}, 0, {1566, 984}, {255, 233, 243, 16} }},
+	{{ {328, -93, 40}, 0, {1566, -16}, {30, 1, 49, 2} }},
+	{{ {328, 93, 40}, 0, {-16, 16}, {44, 1, 59, 0} }},
+	{{ {-328, 93, 40}, 0, {1008, 16}, {44, 5, 59, 0} }},
+	{{ {-328, -93, 40}, 0, {1008, 192}, {31, 11, 49, 0} }},
+	{{ {328, -93, 40}, 0, {-16, 192}, {30, 1, 49, 2} }},
+	{{ {-299, 68, 26}, 0, {456, 994}, {255, 233, 243, 26} }},
+	{{ {299, 68, 26}, 0, {456, 994}, {255, 233, 243, 22} }},
+	{{ {299, -68, 26}, 0, {456, 994}, {255, 233, 243, 16} }},
+	{{ {-299, -68, 26}, 0, {456, 994}, {255, 233, 243, 26} }},
 };
 
 Gfx credits_button_Cube_mesh_layer_1_tri_0[] = {
@@ -448,10 +448,10 @@ Gfx credits_button_Cube_mesh_layer_1_tri_0[] = {
 };
 
 Vtx credits_button_Cube_mesh_layer_4_vtx_0[4] = {
-	{{ {-152, 31, 23}, 0, {1805, -16}, {0, 0, 129, 255} }},
-	{{ {152, 31, 23}, 0, {-16, -16}, {0, 0, 129, 255} }},
-	{{ {152, -35, 23}, 0, {-16, 299}, {0, 0, 129, 255} }},
-	{{ {-152, -35, 23}, 0, {1805, 299}, {0, 0, 129, 255} }},
+	{{ {-262, 54, 23}, 0, {1821, 0}, {0, 0, 129, 255} }},
+	{{ {263, 54, 23}, 0, {0, 0}, {0, 0, 129, 255} }},
+	{{ {263, -59, 23}, 0, {0, 315}, {0, 0, 129, 255} }},
+	{{ {-262, -59, 23}, 0, {1821, 315}, {0, 0, 129, 255} }},
 };
 
 Gfx credits_button_Cube_mesh_layer_4_tri_0[] = {
@@ -462,11 +462,14 @@ Gfx credits_button_Cube_mesh_layer_4_tri_0[] = {
 };
 
 
-Gfx mat_credits_button_f3dlite_material_002[] = {
+Gfx mat_credits_button_f3dlite_material_002_layer1[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(TEXEL0, 0, SHADE, 0, 0, 0, 0, 0, PRIMITIVE, 0, SHADE_ALPHA, COMBINED, 0, 0, 0, 1),
+	gsDPSetFogColor(0, 0, 0, 255),
+	gsSPFogPosition(985, 1000),
 	gsSPClearGeometryMode(G_LIGHTING),
 	gsDPSetCycleType(G_CYC_2CYCLE),
+	gsDPSetRenderMode(G_RM_FOG_SHADE_A, G_RM_AA_ZB_OPA_SURF2),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureLUT(G_TT_RGBA16),
 	gsDPSetTextureImage(G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, credits_button_EARTHWORM_JIM_3D_0A73F969_0_7_all_ci8_pal_rgba16),
@@ -482,10 +485,11 @@ Gfx mat_credits_button_f3dlite_material_002[] = {
 	gsSPEndDisplayList(),
 };
 
-Gfx mat_revert_credits_button_f3dlite_material_002[] = {
+Gfx mat_revert_credits_button_f3dlite_material_002_layer1[] = {
 	gsDPPipeSync(),
 	gsSPSetGeometryMode(G_LIGHTING),
 	gsDPSetCycleType(G_CYC_1CYCLE),
+	gsDPSetRenderMode(G_RM_AA_ZB_OPA_SURF, G_RM_AA_ZB_OPA_SURF2),
 	gsDPSetTextureLUT(G_TT_NONE),
 	gsSPEndDisplayList(),
 };
@@ -493,7 +497,8 @@ Gfx mat_revert_credits_button_f3dlite_material_002[] = {
 Gfx mat_credits_button_f3dlite_material[] = {
 	gsDPPipeSync(),
 	gsDPSetCombineLERP(0, 0, 0, TEXEL0, ENVIRONMENT, 0, TEXEL0, 0, 0, 0, 0, TEXEL0, ENVIRONMENT, 0, TEXEL0, 0),
-	gsSPClearGeometryMode(G_CULL_BACK),
+	gsSPClearGeometryMode(G_SHADING_SMOOTH),
+	gsDPSetTextureFilter(G_TF_POINT),
 	gsSPTexture(65535, 65535, 0, 0, 1),
 	gsDPSetTextureImage(G_IM_FMT_IA, G_IM_SIZ_8b_LOAD_BLOCK, 1, credits_button_Words_ia8),
 	gsDPSetTile(G_IM_FMT_IA, G_IM_SIZ_8b_LOAD_BLOCK, 0, 0, 7, 0, G_TX_CLAMP | G_TX_NOMIRROR, 5, 0, G_TX_CLAMP | G_TX_NOMIRROR, 6, 0),
@@ -505,14 +510,15 @@ Gfx mat_credits_button_f3dlite_material[] = {
 
 Gfx mat_revert_credits_button_f3dlite_material[] = {
 	gsDPPipeSync(),
-	gsSPSetGeometryMode(G_CULL_BACK),
+	gsSPSetGeometryMode(G_SHADING_SMOOTH),
+	gsDPSetTextureFilter(G_TF_BILERP),
 	gsSPEndDisplayList(),
 };
 
 Gfx credits_button_Cube_mesh_layer_1[] = {
-	gsSPDisplayList(mat_credits_button_f3dlite_material_002),
+	gsSPDisplayList(mat_credits_button_f3dlite_material_002_layer1),
 	gsSPDisplayList(credits_button_Cube_mesh_layer_1_tri_0),
-	gsSPDisplayList(mat_revert_credits_button_f3dlite_material_002),
+	gsSPDisplayList(mat_revert_credits_button_f3dlite_material_002_layer1),
 	gsSPEndDisplayList(),
 };
 

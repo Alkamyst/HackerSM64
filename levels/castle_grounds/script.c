@@ -76,7 +76,7 @@ const LevelScript level_castle_grounds_entry[] = {
 		WARP_NODE(0x18, LEVEL_CCM, 0x03, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x19, LEVEL_CCM, 0x04, 0x0A, WARP_NO_CHECKPOINT),
 		WARP_NODE(0x20, LEVEL_CCM, 0x05, 0x0A, WARP_NO_CHECKPOINT),
-		OBJECT(MODEL_CREDITS_BUTTON, 1170, -909, -2546, 0, -180, 0, (0x0B << 16), bhvCreditsButton),
+		OBJECT(MODEL_CREDITS_BUTTON, 1000, -909, -2546, 0, -180, 0, (0x0B << 16), bhvCreditsButton),
 		OBJECT(MODEL_LEVEL_BUTTON, -1000, 600, -2546, 0, -180, 0, (1 << 16), bhvLevelButton),
 		OBJECT(MODEL_LEVEL_BUTTON, -500, 600, -2546, 0, -180, 0, (2 << 16), bhvLevelButton),
 		OBJECT(MODEL_LEVEL_BUTTON, 0, 600, -2546, 0, -180, 0, (3 << 16), bhvLevelButton),
