@@ -1,5 +1,5 @@
-extern void scroll_ccm_dl_Cube_mesh_layer_1_vtx_0();
-extern void scroll_ccm_dl_Cube_mesh_layer_5_vtx_0();
+extern void scroll_ccm_dl_Cube_003_mesh_layer_1_vtx_0();
+extern void scroll_ccm_dl_Cube_003_mesh_layer_5_vtx_0();
 extern void scroll_ccm_dl_Cube_001_mesh_layer_1_vtx_0();
 extern void scroll_ccm_dl_Cube_001_mesh_layer_5_vtx_0();
 extern void scroll_ccm_dl_Cube_002_mesh_layer_1_vtx_0();
