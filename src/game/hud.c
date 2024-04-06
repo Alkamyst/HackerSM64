@@ -523,6 +523,39 @@ void render_hud_high_score_timer(void) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
 }
 
+void render_high_scores(void) {
+    s32 fileIndex = gCurrSaveFileNum - 1;
+    char myString[40];
+    f32 xPos = 0;
+    f32 yPos = 0;
+
+    for (int i = 0; i < 4; i++) {
+        for (int k = 0; k < 5; k++) {
+            s32 courseIndex = (i * 5 + k);
+
+            u16 timerValFrames = save_file_get_course_coin_score(fileIndex, courseIndex);
+            u16 timerMins = 0;
+            u16 timerSecs = 0;
+            u16 timerFracSecs = 0;
+
+            if (timerValFrames != NULL) {
+                timerMins = timerValFrames / (30 * 60);
+                timerSecs = (timerValFrames - (timerMins * 1800)) / 30;
+                timerFracSecs = ((timerValFrames - (timerMins * 1800) - (timerSecs * 30)) & 0xFFFF) / 3;
+                sprintf(myString, "%0d'%02d''%d", timerMins, timerSecs, timerFracSecs);
+            } else {
+                sprintf(myString, "");
+            }
+
+            xPos = (k * 56) + 47;
+            yPos = (i * 45) + 24;
+
+            print_set_envcolour(255, 255, 255, 255);
+            print_small_text(xPos, yPos, myString, PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
+        }
+    }
+}
+
 /**
  * Sets HUD status camera value depending of the actions
  * defined in update_camera_status.
@@ -675,6 +708,7 @@ void render_hud(void) {
             // Level Select Text
             print_set_envcolour(83, 219, 237, 255);
             print_small_text(160, 12, "LEVEL SELECT", PRINT_TEXT_ALIGN_CENTER, PRINT_ALL, FONT_OUTLINE);
+            if (gMarioState->timeAttack) render_high_scores();
         } else if (gCurrLevelNum == LEVEL_CASTLE) {
             // Credits Text
             print_set_envcolour(83, 219, 237, 255);
