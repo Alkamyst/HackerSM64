@@ -6143,7 +6143,7 @@ const BehaviorScript bhvMarker[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     //SET_FLOAT(oGraphYOffset, 40),
-    SCALE(/*Unused*/ 0, /*Field*/ 25),
+    SCALE(/*Unused*/ 0, /*Field*/ 30),
     BEGIN_LOOP(),
     END_LOOP(),
 };
@@ -6152,7 +6152,7 @@ const BehaviorScript bhvMiniMarker[] = {
     BEGIN(OBJ_LIST_GENACTOR),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
     //SET_FLOAT(oGraphYOffset, 40),
-    SCALE(/*Unused*/ 0, /*Field*/ 10),
+    SCALE(/*Unused*/ 0, /*Field*/ 15),
     BEGIN_LOOP(),
     END_LOOP(),
 };

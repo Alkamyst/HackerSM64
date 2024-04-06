@@ -508,15 +508,15 @@ void bhv_credits_button(void) {
             }
             break;
         case 1:
-            if (o->oButtonScale > 1.1) {
+            if (o->oButtonScale > 1.05) {
                 o->oAction = 2;
             } else {
-                o->oButtonScale += 0.05f;
+                o->oButtonScale += 0.025f;
             }
             break;
         case 2:
             if (o->oButtonScale > 1.0) {
-                o->oButtonScale -= 0.05f;
+                o->oButtonScale -= 0.025f;
             } else {
                 play_sound(SOUND_MENU_ENTER_HOLE, gGlobalSoundSource);
                 gMarioState->usedObj = o;
@@ -557,9 +557,15 @@ void bhv_time_attack_button(void) {
 
     switch (o->oAction) {
         case 0:
+            if (o->oTimer > 30) {
+                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_ON;
+                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_OFF;
+            }
             // Button Selected
             if ((o->parentObj->oPosX > areaLeft) && (o->parentObj->oPosX < areaRight) && (o->parentObj->oPosY > areaBottom) && (o->parentObj->oPosY < areaTop) 
             && (gPlayer1Controller->buttonPressed & (A_BUTTON))) {
+                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_ON;
+                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_OFF;
                 play_sound(SOUND_MENU_CLICK_FILE_SELECT, gGlobalSoundSource);
                 spawn_mist_particles();
                 gMarioState->timeAttack = !(gMarioState->timeAttack);
@@ -572,18 +578,16 @@ void bhv_time_attack_button(void) {
             }
             break;
         case 1:
-            if (o->oButtonScale > 1.1) {
+            if (o->oButtonScale > 1.05) {
                 o->oAction = 2;
             } else {
-                o->oButtonScale += 0.01f;
+                o->oButtonScale += 0.025f;
             }
             break;
         case 2:
             if (o->oButtonScale > 1.0) {
-                o->oButtonScale -= 0.01f;
+                o->oButtonScale -= 0.025f;
             } else {
-                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_ON;
-                gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_TIME_ATTACK_OFF;
                 o->oAction = 0;
             }
             break;

@@ -681,7 +681,7 @@ void render_hud(void) {
             print_small_text(20, 20, "Mario Slides", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
             print_set_envcolour(255, 255, 255, 255);
             print_small_text(20, 36, "An SM64 Hack made by Alkamyst", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
-            print_small_text(20, 52, "Music from Baba Is You", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
+            print_small_text(20, 52, "Made using HackerSM64 - Music from Baba Is You", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
             print_small_text(10, 84, "Thank you for playing this hack!", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
             print_small_text(10, 100, "This was made for SimpleFlips's Slide Competition 2024.", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
             print_small_text(10, 116, "Honestly, I do not like making slides. They just seem so", PRINT_TEXT_ALIGN_LEFT, PRINT_ALL, FONT_OUTLINE);
