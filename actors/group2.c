@@ -27,3 +27,5 @@
 #include "stone_star/model.inc.c"
 #include "time_attack/model.inc.c"
 #include "time_attack_active/model.inc.c"
+#include "slide_platform_sideways/collision.inc.c"
+#include "slide_platform_sideways/model.inc.c"

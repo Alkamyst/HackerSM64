@@ -22,3 +22,4 @@
 #include "stone_star/geo.inc.c"
 #include "time_attack/geo.inc.c"
 #include "time_attack_active/geo.inc.c"
+#include "slide_platform_sideways/geo.inc.c"

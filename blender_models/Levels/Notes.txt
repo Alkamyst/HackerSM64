@@ -1,0 +1,9 @@
+This folder contains some of the indvidual levels before I put them into the World models.
+
+A lot of these are beta versions of the levels because I made modifications in the World models only.
+This also means some of the final levels are not here.
+
+I started condensing them later on into other folders. 
+So, the early levels are numbered, while later ones are named and categorized based on level gimmick.
+
+There are a few unused levels here too. But they are not too interesting.

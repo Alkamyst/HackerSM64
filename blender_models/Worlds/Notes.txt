@@ -1,0 +1,3 @@
+This folder contains all of the Worlds that are in the game.
+
+Each World has 5 areas, which are the 5 levels in each World.

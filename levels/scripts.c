@@ -226,6 +226,7 @@ const LevelScript script_func_global_3[] = {
     LOAD_MODEL_FROM_GEO(MODEL_STONE_STAR,              stone_star_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TIME_ATTACK,             time_attack_geo),
     LOAD_MODEL_FROM_GEO(MODEL_TIME_ATTACK_ACTIVE,      time_attack_active_geo),
+    LOAD_MODEL_FROM_GEO(MODEL_SLIDE_PLATFORM_SIDEWAYS, slide_platform_sideways_geo),
     RETURN(),
 };
 

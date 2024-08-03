@@ -336,6 +336,7 @@
 #define MODEL_STONE_STAR                  0x60        // stone_star_geo
 #define MODEL_TIME_ATTACK                 0x61        // time_attack_geo
 #define MODEL_TIME_ATTACK_ACTIVE          0x62        // time_attack_active_geo
+#define MODEL_SLIDE_PLATFORM_SIDEWAYS     0x63        // slide_platform_sideways_geo
 
 // group 3
 #define MODEL_WATER_BOMB                  0x54        // water_bomb_geo

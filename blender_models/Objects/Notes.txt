@@ -1,0 +1,1 @@
+These are all the objects found in levels. All of them are exported as global actors so they can be easily accessed acrossed all levels.

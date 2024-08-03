@@ -599,9 +599,9 @@ s32 act_ledge_grab(struct MarioState *m) {
     }
 
     heightAboveFloor = m->pos[1] - find_floor_height_relative_polar(m, -0x8000, 30.0f);
-    if (hasSpaceForMario && heightAboveFloor < 100.0f) {
-        m->health = 0x0;
-    }
+    //if (hasSpaceForMario && heightAboveFloor < 100.0f) {
+    //    m->health = 0x0;
+    //}
 
     if (m->actionArg == 0) {
         play_sound_if_no_flag(m, SOUND_MARIO_WHOA, MARIO_MARIO_SOUND_PLAYED);

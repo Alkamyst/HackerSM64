@@ -161,17 +161,17 @@ void bhv_slide_platform_vert(void) {
         o->oPosY = limitBottom * -10.0;
     }
 
-    f32 limitAvg = (((limitTop + 25.0) + (limitBottom * -1.0 - 25.0)) / 2);
-    f32 limitAvgTop = (((limitTop + 25.0) + (limitAvg)) / 2);
-    f32 limitAvgDown = (((limitAvg) + (limitBottom * -1.0 - 25.0)) / 2);
+    f32 limitAvg = (((limitTop + 35.0) + (limitBottom * -1.0 - 35.0)) / 2);
+    f32 limitAvgTop = (((limitTop + 35.0) + (limitAvg)) / 2);
+    f32 limitAvgDown = (((limitAvg) + (limitBottom * -1.0 - 35.0)) / 2);
 
     // Spawns Markers
     if (o->oTimer == 0) {
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
-                                    o->oPosX, ((limitBottom * -10.0) - 250.0), o->oPosZ, 0, 0, 0);
+                                    o->oPosX, ((limitBottom * -10.0) - 350.0), o->oPosZ, 0, 0, 0);
 
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMarker,
-                                    o->oPosX, ((limitTop * 10.0) + 250.0), o->oPosZ, 0, 0, 0);
+                                    o->oPosX, ((limitTop * 10.0) + 350.0), o->oPosZ, 0, 0, 0);
 
         spawn_object_abs_with_rot(o, 0, MODEL_BOWLING_BALL, bhvMiniMarker,
                                     o->oPosX, (limitAvg * 10.0), o->oPosZ, 0, 0, 0);

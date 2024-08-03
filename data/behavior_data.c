@@ -6131,7 +6131,7 @@ extern void bhv_slide_platform_vert();
 const BehaviorScript bhvSlidePlatformVert[] = {
     BEGIN(OBJ_LIST_SURFACE),
     OR_INT(oFlags, OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE),
-    LOAD_COLLISION_DATA(slide_platform_small_collision),
+    LOAD_COLLISION_DATA(slide_platform_sideways_collision),
     SET_FLOAT(oDrawingDistance, 20000),
     BEGIN_LOOP(),
         CALL_NATIVE(bhv_slide_platform_vert),

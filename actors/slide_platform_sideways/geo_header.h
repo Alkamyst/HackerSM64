@@ -1,0 +1,9 @@
+extern const GeoLayout slide_platform_sideways_geo[];
+extern u8 slide_platform_sideways_EARTHWORM_JIM_3D_0A73F969_0_3_all_ci8[];
+extern u8 slide_platform_sideways_EARTHWORM_JIM_3D_0A73F969_0_3_all_ci8_pal_rgba16[];
+extern Vtx slide_platform_sideways_Cube_mesh_layer_1_vtx_0[36];
+extern Gfx slide_platform_sideways_Cube_mesh_layer_1_tri_0[];
+extern Gfx mat_slide_platform_sideways_f3dlite_material_002_layer1[];
+extern Gfx mat_revert_slide_platform_sideways_f3dlite_material_002_layer1[];
+extern Gfx slide_platform_sideways_Cube_mesh_layer_1[];
+extern Gfx slide_platform_sideways_material_revert_render_settings[];

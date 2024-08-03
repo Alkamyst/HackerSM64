@@ -45,4 +45,8 @@
 
 #include "time_attack_active/geo_header.h"
 
+#include "slide_platform_sideways/collision_header.h"
+
+#include "slide_platform_sideways/geo_header.h"
+
 #endif
