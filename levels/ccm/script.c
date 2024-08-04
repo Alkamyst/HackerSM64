@@ -118,7 +118,7 @@ const LevelScript level_ccm_entry[] = {
 		WARP_NODE(0xF1, LEVEL_CCM, 0x04, 0x0A, WARP_NO_CHECKPOINT),
 		OBJECT(MODEL_FAN, 886, -1000, -3491, -90, 0, 0, (0 << 24) | (200 << 16), bhvFan),
 		OBJECT(MODEL_RED_COIN, 793, -775, -3491, 0, -180, 0, 0x00000000, bhvRedCoin),
-		OBJECT(MODEL_STONE_STAR, 793, 995, -3491, 0, -180, 0, (4 << 24), bhvHiddenRedCoinStar),
+		OBJECT(MODEL_STONE_STAR, 793, 995, -3491, 0, -180, 0, (3 << 24), bhvHiddenRedCoinStar),
 		OBJECT(MODEL_TILT_PLATFORM, -570, -436, -3491, 0, -180, 0, 0x00000000, bhvTiltPlatform),
 		OBJECT(MODEL_NONE, -570, -386, -3500, 0, 0, 0, 0x000A0000, bhvSpinAirborneWarp),
 		TERRAIN(ccm_area_4_collision),
