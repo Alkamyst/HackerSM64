@@ -8,12 +8,12 @@
  * Enables some mechanics that change behavior depending on hardcoded level numbers.
  * TODO: separate this into separate defines, behavior params, or make these mechanics otherwise dynamic.
 */
-// #define ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+#define ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
 
 /**
  * Enable lives and the lives counter. The number next to the define is the number of lives you start with.
  */
-// #define ENABLE_LIVES 4
+#define ENABLE_LIVES 4
 
 /**
  * This can be 0..127.
@@ -23,7 +23,7 @@
 /**
  * This can be 0..32767.
  */
-#define MAX_NUM_COINS 999
+#define MAX_NUM_COINS 9999
 
 /**
  * Air/breath meter is separate from health meter when underwater.
@@ -33,7 +33,7 @@
 /**
  * Number of coins to spawn the "100 coin" star. If you remove the define altogether, then there won't be a 100 coin star at all.
  */
-#define X_COIN_STAR 100
+// #define X_COIN_STAR 100
 
 /**
  * Stars don't kick you out of the level (does not play nicely with vanilla).

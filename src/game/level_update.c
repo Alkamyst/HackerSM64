@@ -749,8 +749,8 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
 
             case WARP_OP_STAR_EXIT:
                 sDelayedWarpTimer = 32;
-                sSourceWarpNodeId = WARP_NODE_DEFAULT;
-                gSavedCourseNum = COURSE_NONE;
+                //sSourceWarpNodeId = WARP_NODE_DEFAULT;
+                //gSavedCourseNum = COURSE_NONE;
                 play_transition(WARP_TRANSITION_FADE_INTO_MARIO, sDelayedWarpTimer, 0x00, 0x00, 0x00);
                 break;
 
@@ -761,7 +761,7 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
                 }
 #endif
                 sDelayedWarpTimer = 48;
-                sSourceWarpNodeId = WARP_NODE_DEATH;
+                //sSourceWarpNodeId = WARP_NODE_DEATH;
                 play_transition(WARP_TRANSITION_FADE_INTO_BOWSER, sDelayedWarpTimer, 0x00, 0x00, 0x00);
                 play_sound(SOUND_MENU_BOWSER_LAUGH, gGlobalSoundSource);
 #ifdef PREVENT_DEATH_LOOP
@@ -778,11 +778,11 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
 #ifdef ENABLE_LIVES
                         if (m->numLives == 0) {
                             sDelayedWarpOp = WARP_OP_GAME_OVER;
-                        } else {
-                            sSourceWarpNodeId = WARP_NODE_DEATH;
-                        }
+                        } //else {
+                            //sSourceWarpNodeId = WARP_NODE_DEATH;
+                        //}
 #else
-                        sSourceWarpNodeId = WARP_NODE_DEATH;
+                        //sSourceWarpNodeId = WARP_NODE_DEATH;
 #endif
                     }                    
                 }
@@ -857,6 +857,8 @@ s16 level_trigger_warp(struct MarioState *m, s32 warpOp) {
 void initiate_delayed_warp(void) {
     struct ObjectWarpNode *warpNode;
     s32 destWarpNode;
+    s16 randWarp;
+    f32 rng;
 
 #ifdef PUPPYPRINT_DEBUG
     if (gPuppyWarp) {
@@ -909,6 +911,67 @@ void initiate_delayed_warp(void) {
                     }
 
                     initiate_warp(gCurrCreditsEntry->levelNum, gCurrCreditsEntry->areaIndex, destWarpNode, WARP_FLAGS_NONE);
+                    break;
+
+                case WARP_OP_STAR_EXIT:
+                case WARP_OP_DEATH:
+                case WARP_OP_WARP_FLOOR:
+                    // Chooses a random level to exit to... in a very unoptimized manner
+                    rng = (random_float() * 1000);
+                    if (rng < 50) {
+                        randWarp = LEVEL_BOB;
+                    } else if ((rng >= 50) && (rng < 100)) {
+                        randWarp = LEVEL_WF;
+                    } else if ((rng >= 100) && (rng < 150)) {
+                        randWarp = LEVEL_JRB;
+                    } else if ((rng >= 150) && (rng < 200)) {
+                        randWarp = LEVEL_CCM;
+                    } else if ((rng >= 200) && (rng < 250)) {
+                        randWarp = LEVEL_BBH;
+                    } else if ((rng >= 250) && (rng < 300)) {
+                        randWarp = LEVEL_HMC;
+                    } else if ((rng >= 300) && (rng < 350)) {
+                        randWarp = LEVEL_LLL;
+                    } else if ((rng >= 350) && (rng < 400)) {
+                        randWarp = LEVEL_SSL;
+                    } else if ((rng >= 400) && (rng < 450)) {
+                        randWarp = LEVEL_DDD;
+                    } else if ((rng >= 450) && (rng < 500)) {
+                        randWarp = LEVEL_SL;
+                    } else if ((rng >= 500) && (rng < 550)) {
+                        randWarp = LEVEL_WDW;
+                    } else if ((rng >= 550) && (rng < 600)) {
+                        randWarp = LEVEL_TTM;
+                    } else if ((rng >= 600) && (rng < 650)) {
+                        randWarp = LEVEL_THI;
+                    } else if ((rng >= 650) && (rng < 700)) {
+                        randWarp = LEVEL_TTC;
+                    } else if ((rng >= 700) && (rng < 750)) {
+                        randWarp = LEVEL_RR;
+                    } else if ((rng >= 775) && (rng < 800)) {
+                        randWarp = LEVEL_WMOTR;
+                    } else if ((rng >= 800) && (rng < 825)) {
+                        randWarp = LEVEL_VCUTM;
+                    } else if ((rng >= 825) && (rng < 850)) {
+                        randWarp = LEVEL_COTMC;
+                    } else if ((rng >= 850) && (rng < 875)) {
+                        randWarp = LEVEL_BITDW;
+                    } else if ((rng >= 875) && (rng < 900)) {
+                        randWarp = LEVEL_BITFS;
+                    } else if ((rng >= 900) && (rng < 925)) {
+                        randWarp = LEVEL_BITS;
+                    } else if ((rng >= 925) && (rng < 950)) {
+                        randWarp = LEVEL_BOWSER_1;
+                    } else if ((rng >= 950) && (rng < 975)) {
+                        randWarp = LEVEL_BOWSER_2;
+                    } else if ((rng >= 975) && (rng <= 1000)) {
+                        randWarp = LEVEL_BOWSER_3;
+                    } 
+                    
+                    if ((sDelayedWarpOp == WARP_OP_DEATH) || (sDelayedWarpOp == WARP_OP_WARP_FLOOR)) {
+                        gMarioState->numLives--;
+                    }
+                    initiate_warp(randWarp, 0x01, 0x0A, WARP_FLAGS_NONE);
                     break;
 
                 default:
@@ -1389,8 +1452,8 @@ s32 lvl_set_current_level(UNUSED s16 initOrUpdate, s32 levelNum) {
     }
 
     if (gCurrLevelNum != LEVEL_BOWSER_1 && gCurrLevelNum != LEVEL_BOWSER_2 && gCurrLevelNum != LEVEL_BOWSER_3) {
-        gMarioState->numCoins = 0;
-        gHudDisplay.coins = 0;
+        //gMarioState->numCoins = 0;
+        //gHudDisplay.coins = 0;
         gCurrCourseStarFlags =
             save_file_get_star_flags(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(gCurrCourseNum));
     }
