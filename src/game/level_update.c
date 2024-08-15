@@ -859,6 +859,9 @@ void initiate_delayed_warp(void) {
     s32 destWarpNode;
     s16 randWarp;
     f32 rng;
+    u8 sObtainedStars;
+    s16 i = 0;
+    Bool32 randLoop = TRUE;
 
 #ifdef PUPPYPRINT_DEBUG
     if (gPuppyWarp) {
@@ -916,8 +919,40 @@ void initiate_delayed_warp(void) {
                 case WARP_OP_STAR_EXIT:
                 case WARP_OP_DEATH:
                 case WARP_OP_WARP_FLOOR:
-                    // Chooses a random level to exit to... in a very unoptimized manner
-                    rng = (random_float() * 1000);
+
+                //sObtainedStars = save_file_get_course_star_count(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX(gCurrCourseNum));
+
+                    // Chooses a random level to exit to
+                    while (randLoop) {
+                        rng = (random_float() * 1000);
+                        i = 0;
+                        while (i < 24) { 
+                            sObtainedStars = save_file_get_course_star_count(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX((i + 1)));
+                            if (i < 15) { // Main Courses
+                                if ((rng > (50 * i)) && (rng <= (50 * (i + 1)))) { // 5% Chance
+                                    if ((gCurrLevelNum != (i + 1))) { // Cannot spawn in the same level
+                                        if (sObtainedStars != 6) { // Cannot spawn in levels where all stars are collected
+                                            randWarp = (i + 1);
+                                            randLoop = FALSE;
+                                        }
+                                    }
+                                }
+                            } else { // Secret Courses
+                                if ((rng > ((25 * i) + 400)) && (rng <= ((25 * (i + 1)) + 400 ))) { // 2.5% Chance
+                                    if (gCurrLevelNum != (i + 1)) { // Cannot spawn in the same level
+                                        if (sObtainedStars != 1) { // Cannot spawn in levels where all stars are collected
+                                            randWarp = (i + 1);
+                                            randLoop = FALSE;
+                                        }
+                                    }
+                                }
+                            }
+                            i++;
+                        }
+                    }
+
+                    // Old bad code
+                    /*
                     if (rng < 50) {
                         randWarp = LEVEL_BOB;
                     } else if ((rng >= 50) && (rng < 100)) {
@@ -949,24 +984,25 @@ void initiate_delayed_warp(void) {
                     } else if ((rng >= 700) && (rng < 750)) {
                         randWarp = LEVEL_RR;
                     } else if ((rng >= 775) && (rng < 800)) {
-                        randWarp = LEVEL_WMOTR;
-                    } else if ((rng >= 800) && (rng < 825)) {
-                        randWarp = LEVEL_VCUTM;
-                    } else if ((rng >= 825) && (rng < 850)) {
-                        randWarp = LEVEL_COTMC;
-                    } else if ((rng >= 850) && (rng < 875)) {
                         randWarp = LEVEL_BITDW;
-                    } else if ((rng >= 875) && (rng < 900)) {
+                    } else if ((rng >= 800) && (rng < 825)) {
                         randWarp = LEVEL_BITFS;
-                    } else if ((rng >= 900) && (rng < 925)) {
+                    } else if ((rng >= 825) && (rng < 850)) {
                         randWarp = LEVEL_BITS;
+                    } else if ((rng >= 850) && (rng < 875)) {
+                        randWarp = LEVEL_PSS;
+                    } else if ((rng >= 875) && (rng < 900)) {
+                        randWarp = LEVEL_COTMC;
+                    } else if ((rng >= 900) && (rng < 925)) {
+                        randWarp = LEVEL_TOTWC;
                     } else if ((rng >= 925) && (rng < 950)) {
-                        randWarp = LEVEL_BOWSER_1;
+                        randWarp = LEVEL_VCUTM;
                     } else if ((rng >= 950) && (rng < 975)) {
-                        randWarp = LEVEL_BOWSER_2;
+                        randWarp = LEVEL_WMOTR;
                     } else if ((rng >= 975) && (rng <= 1000)) {
-                        randWarp = LEVEL_BOWSER_3;
+                        randWarp = LEVEL_SA;
                     } 
+                    */
                     
                     if ((sDelayedWarpOp == WARP_OP_DEATH) || (sDelayedWarpOp == WARP_OP_WARP_FLOOR)) {
                         gMarioState->numLives--;
