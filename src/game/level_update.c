@@ -929,7 +929,7 @@ void initiate_delayed_warp(void) {
                         while (i < 24) { 
                             sObtainedStars = save_file_get_course_star_count(gCurrSaveFileNum - 1, COURSE_NUM_TO_INDEX((i + 1)));
                             if (i < 15) { // Main Courses
-                                if ((rng > (50 * i)) && (rng <= (50 * (i + 1)))) { // 5% Chance
+                                if ((rng > (60 * i)) && (rng <= (60 * (i + 1)))) { // 6% Chance
                                     if ((gCurrLevelNum != (i + 1))) { // Cannot spawn in the same level
                                         if (sObtainedStars != 6) { // Cannot spawn in levels where all stars are collected
                                             randWarp = (i + 1);
@@ -938,7 +938,7 @@ void initiate_delayed_warp(void) {
                                     }
                                 }
                             } else { // Secret Courses
-                                if ((rng > ((25 * i) + 400)) && (rng <= ((25 * (i + 1)) + 400 ))) { // 2.5% Chance
+                                if ((rng > ((10 * i) + 750)) && (rng <= ((10 * (i + 1)) + 750))) { // 1% Chance
                                     if (gCurrLevelNum != (i + 1)) { // Cannot spawn in the same level
                                         if (sObtainedStars != 1) { // Cannot spawn in levels where all stars are collected
                                             randWarp = (i + 1);
