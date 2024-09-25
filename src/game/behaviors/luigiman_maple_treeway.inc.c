@@ -80,7 +80,7 @@ void luigiman_chestnut_act_1(void) {
         if (o->oBehParams2ndByte == 0) {
             o->oForwardVel = 15.0f;
         } else {
-            o->oForwardVel = 25.0f;
+            o->oForwardVel = 20.0f;
         }
 
         if (o->oTimer > 30) {
@@ -90,10 +90,6 @@ void luigiman_chestnut_act_1(void) {
             sOrientObjWithFloor = FALSE;
             // o->oMoveAnglePitch -= 0x4F;
             // o->oFaceAngleYaw = o->oMoveAngleYaw;
-        }
-
-        if (o->oDistanceToMario >= 3500.0f) {
-            o->oAction = 0;
         }
 
         if ((o->oMoveFlags & OBJ_MOVE_HIT_WALL)) {
@@ -137,7 +133,7 @@ ObjActionFunc sluigimanChustnutActions[] = {
 void bhv_luigiman_chestnut_loop(void) {
     cur_obj_call_action_function(sluigimanChustnutActions);
 
-    if (o->oDistanceToMario >= 3500.0f) {
+    if (o->oDistanceToMario >= 5000.0f) {
         o->oAction = 0;
     }
 
@@ -264,15 +260,26 @@ void bhv_flybug(void) {
         o->oAction = 1;
     }
 
+    o->oAngleToHome = cur_obj_angle_to_home();
+
     switch (o->oAction) {
         case 0: // Idle
-            if (o->oPosY <= floor) {
-                cur_obj_init_animation(0);
+            // Return to Home
+            if ((cur_obj_lateral_dist_to_home() > 100.0f) && (o->oPosY < (o->oHomeY + 50)) ) {
+                o->oPosY = approach_s16_symmetric(o->oPosY, (o->oHomeY + 50), 10);
+            } else if (cur_obj_lateral_dist_to_home() > 100.0f) {
+                cur_obj_rotate_yaw_toward(o->oAngleToHome, 0x300);
+                cur_obj_forward_vel_approach_upward(5.0f, 0.8f);
+            // Drop to floor 
             } else {
-                o->oPosY = approach_s16_symmetric(o->oPosY, floor, 10);
+                if (o->oPosY <= floor) {
+                    cur_obj_init_animation(0);
+                } else {
+                    o->oPosY = approach_s16_symmetric(o->oPosY, floor, 10);
+                }
+                cur_obj_forward_vel_approach_upward(0, 0.8f);
+                targetY = floor;
             }
-            cur_obj_forward_vel_approach_upward(0, 0.8f);
-            targetY = floor;
             break;
 
         case 1: // Move
@@ -288,7 +295,7 @@ void bhv_flybug(void) {
             // Change velocity and rotation speed based on Mario's distance
             // If Mario is closer, they are slower
             if (lateral_dist_between_objects(o, gMarioObject) > 100.0f) {
-                cur_obj_forward_vel_approach_upward(13.0f, 0.8f);
+                cur_obj_forward_vel_approach_upward(16.0f, 0.8f);
                 cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x300);
             } else {
                 cur_obj_forward_vel_approach_upward(2.5f, 0.8f);

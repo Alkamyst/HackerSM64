@@ -336,7 +336,7 @@ const Collision maple_treewway_area_2_collision[] = {
 	COL_TRI(123, 130, 124),
 	COL_TRI(128, 129, 133),
 	COL_TRI(128, 133, 132),
-	COL_TRI_INIT(SURFACE_NOISE_DEFAULT, 67),
+	COL_TRI_INIT(SURFACE_NOISE_DEFAULT, 69),
 	COL_TRI(1, 134, 4),
 	COL_TRI(1, 4, 2),
 	COL_TRI(135, 8, 7),
@@ -404,6 +404,8 @@ const Collision maple_treewway_area_2_collision[] = {
 	COL_TRI(43, 38, 37),
 	COL_TRI(16, 36, 13),
 	COL_TRI(16, 13, 17),
+	COL_TRI(28, 35, 36),
+	COL_TRI(28, 36, 16),
 	COL_TRI_STOP(),
 	COL_END()
 };
