@@ -274,6 +274,9 @@ void bhv_flybug(void) {
             } else {
                 if (o->oPosY <= floor) {
                     cur_obj_init_animation(0);
+                        if (o->oDistanceToMario < 3000.0f) {
+                            cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x100);
+                        }
                 } else {
                     o->oPosY = approach_s16_symmetric(o->oPosY, floor, 10);
                 }
@@ -315,4 +318,15 @@ void bhv_flybug(void) {
     } 
 
     cur_obj_update_floor_and_walls();
+}
+
+void bhv_tree_floor(void) {
+    o->parentObj = cur_obj_nearest_object_with_behavior(bhvGroundPoundSwitch);
+
+    if (o->parentObj->oAction == 1) {
+        spawn_mist_particles();
+        spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
+        cur_obj_play_sound_2(SOUND_GENERAL_BREAK_BOX);
+        obj_mark_for_deletion(o);
+    }
 }

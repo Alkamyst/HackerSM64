@@ -6172,4 +6172,16 @@ const BehaviorScript bhvFlyBug[] = {
     END_LOOP(),
 };
 
+extern const Collision tree_floor_collision[];
+extern void bhv_tree_floor();
+const BehaviorScript bhvTreeFloor[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(tree_floor_collision),
+    SET_FLOAT(oDrawingDistance, 20000),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_tree_floor),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};
 

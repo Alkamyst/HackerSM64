@@ -21,4 +21,8 @@ extern const LevelScript level_maple_treewway_entry[];
 
 #include "levels/maple_treewway/tree_door/collision_header.h"
 
+#include "levels/maple_treewway/tree_floor/collision_header.h"
+
+#include "levels/maple_treewway/tree_floor/geo_header.h"
+
 #endif

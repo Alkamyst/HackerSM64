@@ -579,6 +579,7 @@
 #define MODEL_MAPLE_TREE 0x3A
 #define MODEL_GPSWITCH 0x3B
 #define MODEL_TREE_DOOR 0x3C
+#define MODEL_TREE_FLOOR 0x3D
 
 
 #endif // MODEL_IDS_H

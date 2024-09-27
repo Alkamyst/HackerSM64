@@ -1,0 +1,23 @@
+const Collision tree_floor_collision[] = {
+	COL_INIT(),
+	COL_VERTEX_INIT(9),
+	COL_VERTEX(0, 0, -591),
+	COL_VERTEX(-380, 0, -453),
+	COL_VERTEX(-582, 0, -103),
+	COL_VERTEX(-512, 0, 295),
+	COL_VERTEX(-202, 0, 555),
+	COL_VERTEX(202, 0, 555),
+	COL_VERTEX(512, 0, 295),
+	COL_VERTEX(582, 0, -103),
+	COL_VERTEX(380, 0, -453),
+	COL_TRI_INIT(SURFACE_NOT_SLIPPERY, 7),
+	COL_TRI(0, 1, 2),
+	COL_TRI(2, 3, 4),
+	COL_TRI(4, 5, 6),
+	COL_TRI(6, 7, 8),
+	COL_TRI(8, 0, 2),
+	COL_TRI(2, 4, 6),
+	COL_TRI(2, 6, 8),
+	COL_TRI_STOP(),
+	COL_END()
+};

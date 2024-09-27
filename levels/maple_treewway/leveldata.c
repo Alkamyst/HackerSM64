@@ -22,3 +22,5 @@
 #include "levels/maple_treewway/gpswitch/model.inc.c"
 #include "levels/maple_treewway/tree_door/model.inc.c"
 #include "levels/maple_treewway/tree_door/collision.inc.c"
+#include "levels/maple_treewway/tree_floor/collision.inc.c"
+#include "levels/maple_treewway/tree_floor/model.inc.c"
