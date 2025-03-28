@@ -203,7 +203,6 @@ void bhv_ground_pound_switch(void) {
         case 0:
             if (cur_obj_is_mario_ground_pounding_platform()) {
                 cur_obj_play_sound_2(SOUND_GENERAL_SWITCH_DOOR_OPEN);
-                play_puzzle_jingle();
                 o->oVelY = -20.0f;
                 o->oAction = 1;
             } 
@@ -223,6 +222,7 @@ void bhv_tree_door(void) {
     o->parentObj = cur_obj_nearest_object_with_behavior(bhvGroundPoundSwitch);
 
     if (o->parentObj->oAction == 1) {
+        play_puzzle_jingle();
         spawn_mist_particles();
         spawn_triangle_break_particles(30, MODEL_DIRT_ANIMATION, 3.0f, TINY_DIRT_PARTICLE_ANIM_STATE_YELLOW);
         cur_obj_play_sound_2(SOUND_GENERAL_BREAK_BOX);
@@ -329,4 +329,97 @@ void bhv_tree_floor(void) {
         cur_obj_play_sound_2(SOUND_GENERAL_BREAK_BOX);
         obj_mark_for_deletion(o);
     }
+}
+
+struct ObjectHitbox sBugaboomHurt = {
+    /* interactType:      */ INTERACT_DAMAGE,
+    /* downOffset:        */ 0,
+    /* damageOrCoinValue: */ 2,
+    /* health:            */ 3,
+    /* numLootCoins:      */ 0,
+    /* radius:            */ 250,
+    /* height:            */ 100,
+    /* hurtboxRadius:     */ 0,
+    /* hurtboxHeight:     */ 0,
+};
+
+void bhv_bugaboom(void) {
+    s16 startYaw = o->oMoveAngleYaw;
+    o->oAngleToHome = cur_obj_angle_to_home();
+    f32 distToHome = cur_obj_lateral_dist_to_home();
+    s32 speed = 0x90;
+
+    // Speed up in later phases
+    if (o->oHealth <= 2) {
+        speed = 0x100;
+    }
+
+    // Handles hurting Mario interaction
+    obj_set_hitbox(o, &sBugaboomHurt);
+    if (o->oInteractStatus & INT_STATUS_INTERACTED) {
+        o->oInteractStatus = INT_STATUS_NONE;
+    }
+
+    // Slow down if Mario is near
+    if (lateral_dist_between_objects(o, gMarioObject) < 300.0f) {
+        speed = 0x50;
+    }
+
+    cur_obj_init_animation(1);
+
+    o->oBugAngle += speed;
+
+    // Reset oBugAngle if it gets to high to maybe prevent overflow?
+    if (o->oBugAngle >= 0xFFFF) {
+        o->oBugAngle = 0x0000;
+    }
+
+    s16 circularTurn = o->oBugAngle - atan2s(1000.0f, distToHome - 1000.0f);
+
+    o->oPosX = o->oHomeX + coss(circularTurn)*1250; // Last number is distance away
+    o->oPosZ = o->oHomeZ + sins(circularTurn)*1250;
+
+    o->oMoveAngleYaw = -circularTurn;
+
+    // Ground Pound to Hurt Boss
+    if ((cur_obj_is_mario_ground_pounding_platform()) && (!(o->oBugFlashing))) {
+        cur_obj_play_sound_2(SOUND_OBJ_SNUFIT_SKEETER_DEATH);
+        o->oHealth--;
+        // Don't fling Mario if dead
+        if (o->oHealth > 0) {
+            gMarioState->faceAngle[1] = 0x4000 - circularTurn;
+            gMarioState->action = ACT_BACKWARD_AIR_KB;
+            gMarioStates[0].vel[1] = 65.0f;
+            gMarioStates[0].forwardVel = -60.0f;
+            o->oBugFlashing = TRUE;
+        }
+    } 
+
+    // Kill if no health
+    if (o->oHealth <= 0) {
+        spawn_mist_particles();
+        obj_mark_for_deletion(o);
+    }
+
+    // Handle Flashing
+    if (o->oBugFlashing) {
+        o->oBugInvisibleFrames++;
+
+        // Begin flashing
+        if (o->oBugInvisibleFrames < 45) {
+            COND_BIT((o->oBugInvisibleFrames & 0x1), o->header.gfx.node.flags, GRAPH_RENDER_INVISIBLE);
+        }
+
+        // Stop flashing
+        if (o->oBugInvisibleFrames >= 45) {
+            o->oBugInvisibleFrames = 0;
+            o->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
+            o->oBugFlashing = FALSE;
+        }
+    }
+
+    if (o->oHealth == 1) {
+        o->oPosY = approach_s16_symmetric(o->oPosY, 300, 10);
+    }
+
 }

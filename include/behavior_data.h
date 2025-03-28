@@ -547,5 +547,6 @@ extern const BehaviorScript bhvGroundPoundSwitch[];
 extern const BehaviorScript bhvTreeDoor[];
 extern const BehaviorScript bhvFlyBug[];
 extern const BehaviorScript bhvTreeFloor[];
+extern const BehaviorScript bhvBugaboom[];
 
 #endif // BEHAVIOR_DATA_H

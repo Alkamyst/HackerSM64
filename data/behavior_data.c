@@ -6185,3 +6185,22 @@ const BehaviorScript bhvTreeFloor[] = {
     END_LOOP(),
 };
 
+extern void bhv_bugaboom();
+const BehaviorScript bhvBugaboom[] = {
+    BEGIN(OBJ_LIST_SURFACE),
+    OR_INT(oFlags, (OBJ_FLAG_COMPUTE_ANGLE_TO_MARIO | OBJ_FLAG_COMPUTE_DIST_TO_MARIO | OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW | OBJ_FLAG_UPDATE_GFX_POS_AND_ANGLE)),
+    LOAD_COLLISION_DATA(flybugcol_collision),
+    LOAD_ANIMATIONS(oAnimations, flybug_anims),
+    SET_FLOAT(oDrawingDistance, 20000),
+    SET_FLOAT(oBugAngle, 0),
+    SET_INT(oBugFlashing, FALSE),
+    SET_OBJ_PHYSICS(/*Wall hitbox radius*/ 200, /*Gravity*/ 0, /*Bounciness*/ -50, /*Drag strength*/ 0, /*Friction*/ 0, /*Buoyancy*/ 0, /*Unused*/ 0, 0),
+    SCALE(/*Unused*/ 0, /*Field*/ 150),
+    SET_HOME(),
+    ADD_FLOAT(oPosX, 1250),
+    SET_INT(oHealth, 3),
+    BEGIN_LOOP(),
+        CALL_NATIVE(bhv_bugaboom),
+        CALL_NATIVE(load_object_collision_model),
+    END_LOOP(),
+};

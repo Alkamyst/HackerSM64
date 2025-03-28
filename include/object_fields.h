@@ -1258,6 +1258,11 @@
 #define /*0x0FC*/ oYoshiChosenHome OBJECT_FIELD_S32(0x1D)
 #define /*0x100*/ oYoshiTargetYaw  OBJECT_FIELD_S32(0x1E)
 
+/* Bugaboom */
+#define /*0x0F4*/ oBugAngle OBJECT_FIELD_S32(0x1B)
+#define /*0x0FC*/ oBugFlashing OBJECT_FIELD_S32(0x1D)
+#define /*0x100*/ oBugInvisibleFrames  OBJECT_FIELD_S32(0x1E)
+
 
 /*Custom general defines:
 
